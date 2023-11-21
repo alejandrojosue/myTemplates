@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import { DataGrid, GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid';
 import './datatable.scss'
 const columns = [
@@ -32,6 +32,15 @@ const columns = [
     valueGetter: (params) =>
       `${params.row.firstName || ''} ${params.row.lastName || ''}`,
   },
+  {
+    field: 'Total',
+    headerName: 'Total',
+    description: 'This column has a value getter and is not sortable.',
+    sortable: false,
+    width: 160,
+    valueGetter: (params) =>
+      `${params.row.age * 2 || 0}`,
+  },
 ];
 
 const rows = [
@@ -59,6 +68,7 @@ function CustomToolbar() {
           hideToolbar: true,
         }}
       />
+      <Button variant="text">CLICK</Button>
     </GridToolbarContainer>
   );
 }
@@ -66,7 +76,7 @@ function CustomToolbar() {
 export default function Datatable() {
   return (
     <div className='container-fluid'>
-      <DataGrid
+      <DataGrid style={{ height: 400 }}
         rows={rows}
         columns={columns}
         slots={{ toolbar: CustomToolbar }}

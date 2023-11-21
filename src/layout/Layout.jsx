@@ -11,7 +11,7 @@ const Layout = ({ window, content, title }) => {
     return (
         <div className="layout">
             <Sidebar />
-            <div className="container">
+            <div className="parent">
                 <Navbar />
                 <div className="content">
                     {content}

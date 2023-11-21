@@ -5,7 +5,7 @@ $sidebar-width: 185px;
     min-height: 100vh;
     display: flex;
 
-    .container {
+    .parent {
         min-width: calc(100% - $sidebar-width);
         height: 100%;
         margin-left: $sidebar-width;

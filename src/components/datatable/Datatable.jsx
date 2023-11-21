@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -45,6 +45,20 @@ const rows = [
   { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
   { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
 ];
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer>
+      <h2>Datatable</h2>
+      <GridToolbarExport
+        csvOptions={{
+          fileName: 'exportCSV',
+          delimiter: ';',
+          utf8WithBom: true,
+        }}
+      />
+    </GridToolbarContainer>
+  );
+}
 
 export default function Datatable() {
   return (
@@ -52,6 +66,7 @@ export default function Datatable() {
       <DataGrid
         rows={rows}
         columns={columns}
+        slots={{ toolbar: CustomToolbar }}
         initialState={{
           pagination: {
             paginationModel: {

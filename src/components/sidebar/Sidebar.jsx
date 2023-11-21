@@ -19,19 +19,19 @@ const Sidebar = () => {
             <div className="center">
                 <ul>
                     <p className="title">PRINCIPAL</p>
-                    <Link to="/datatable" style={{ textDecoration: "none" }}>
+                    <Link to="" style={{ textDecoration: "none" }}>
                         <li>
                             <DashboardIcon className="icon" />
-                            <span>Tablero</span>
+                            <span>Index</span>
                         </li>
                     </Link>
                     <p className="title">LISTAS</p>
 
-                    <Link to="/home" style={{ textDecoration: "none" }}>
+                    <Link to="/datatable" style={{ textDecoration: "none" }}>
                         <li>
                             <StoreIcon className="icon" />
                             <span
-                            >Inventario</span>
+                            >Datatable</span>
                         </li>
                     </Link>
                     <Link to="#invoices" style={{ textDecoration: "none" }}>

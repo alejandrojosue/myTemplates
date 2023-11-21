@@ -55,6 +55,10 @@ function CustomToolbar() {
           delimiter: ';',
           utf8WithBom: true,
         }}
+        printOptions={{
+          hideFooter: true,
+          hideToolbar: true,
+        }}
       />
     </GridToolbarContainer>
   );

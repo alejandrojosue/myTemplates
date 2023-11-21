@@ -15,6 +15,7 @@ function App() {
           element={
             <Layout title={'Hola mundo'} content={<Datatable />} />
           } />
+        <Route path='*' element={<Layout content={'404 Not Found'} />} />
       </Routes>
     </Router>
   )

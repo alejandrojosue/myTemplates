@@ -7,7 +7,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="myTemplates/test"
+        <Route path="/myTemplates"
           element={
             <Layout title={'Hola mundo'} content={<Datatable />} />
           } />

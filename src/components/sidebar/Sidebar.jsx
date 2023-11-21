@@ -34,10 +34,10 @@ const Sidebar = () => {
                             >Datatable</span>
                         </li>
                     </Link>
-                    <Link to="#invoices" style={{ textDecoration: "none" }}>
+                    <Link to="/cards" style={{ textDecoration: "none" }}>
                         <li>
                             <CreditCardIcon className="icon" />
-                            <span>Facturas</span>
+                            <span>Cards</span>
                         </li>
                     </Link>
                     <Link to={"#returns"} style={{ textDecoration: "none" }}>

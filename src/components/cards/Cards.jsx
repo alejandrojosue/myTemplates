@@ -9,6 +9,9 @@ const Cards = () => {
             {categoryMaper(data)?.map(({ name, description }, index) =>
             (<Card key={index} title={name}
                 description={description} />))}
+            {categoryMaper(data)?.map(({ name, description }, index) =>
+            (<Card key={index} title={name}
+                description={description} />))}
         </div>
     )
 }

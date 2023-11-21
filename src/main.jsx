@@ -1,8 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
-import './index.css'
-
+/*
+ No se usa aquí pero es necesario para 
+ que funcione en otros sitios
+*/
+import * as Bootstrap from 'bootstrap'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <App />

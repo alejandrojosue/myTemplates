@@ -7,16 +7,15 @@ import Sidebar from '../components/sidebar/Sidebar'
 const Layout = ({ window, content, title }) => {
     const [mobileOpen, setMobileOpen] = useState(false)
     const handleDrawerToggle = () => setMobileOpen(!mobileOpen)
-
+    document.title = title
     return (
-        <div className="layout">
-            <Sidebar />
-            <div className="parent">
-                <Navbar />
-                <div className="content">
-                    <p className="title">
-                        {title}
-                    </p>
+        <div className="">
+            <Navbar />
+            <div className='p-2'>
+                <p className="title text-secondary fs-3">
+                    {title}
+                </p>
+                <div className="container-fluid">
                     {content}
                 </div>
             </div>

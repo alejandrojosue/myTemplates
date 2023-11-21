@@ -10,14 +10,9 @@ import { Link } from "react-router-dom";
 
 const Sidebar = () => {
     return (
-        <div className="sidebar">
-            <div className="top">
-                <Link to="#datatable" style={{ textDecoration: "none" }}>
-                    <span className="logo">Panel de Control</span>
-                </Link>
-            </div>
-            <div className="center">
-                <ul>
+        <>
+            <div className="offcanvas-body sidebar">
+                <ul className="navbar-nav flex-grow-1">
                     <p className="title">PRINCIPAL</p>
                     <Link to="" style={{ textDecoration: "none" }}>
                         <li>
@@ -68,7 +63,7 @@ const Sidebar = () => {
                     </Link>
                 </ul>
             </div>
-        </div>
+        </>
     );
 };
 

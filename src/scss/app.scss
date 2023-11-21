@@ -1,0 +1,15 @@
+// Import all of Bootstrap's CSS
+@import "bootstrap/scss/bootstrap";
+
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.bg-purple {
+    background-color: #7451f8;
+    color: white;
+}

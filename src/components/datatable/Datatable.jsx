@@ -48,7 +48,6 @@ const rows = [
 function CustomToolbar() {
   return (
     <GridToolbarContainer>
-      <h2>Datatable</h2>
       <GridToolbarExport
         csvOptions={{
           fileName: 'exportCSV',
@@ -66,7 +65,7 @@ function CustomToolbar() {
 
 export default function Datatable() {
   return (
-    <div className='container'>
+    <div className='container-fluid'>
       <DataGrid
         rows={rows}
         columns={columns}

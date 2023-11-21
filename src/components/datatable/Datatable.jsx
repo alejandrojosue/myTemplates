@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid, GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid';
-
+import './datatable.scss'
 const columns = [
   { field: 'id', headerName: 'ID', width: 90 },
   {
@@ -66,7 +66,7 @@ function CustomToolbar() {
 
 export default function Datatable() {
   return (
-    <Box sx={{ height: 400, width: '100%' }}>
+    <div className='container'>
       <DataGrid
         rows={rows}
         columns={columns}
@@ -82,6 +82,6 @@ export default function Datatable() {
         checkboxSelection
         disableRowSelectionOnClick
       />
-    </Box>
+    </div>
   );
 }

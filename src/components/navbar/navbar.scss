@@ -5,7 +5,8 @@
     align-items: center;
     font-size: 14px;
     color: #555;
-    width: 100%;
+    min-width: calc(100vw - 202px);
+    max-width: calc(100vw - 185px);
 
     .wrapper {
         width: 100%;

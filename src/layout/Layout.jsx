@@ -14,6 +14,9 @@ const Layout = ({ window, content, title }) => {
             <div className="parent">
                 <Navbar />
                 <div className="content">
+                    <p className="title">
+                        {title}
+                    </p>
                     {content}
                 </div>
             </div>

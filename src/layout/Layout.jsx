@@ -1,4 +1,3 @@
-import './Layout.scss'
 import { useState } from 'react'
 import Navbar from '../components/navbar/Navbar'
 import Footer from '../components/footer/Footer'
@@ -9,15 +8,13 @@ const Layout = ({ window, content, title }) => {
     const handleDrawerToggle = () => setMobileOpen(!mobileOpen)
     document.title = title
     return (
-        <div className="">
+        <div>
             <Navbar />
-            <div className='p-2'>
-                <p className="title text-secondary fs-3">
+            <div className='container-fluid'>
+                <p className="text-secondary fs-3">
                     {title}
                 </p>
-                <div className="container-fluid">
-                    {content}
-                </div>
+                {content}
             </div>
         </div>
     )

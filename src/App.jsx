@@ -6,10 +6,10 @@ function App() {
   return (
     <Router>
       <Routes basename="/myTemplates">
-        {/* <Route path=''
+        <Route path=''
           element={
-            <Layout title={'Hola mundo'} content={<Cards />} />
-          } /> */}
+            <Layout title={'Home'} content={<Cards />} />
+          } />
         <Route path="datatable"
           element={
             <Layout title={'Hola mundo'} content={<Datatable />} />

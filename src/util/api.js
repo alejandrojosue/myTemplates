@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://tiendamuebles.onrender.com/api/';
+const API_BASE_URL = import.meta.env.VITE_API_URL
 
 /**
  * Realiza una solicitud a la API y devuelve los datos.
@@ -10,7 +10,7 @@ const API_BASE_URL = 'https://tiendamuebles.onrender.com/api/';
  * @throws {Error} Si se produce un error en la solicitud.
  */
 export const fetchDataFromAPI = async (url, method = 'GET', token = null, data = null) => {
-
+    console.log(import.meta.env)
     try {
         if (!url || typeof url !== 'string') throw new Error('La URL no es válida.')
 

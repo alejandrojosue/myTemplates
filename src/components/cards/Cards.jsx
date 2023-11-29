@@ -1,15 +1,18 @@
 import './cards.scss'
 import Card from './Card'
-import { categoryMaper } from '../../maper/maper'
+import { categoryMapper } from '../../maper/mapper'
 import useFetch from '../../hooks/useFetch'
+import CardLoading from './CardLoading'
 const Cards = () => {
-    const { data, meta } = useFetch('categories')
+    const { data, meta, loading } = useFetch('categories')
     document.title = 'Cards'
     return (
         <div className="row p-2">
-            {categoryMaper(data)?.map(({ name, description }, index) =>
-            (<Card key={index} title={name}
-                description={description} />))}
+            {loading
+                ? <CardLoading />
+                : categoryMapper(data)?.map(({ name, description }, index) =>
+                (<Card key={index} title={name}
+                    description={description} />))}
         </div>
     )
 }

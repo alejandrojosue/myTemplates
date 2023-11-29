@@ -1,16 +1,45 @@
 .sidebar {
-    max-width: 285px;
+
+    /* Estilo para navegadores webkit (Chrome, Safari) */
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background-color: #999;
+        /* Cambia esto al color que desees */
+    }
+
+    ::-webkit-scrollbar-track {
+        background-color: transparent;
+        /* Oculta el track cuando no esté en uso */
+    }
+
+    /* Estilo para navegadores Firefox */
+    /* Nota: Firefox no admite la personalización del color del scrollbar directamente, pero puedes personalizar el track */
+    /* En Firefox, el scrollbar se verá como el color de fondo del track */
+    /* Puedes personalizar el track de la siguiente manera: */
+
+    /* Track */
+    ::-moz-scrollbar {
+        width: 12px;
+    }
+
+    ::-moz-scrollbar-track {
+        background-color: transparent;
+        /* Cambia esto al color que desees */
+    }
 
     ul {
         list-style: none;
         margin: 0;
         padding: 0;
         width: 100%;
-        font-size: 14px;
 
         .title {
             font-weight: bold;
-            font-size: 13px;
+            font-size: 16px;
             color: #999;
             margin-top: 15px;
             text-align: left;
@@ -28,12 +57,12 @@
             }
 
             .icon {
-                font-size: 18px;
+                font-size: 22px;
                 color: #7451f8;
             }
 
             span {
-                font-size: 13px;
+                font-size: 1.1em;
                 font-weight: 600;
                 color: #888;
                 margin-left: 5px;

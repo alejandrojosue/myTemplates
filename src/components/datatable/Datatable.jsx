@@ -69,7 +69,6 @@ function CustomToolbar(props) {
         printOptions={{
           hideFooter: true,
           hideToolbar: true,
-
         }}
       />
       <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
@@ -79,11 +78,22 @@ function CustomToolbar(props) {
   )
 }
 
-export default function Datatable() {
+export default function Datatable({ _rows = [], _columns = [] }) {
 
   const [rows, setRows] = useState(initialRows)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [rowModesModel, setRowModesModel] = useState({})
+
+  const validateNotNull = (obj) => {
+    for (const key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        if (obj[key] === '') {
+          return key
+        }
+      }
+    }
+    return null
+  }
 
   const handleRowEditStop = (params, event) => {
     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -116,9 +126,14 @@ export default function Datatable() {
   }
 
   const processRowUpdate = (newRow) => {
+    const fieldEmpty = validateNotNull(newRow)
     const updatedRow = { ...newRow, isNew: false }
+    if (fieldEmpty) {
+      alert(`Falta llenar el campo ${fieldEmpty.toUpperCase()}`)
+      return
+    }
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)))
-    alert('Se ha actualizado!: ' + newRow.id)
+    alert('Tabla Actualizada!')
     return updatedRow
   }
 
@@ -126,13 +141,13 @@ export default function Datatable() {
     setRowModesModel(newRowModesModel)
   }
 
-  const columns = [
-    { field: 'id', headerName: 'ID', width: 10 },
+  const COLUMNS = [
+    { field: 'id', headerName: 'ID', width: 10, hideable: false },
     {
       field: 'firstName',
       headerName: 'First name',
       width: 150,
-      editable: true,
+      editable: true
     },
     {
       field: 'lastName',
@@ -211,14 +226,109 @@ export default function Datatable() {
       },
     },
   ]
+  // const COLUMNS = [
+  //   {
+  //     field: 'id', headerName: 'ID',
+  //     sortable: false,
+  //     width: 10
+  //   },
+  //   {
+  //     field: 'sku',
+  //     headerName: 'Código',
+  //     width: 100,
+  //     editable: true,
+  //     sortable: false,
+  //   },
+  //   {
+  //     field: 'name',
+  //     headerName: 'Nombre Producto',
+  //     width: 150,
+  //     sortable: false,
+  //     editable: true,
+  //   },
+  //   {
+  //     field: 'quantity',
+  //     headerName: 'Cantidad',
+  //     type: 'number',
+  //     sortable: false,
+  //     width: 110,
+  //     editable: true,
+  //   },
 
-  setInterval(() => { setLoading(false) }, 500)
+  //   {
+  //     field: 'unitPrice',
+  //     headerName: 'Precio',
+  //     type: 'number',
+  //     sortable: false,
+  //     width: 110,
+  //     editable: true,
+  //   },
+  //   {
+  //     field: 'subtotal',
+  //     headerName: 'SubTotal',
+  //     description: 'This column has a value getter and is not sortable.',
+  //     type: 'number',
+  //     sortable: false,
+  //     width: 160,
+  //     valueGetter: (params) =>
+  //       `L. ${params.row.quantity * params.row.unitPrice * 1.15 || 0}`,
+  //   },
+  //   {
+  //     field: 'actions',
+  //     type: 'actions',
+  //     headerName: 'Actions',
+  //     width: 100,
+  //     cellClassName: 'actions',
+  //     getActions: ({ id }) => {
+  //       const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit
+
+  //       if (isInEditMode) {
+  //         return [
+  //           <GridActionsCellItem
+  //             icon={<SaveIcon />}
+  //             label="Save"
+  //             className='text-primary'
+  //             onClick={handleSaveClick(id)}
+  //           />,
+  //           <GridActionsCellItem
+  //             icon={<CancelIcon />}
+  //             label="Cancel"
+  //             className="text-secondary"
+  //             onClick={handleCancelClick(id)}
+  //             color="inherit"
+  //           />,
+  //         ]
+  //       }
+
+  //       return [
+  //         <GridActionsCellItem
+  //           icon={<EditIcon />}
+  //           label="Edit"
+  //           className="text-success"
+  //           onClick={handleEditClick(id)}
+  //           color="inherit"
+  //         />,
+  //         <GridActionsCellItem
+  //           className="text-danger"
+  //           icon={<DeleteIcon />}
+  //           label="Delete"
+  //           onClick={handleDeleteClick(id)}
+  //           color="inherit"
+  //         />,
+  //       ]
+  //     },
+  //   },
+  // ]
+
+  // setInterval(() => {
+  //   setLoading(false)
+  //   setRows([...initialRows])
+  // }, 5000)
   document.title = 'Datatable'
   return (
     <DataGrid style={{ height: 400, overflowX: 'scroll', overflowY: 'hidden' }}
-
       rows={rows}
-      columns={columns}
+      columns={COLUMNS}
       editMode="row"
       rowModesModel={rowModesModel}
       onRowModesModelChange={handleRowModesModelChange}
@@ -244,7 +354,6 @@ export default function Datatable() {
     // disableColumnMenu
     // disableColumnFilter
     // disableColumnSelector
-    // sortingOrder={false}
     />
   )
 }

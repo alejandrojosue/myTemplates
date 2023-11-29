@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { fetchDataFromAPI } from "../util/api"
 const useFetch = (endpoint) => {
-    const [data, setData] = useState()
-    const [meta, setMeta] = useState()
+    const [data, setData] = useState([])
+    const [meta, setMeta] = useState({})
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {

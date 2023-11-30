@@ -13,3 +13,50 @@
     background-color: #7451f8;
     color: white;
 }
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.cellWithStatus {
+    padding: 8px;
+    border-radius: 5px;
+
+    &.true {
+        background-color: rgba(0, 128, 0, 0.05);
+        color: green;
+    }
+
+    &.false {
+        background-color: rgba(255, 217, 0, 0.05);
+        color: goldenrod;
+    }
+
+    &.passive {
+        background-color: rgba(255, 0, 0, 0.05);
+        color: crimson;
+    }
+
+    &.Pagada {
+        background-color: rgba(0, 128, 0, 0.05);
+        color: green;
+    }
+
+    &.Parcialmente-Pagada,
+    &.Entregada {
+        background-color: rgba(52, 152, 219, .05);
+        color: #3498DB;
+    }
+
+    &.No-Pagada,
+    &.En-Proceso {
+        background-color: rgba(255, 217, 0, 0.05);
+        color: goldenrod;
+    }
+
+    &.Anulada,
+    &.Cancelada {
+        background-color: rgba(255, 0, 0, 0.05);
+        color: crimson;
+    }
+}

@@ -28,7 +28,6 @@
 
     ::-moz-scrollbar-track {
         background-color: transparent;
-        /* Cambia esto al color que desees */
     }
 
     ul {
@@ -44,6 +43,12 @@
             margin-top: 15px;
             text-align: left;
             margin-bottom: 5px;
+        }
+
+        .line {
+            background-color: rgb(135, 135, 135, .5);
+            height: .8px;
+            margin: 10px 0px 0px;
         }
 
         li {

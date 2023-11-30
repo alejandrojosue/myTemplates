@@ -11,7 +11,7 @@ const Layout = ({ window, content, title }) => {
         <div>
             <Navbar />
             <div className='container-fluid'>
-                <p className="text-secondary fs-3">
+                <p className="text-secondary fs-3 py-3">
                     {title}
                 </p>
                 {content}

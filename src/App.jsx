@@ -12,7 +12,7 @@ function App() {
       <Routes basename="/myTemplates">
         <Route path=''
           element={
-            <Layout title={'Index'} content={<Index />} />
+            <Layout title={'Sales'} content={<Index />} />
           } />
         <Route path="datatable"
           element={

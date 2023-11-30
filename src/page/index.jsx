@@ -1,5 +1,5 @@
-import DatatableSale from "../components/datatable/DatatableSale"
+import Table from "../components/table/Table"
 
-const Index = () => <DatatableSale />
+const Index = () => <Table prevEndpoint="ventas?populate=cliente,detalleVentas.producto,vendedor" />
 
 export default Index

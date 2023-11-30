@@ -7,7 +7,6 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AssignmentReturnIcon from '@mui/icons-material/AssignmentReturn';
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { Link } from "react-router-dom";
-import Accordion from "../accordion/Accordion";
 
 
 const Sidebar = () => (
@@ -26,6 +25,7 @@ const Sidebar = () => (
                             <span>Index</span>
                         </li>
                     </Link>
+                    <div className="row line"></div>
                     <p className="title">LISTAS</p>
 
                     <Link to="/datatable" style={{ textDecoration: "none" }}>
@@ -59,6 +59,7 @@ const Sidebar = () => (
                             <span>Table</span>
                         </li>
                     </Link>
+                    <div className="row line"></div>
                     <p className="title">REPORTES</p>
                     <Link to="#reports" style={{ textDecoration: "none" }}>
                         <li>
@@ -66,6 +67,7 @@ const Sidebar = () => (
                             <span>Reportes</span>
                         </li>
                     </Link>
+                    <div className="row line"></div>
                     <p className="title">USUARIO</p>
                     <Link to={"#single"} style={{ textDecoration: "none" }}>
                         <li>
@@ -80,7 +82,6 @@ const Sidebar = () => (
                         </li>
                     </Link>
                 </ul>
-                {/* <Accordion /> */}
             </div>
         </div>
     </>

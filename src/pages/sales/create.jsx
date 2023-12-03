@@ -4,8 +4,8 @@ import { useState } from 'react'
 import useFetch from '../../hooks/useFetch'
 import { productMapper } from "../../maper/mapper";
 const Create = () => {
-    const { data, loading, error, handleEndpoint } = useFetch(`productos?filters[activo]=true&populate=deep`)
-    document.title = 'Create'
+    const { data, loading, error, handleEndpoint } = useFetch(`productos?filters[$and][0][existencia][$gt]=0&filters[$and][1][activo][$eq]=true`)
+    document.title = 'Create sale'
     const COLUMNS = [
         { field: 'id', headerName: 'ID', width: 1, hideable: false },
         {
@@ -18,7 +18,7 @@ const Create = () => {
                 const product = productMapper(data).find(({ sku }) => sku === params.value)
                 console.log("🚀 ~ file: create.jsx:22 ~ Create ~ product:", product)
                 if (product) {
-                    const aux = {
+                    params.row = {
                         id: params.row.id,
                         productSku: params.value,
                         productName: product.name,
@@ -28,32 +28,7 @@ const Create = () => {
                         discount: product.discount,
                         max: product.stock
                     }
-                    params.row = aux
                 }
-                // if (params.value == '1234') {
-                //     const aux = {
-                //         id: params.row.id,
-                //         productSku: params.value,
-                //         productName: 'P1 ' + params.value,
-                //         quantity: 1,
-                //         unitPrice: 200,
-                //         tax: .15,
-                //         discount: .1,
-                //     }
-                //     params.row = aux
-                // } else if (params.value == '12345') {
-                //     const aux = {
-                //         id: params.row.id,
-                //         productSku: params.value,
-                //         productName: 'P1 ' + params.value,
-                //         quantity: 1,
-                //         unitPrice: 300,
-                //         tax: .15,
-                //         discount: 0,
-                //     }
-                //     params.row = aux
-                // }
-                // console.log(params.row)
                 return params.row
             }
         },
@@ -109,11 +84,11 @@ const Create = () => {
             type: 'number',
             width: 160,
             valueGetter: (params) =>
-                (params.row.quantity * params.row.unitPrice * (1 + params.row.tax - params.row.discount)).toFixed(2),
+                ((params.row.quantity * params.row.unitPrice * (1 + params.row.tax - params.row.discount) || 0)).toFixed(2),
         }
     ]
     if (error) return <Layout><span className="display-3">Error</span></Layout>
-    return <Layout title={'Crear Sale'}>
+    return <Layout title={'Crear Venta'}>
         <Datatable _columns={COLUMNS} _loading={loading} />
     </Layout>
 

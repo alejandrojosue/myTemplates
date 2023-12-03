@@ -190,7 +190,7 @@ export default function Datatable({ _rows = [], _columns = [], _loading = false 
           toolbar: { setRows, setRowModesModel, rowsCount: rows.length, columns: _columns },
         }}
         // loading={loading}
-        // pageSizeOptions={[5, 10, 25, 100]}
+        pageSizeOptions={[5]}
         // initialState={{
         //   ...rows.initialState,
         //   pagination: {
@@ -212,19 +212,19 @@ export default function Datatable({ _rows = [], _columns = [], _loading = false 
         <div className="col-12 col-sm-4 col-lg-4 d-flex flex-column">
           <div className="d-flex justify-content-end">
             <span className="fw-bold fs-5 px-2 px-2">Subtotal: </span>
-            {/* <span className='fs-5 w-50'>L. {rows?.reduce((acc, value) => { return acc + value.quantity * value.unitPrice }, 0)}</span> */}
+            <span className='fs-5 w-50'>L. {rows?.reduce((acc, value) => { return acc + value.quantity * value.unitPrice }, 0).toFixed(2)}</span>
           </div>
           <div className="d-flex justify-content-end">
             <span className="fw-bold fs-5 px-2">ISV: </span>
-            <span className='fs-5 w-50'>L. 20200.00</span>
+            <span className='fs-5 w-50'>L. {rows?.reduce((acc, value) => { return acc + value.quantity * value.unitPrice * value.tax }, 0).toFixed(2)}</span>
           </div>
           <div className="d-flex justify-content-end">
             <span className="fw-bold fs-5 px-2">Descuento: </span>
-            <span className='fs-5 w-50'>L. 0.00</span>
+            <span className='fs-5 w-50'>L. {rows?.reduce((acc, value) => { return acc + value.quantity * value.unitPrice * value.discount }, 0).toFixed(2)}</span>
           </div>
           <div className="d-flex justify-content-end">
             <span className="fw-bold fs-5 px-2">Monto Total: </span>
-            <span className=' fs-5 w-50'>L. 0.00</span>
+            <span className='fs-5 w-50'>L. {rows?.reduce((acc, value) => { return acc + value.quantity * value.unitPrice * (1 + value.tax - value.discount) }, 0).toFixed(2)}</span>
           </div>
         </div>
       </div>

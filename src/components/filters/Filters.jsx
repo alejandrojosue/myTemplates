@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom"
 import exportPDFReport from "../../helpers/exportPDFReport"
 import MuiDateRange from "../DateRange/MuiDateRange"
 import { CSVLink } from 'react-csv'
 
-const Filters = ({ prevEndpoint, handleEndpoint, handlePage, pageSize, data }) => {
+const Filters = ({ title, prevEndpoint, handleEndpoint, handlePage, pageSize, data }) => {
     const handleDateRange = (selectedDateRange) => {
         if (!selectedDateRange) {
             handleEndpoint(`${prevEndpoint}&pagination[pageSize]=${pageSize}&pagination[page]=0&sort=id:DESC`)
@@ -45,7 +46,8 @@ const Filters = ({ prevEndpoint, handleEndpoint, handlePage, pageSize, data }) =
                 filename={`Reporte_Ventas.csv`}>
                 Exportar CSV
             </CSVLink>
-            <a href="#" className="btn btn-outline-secondary text-decoration-none mx-2">Crear Nueva</a>
+            {/* <a href={`/sales`} className="btn btn-outline-secondary text-decoration-none mx-2">Crear Nueva</a> */}
+            <Link to={`/${title}/new`} className="btn btn-outline-secondary text-decoration-none mx-2">Crear Nueva</Link>
         </div>
     </div>
 }

@@ -1,4 +1,5 @@
 import Category from "../models/Category"
+import Product, { productStatus } from "../models/Product"
 import Sale, { PayMethod, Status } from "../models/Sale"
 import SaleDetail from "../models/SaleDetail"
 
@@ -79,8 +80,33 @@ const saleReportMapper = (data) => {
     }
 }
 
+const productMapper = (data) => {
+    if (!data) return
+    try {
+        return data?.map(value => {
+            return new Product(
+                value.id,
+                value.attributes.nombre,
+                value.attributes.codigo,
+                value.attributes.descripcion,
+                value.attributes.marca?.data?.attributes?.nombre,
+                value.attributes.isv,
+                value.attributes.descuento,
+                value.attributes.precio_venta,
+                value.attributes.precio_compra,
+                value.attributes.existencia,
+                value.attributes.img?.data.attributes.url ? value.attributes.img?.data.attributes.url : value.attributes.img?.data.attributes.formats.thumbnail.url,
+                productStatus[(value.attributes.activo).toString()]
+            )
+        })
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 export {
     categoryMapper,
     saleMapper,
-    saleReportMapper
+    saleReportMapper,
+    productMapper
 }

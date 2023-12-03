@@ -1,40 +1,42 @@
 import Cards from './components/cards/Cards'
 import Layout from './layout/Layout'
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom"
 import Datatable from './components/datatable/Datatable'
-import CollapsibleTable from './components/table/CollapsibleTable';
-import ColumnGroupingTable from './components/table/ColumnGroupingTable';
-import Table from './components/table/Table';
-import Index from './page';
+import CollapsibleTable from './components/table/CollapsibleTable'
+import ColumnGroupingTable from './components/table/ColumnGroupingTable'
+import Table from './components/table/Table'
+import Index from './pages/sales/index'
+import Create from './pages/sales/create'
 function App() {
   return (
     <Router>
       <Routes basename="/myTemplates">
-        <Route path=''
+        <Route index element={<Index />} />
+        <Route path='sales'>
+          <Route index element={<Index />} />
+          <Route path='new' element={<Create />} />
+        </Route>
+        {/* <Route path="datatable"
           element={
-            <Layout title={'Sales'} content={<Index />} />
-          } />
-        <Route path="datatable"
-          element={
-            <Layout title={'Datatable'} content={<Datatable />} />
+            <Layout title={'Datatable'} children={<Datatable />} />
           } />
         <Route path="cards"
           element={
-            <Layout title={'Cartas'} content={<Cards />} />
+            <Layout title={'Cartas'} children={<Cards />} />
           } />
         <Route path="collapsibleTable"
           element={
-            <Layout title={'Tablas'} content={<CollapsibleTable />} />
+            <Layout title={'Tablas'} children={<CollapsibleTable />} />
           } />
         <Route path="columnGroupingTable"
           element={
-            <Layout title={'Tablas'} content={<ColumnGroupingTable />} />
+            <Layout title={'Tablas'} children={<ColumnGroupingTable />} />
           } />
         <Route path="table"
           element={
-            <Layout title={'Tablas'} content={<Table />} />
-          } />
-        <Route path='*' element={<Layout content={'404 Not Found'} />} />
+            <Layout title={'Tablas'} children={<Table />} />
+          } /> */}
+        <Route path='*' element={<Layout children={'404 Not Found'} />} />
       </Routes>
     </Router>
   )

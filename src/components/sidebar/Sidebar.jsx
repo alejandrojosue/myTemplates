@@ -28,7 +28,7 @@ const Sidebar = () => (
                     <div className="row line"></div>
                     <p className="title">LISTAS</p>
 
-                    <Link to="/datatable" style={{ textDecoration: "none" }}>
+                    {/* <Link to="/datatable" style={{ textDecoration: "none" }}>
                         <li>
                             <StoreIcon className="icon" />
                             <span
@@ -57,6 +57,12 @@ const Sidebar = () => (
                         <li>
                             <AssignmentReturnIcon className="icon" />
                             <span>Table</span>
+                        </li>
+                    </Link> */}
+                    <Link to={"/sales"} style={{ textDecoration: "none" }}>
+                        <li>
+                            <AssignmentReturnIcon className="icon" />
+                            <span>Sales</span>
                         </li>
                     </Link>
                     <div className="row line"></div>

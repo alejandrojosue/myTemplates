@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Box from '@mui/material/Box'
 import Collapse from '@mui/material/Collapse'
@@ -16,12 +16,13 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import TablePagination from '@mui/material/TablePagination';
 import useFetch from '../../hooks/useFetch'
 import { saleMapper, saleReportMapper } from '../../maper/mapper'
-import Filters from '../filters/Filters'
-import SimpleBackdrop from '../backdrop/SimpleBackdrop'
+import Filters from '../../components/filters/Filters'
+import SimpleBackdrop from '../../components/backdrop/SimpleBackdrop'
+import Layout from '../../layout/Layout'
 
 function Row(props) {
     const { row } = props
-    const [open, setOpen] = React.useState(false)
+    const [open, setOpen] = useState(false)
 
     return (
         <>
@@ -109,12 +110,12 @@ Row.propTypes = {
     }).isRequired,
 }
 
-const DatatableSale = () => {
+const Index = () => {
     const prevEndpoint = 'ventas?populate=cliente,detalleVentas.producto,vendedor'
-    const [page, setPage] = React.useState(0)
-    const [rowsPerPage, setRowsPerPage] = React.useState(25)
-    const { data, meta, loading, handleEndpoint } = useFetch(`${prevEndpoint}&pagination[pageSize]=${rowsPerPage}&pagination[page]=${(page + 1)}&sort=id:DESC`)
-    React.useEffect(() => {
+    const [page, setPage] = useState(0)
+    const [rowsPerPage, setRowsPerPage] = useState(25)
+    const { data, meta, loading, error, handleEndpoint } = useFetch(`${prevEndpoint}&pagination[pageSize]=${rowsPerPage}&pagination[page]=${(page + 1)}&sort=id:DESC`)
+    useEffect(() => {
         handleEndpoint(`${prevEndpoint}&pagination[pageSize]=${rowsPerPage}&pagination[page]=${(page + 1)}&sort=id:DESC`)
     }, [page, rowsPerPage])
 
@@ -123,60 +124,66 @@ const DatatableSale = () => {
     }
 
     const handleChangeRowsPerPage = (event) => {
-        if (event.target.value === 'Todo')
-            setRowsPerPage(meta.pagination.total)
-        else
-            setRowsPerPage(event.target.value)
+        // if (event.target.value === 'Todo')
+        //     setRowsPerPage(meta.pagination.total)
+        // else
+        setRowsPerPage(event.target.value)
         setPage(0)
     }
+    if (error) return <Layout title={'Sales'} ><span>{error}</span></Layout>
     return (
-        <Paper sx={{ width: '100%' }}>
-            {loading && <SimpleBackdrop />}
-            <Filters
-                handlePage={setPage}
-                pageSize={rowsPerPage}
-                handleEndpoint={handleEndpoint}
-                data={saleReportMapper(data)} />
-            <TableContainer sx={{ maxHeight: 440 }}>
-                <Table stickyHeader aria-label="collapsible sticky table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell />
-                            <TableCell
-                                // onClick={() => { handleEndpoint(`${prevEndpoint}&pagination[pageSize]=${rowsPerPage}&pagination[page]=${(page + 1)}&sort=id:ASC`) }}
-                                className='fw-bold cursor-pointer' align="center">No. Factura</TableCell>
-                            <TableCell
-                                // onClick={() => { handleEndpoint(`${prevEndpoint}&pagination[pageSize]=${rowsPerPage}&pagination[page]=${(page + 1)}&sort=createdAt:DESC`) }}
-                                className='fw-bold cursor-pointer'>Fecha</TableCell>
-                            <TableCell
-                                className='fw-bold'>Nombre Cliente</TableCell>
-                            <TableCell
-                                className='fw-bold'>Nombre Vendedor</TableCell>
-                            <TableCell
-                                // onClick={() => { handleEndpoint(`${prevEndpoint}&pagination[pageSize]=${rowsPerPage}&pagination[page]=${(page + 1)}&sort=estado:ASC`) }}
-                                className='fw-bold cursor-pointer' align="center">Estado</TableCell>
-                            <TableCell className='fw-bold' align="center">Método de Pago</TableCell>
-                            <TableCell
-                                // onClick={() => { handleEndpoint(`${prevEndpoint}&pagination[pageSize]=${rowsPerPage}&pagination[page]=${(page + 1)}&sort=:DESC`) }}
-                                className='fw-bold cursor-pointer' align="right">Monto Total</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {saleMapper(data && data)?.map((row) => (
-                            <Row key={row.id} row={row} />))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[25, 50, 100, 200, 500, 'Todo']}
-                component="div"
-                count={meta?.pagination?.total || 0}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-        </Paper>
+        <Layout title={'Sales'} >
+            <Paper sx={{ width: '100%' }}>
+                {loading && <SimpleBackdrop />}
+                <Filters
+                    handlePage={setPage}
+                    pageSize={rowsPerPage}
+                    handleEndpoint={handleEndpoint}
+                    data={saleReportMapper(data)}
+                    prevEndpoint={prevEndpoint}
+                    title={'sales'}
+                />
+                <TableContainer sx={{ maxHeight: 440 }}>
+                    <Table stickyHeader aria-label="collapsible sticky table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell />
+                                <TableCell
+                                    // onClick={() => { handleEndpoint(`${prevEndpoint}&pagination[pageSize]=${rowsPerPage}&pagination[page]=${(page + 1)}&sort=id:ASC`) }}
+                                    className='fw-bold' align="center">No. Factura</TableCell>
+                                <TableCell
+                                    // onClick={() => { handleEndpoint(`${prevEndpoint}&pagination[pageSize]=${rowsPerPage}&pagination[page]=${(page + 1)}&sort=createdAt:DESC`) }}
+                                    className='fw-bold'>Fecha</TableCell>
+                                <TableCell
+                                    className='fw-bold'>Nombre Cliente</TableCell>
+                                <TableCell
+                                    className='fw-bold'>Nombre Vendedor</TableCell>
+                                <TableCell
+                                    // onClick={() => { handleEndpoint(`${prevEndpoint}&pagination[pageSize]=${rowsPerPage}&pagination[page]=${(page + 1)}&sort=estado:ASC`) }}
+                                    className='fw-bold' align="center">Estado</TableCell>
+                                <TableCell className='fw-bold' align="center">Método de Pago</TableCell>
+                                <TableCell
+                                    // onClick={() => { handleEndpoint(`${prevEndpoint}&pagination[pageSize]=${rowsPerPage}&pagination[page]=${(page + 1)}&sort=:DESC`) }}
+                                    className='fw-bold' align="right">Monto Total</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {saleMapper(data && data)?.map((row) => (
+                                <Row key={row.id} row={row} />))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[25, 50, 100, 200, 500, 1000]}
+                    component="div"
+                    count={meta?.pagination?.total || 0}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+            </Paper>
+        </Layout>
     )
 }
-export default DatatableSale
+export default Index

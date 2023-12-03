@@ -26,6 +26,7 @@ const Create = () => {
                         unitPrice: product.unitPrice,
                         tax: product.tax,
                         discount: product.discount,
+                        max: product.stock
                     }
                     params.row = aux
                 }
@@ -70,7 +71,17 @@ const Create = () => {
             sortable: false,
             width: 110,
             editable: true,
-            valueGetter: params => params.row.quantity ? params.row.quantity : 1
+            valueGetter: params => params.row.quantity ? params.row.quantity : 1,
+            valueSetter: params => {
+                if (params.row.max) {
+                    if (params.value > params.row.max) {
+                        return { ...params.row, quantity: params.row.max }
+                    } else if (params.value < 1) {
+                        return { ...params.row, quantity: 1 }
+                    }
+                }
+                return { ...params.row, quantity: params.value }
+            }
         }, {
             field: 'unitPrice',
             headerName: 'Precio',

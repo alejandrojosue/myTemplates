@@ -173,37 +173,61 @@ export default function Datatable({ _rows = [], _columns = [], _loading = false 
     },
   }]
   return (
-    <DataGrid style={{ height: 400, overflowX: 'scroll', overflowY: 'hidden' }}
-      rows={rows}
-      columns={_columns.concat(ACTIONS)}
-      editMode="row"
-      rowModesModel={rowModesModel}
-      onRowModesModelChange={handleRowModesModelChange}
-      onRowEditStop={handleRowEditStop}
-      // onCellKeyDown={handleEditKeyDown}
-      processRowUpdate={processRowUpdate}
-      slots={{
-        toolbar: CustomToolbar
-      }}
-      slotProps={{
-        toolbar: { setRows, setRowModesModel, rowsCount: rows.length, columns: _columns },
-      }}
-      // loading={loading}
-      // pageSizeOptions={[5, 10, 25, 100]}
-      initialState={{
-        ...rows.initialState,
-        pagination: {
-          paginationModel: { pageSize: 5, page: 0 }
-        },
-      }}
-      loading={_loading}
-      // rowCount={100}
-      // autoHeight 
-      // checkboxSelection
-      disableColumnMenu
-      // disableColumnFilter
-      // disableColumnSelector
-      disableRowSelectionOnClick
-    />
+    <>
+      <DataGrid style={{ height: 400, overflowX: 'scroll', overflowY: 'hidden' }}
+        rows={rows}
+        columns={_columns.concat(ACTIONS)}
+        editMode="row"
+        rowModesModel={rowModesModel}
+        onRowModesModelChange={handleRowModesModelChange}
+        onRowEditStop={handleRowEditStop}
+        // onCellKeyDown={handleEditKeyDown}
+        processRowUpdate={processRowUpdate}
+        slots={{
+          toolbar: CustomToolbar
+        }}
+        slotProps={{
+          toolbar: { setRows, setRowModesModel, rowsCount: rows.length, columns: _columns },
+        }}
+        // loading={loading}
+        // pageSizeOptions={[5, 10, 25, 100]}
+        // initialState={{
+        //   ...rows.initialState,
+        //   pagination: {
+        //     paginationModel: { pageSize: 5, page: 0 }
+        //   },
+        // }}
+        loading={_loading}
+        // rowCount={100}
+        // autoHeight 
+        // checkboxSelection
+        disableColumnMenu
+        // disableColumnFilter
+        // disableColumnSelector
+        disableRowSelectionOnClick
+      />
+      <div className="row p-3">
+        <div className="col-12 col-sm-4 col-lg-4"></div>
+        <div className="col-12 col-sm-4 col-lg-4"></div>
+        <div className="col-12 col-sm-4 col-lg-4 d-flex flex-column">
+          <div className="d-flex justify-content-end">
+            <span className="fw-bold fs-5 px-2 px-2">Subtotal: </span>
+            {/* <span className='fs-5 w-50'>L. {rows?.reduce((acc, value) => { return acc + value.quantity * value.unitPrice }, 0)}</span> */}
+          </div>
+          <div className="d-flex justify-content-end">
+            <span className="fw-bold fs-5 px-2">ISV: </span>
+            <span className='fs-5 w-50'>L. 20200.00</span>
+          </div>
+          <div className="d-flex justify-content-end">
+            <span className="fw-bold fs-5 px-2">Descuento: </span>
+            <span className='fs-5 w-50'>L. 0.00</span>
+          </div>
+          <div className="d-flex justify-content-end">
+            <span className="fw-bold fs-5 px-2">Monto Total: </span>
+            <span className=' fs-5 w-50'>L. 0.00</span>
+          </div>
+        </div>
+      </div>
+    </>
   )
 }

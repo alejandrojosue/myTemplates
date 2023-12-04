@@ -3,12 +3,12 @@ import Button from '@mui/material/Button'
 import {
   DataGrid,
   GridToolbarContainer,
-  GridToolbarExport,
+  // GridToolbarExport,
   GridRowModes,
   GridActionsCellItem,
-  GridRowEditStopReasons,
+  // GridRowEditStopReasons,
   GridCellEditStopReasons,
-  GridCellEditStartReasons,
+  // GridCellEditStartReasons,
 } from '@mui/x-data-grid'
 import AddIcon from '@mui/icons-material/Add'
 import EditIcon from '@mui/icons-material/Edit'
@@ -18,7 +18,7 @@ import SaveAlt from '@mui/icons-material/SaveAlt'
 import CancelIcon from '@mui/icons-material/Close'
 
 function CustomToolbar(props) {
-  const { setRows, setRowModesModel, rowsCount, columns } = props
+  const { rows, setRows, setRowModesModel, rowsCount, columns, handleAmount } = props
   const handleClick = () => {
     const initialValues = {};
     columns.forEach(column => {
@@ -51,14 +51,18 @@ function CustomToolbar(props) {
       <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
         Agregar Item
       </Button>
-      <Button color="primary" startIcon={<SaveAlt />} onClick={() => { }}>
+      <Button color="primary" startIcon={<SaveAlt />}
+        data-bs-toggle="modal" data-bs-target="#exampleModal"
+        onClick={() => {
+          handleAmount(rows?.reduce((acc, value) => { return acc + value.quantity * value.unitPrice * (1 + value.tax - value.discount) }, 0).toFixed(2))
+        }}>
         Guardar
       </Button>
     </GridToolbarContainer>
   )
 }
 
-export default function Datatable({ _rows = [], _columns = [], _loading = false }) {
+export default function Datatable({ _rows = [], _columns = [], handleAmount, _loading = false }) {
 
   const [rows, setRows] = useState(_rows)
   // const [loading, setLoading] = useState(false)
@@ -187,7 +191,7 @@ export default function Datatable({ _rows = [], _columns = [], _loading = false 
           toolbar: CustomToolbar
         }}
         slotProps={{
-          toolbar: { setRows, setRowModesModel, rowsCount: rows.length, columns: _columns },
+          toolbar: { rows, setRows, setRowModesModel, rowsCount: rows.length, columns: _columns, handleAmount },
         }}
         // loading={loading}
         pageSizeOptions={[5]}

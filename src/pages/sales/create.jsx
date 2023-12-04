@@ -3,8 +3,12 @@ import Layout from '../../layout/Layout'
 import { useState } from 'react'
 import useFetch from '../../hooks/useFetch'
 import { productMapper } from "../../maper/mapper";
+import Modal from "../../components/modal/Modal";
 const Create = () => {
     const { data, loading, error, handleEndpoint } = useFetch(`productos?filters[$and][0][existencia][$gt]=0&filters[$and][1][activo][$eq]=true`)
+    const [amount, setAmount] = useState(0.00)
+    const handleAmount = (amount) => setAmount(amount)
+
     document.title = 'Create sale'
     const COLUMNS = [
         { field: 'id', headerName: 'ID', width: 1, hideable: false },
@@ -84,12 +88,13 @@ const Create = () => {
             type: 'number',
             width: 160,
             valueGetter: (params) =>
-                ((params.row.quantity * params.row.unitPrice * (1 + params.row.tax - params.row.discount) || 0)).toFixed(2),
+                ((params.row.quantity * params.row.unitPrice * (1 + params.row.tax - params.row.discount) || 0)).toFixed(2).replace('.', ','),
         }
     ]
     if (error) return <Layout><span className="display-3">Error</span></Layout>
     return <Layout title={'Crear Venta'}>
-        <Datatable _columns={COLUMNS} _loading={loading} />
+        <Datatable _columns={COLUMNS} _loading={loading} handleAmount={handleAmount} />
+        <Modal amount={amount} />
     </Layout>
 
 }

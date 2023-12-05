@@ -55,6 +55,9 @@ function CustomToolbar(props) {
         data-bs-toggle="modal" data-bs-target="#exampleModal"
         onClick={() => {
           handleAmount(rows?.reduce((acc, value) => { return acc + value.quantity * value.unitPrice * (1 + value.tax - value.discount) }, 0).toFixed(2))
+          document.querySelector('#payment-money').value = (0).toFixed(2)
+          document.querySelector('#change-money').value = (0).toFixed(2)
+          document.querySelector('#payment-method').value = 'Efectivo'
         }}>
         Guardar
       </Button>
@@ -62,10 +65,9 @@ function CustomToolbar(props) {
   )
 }
 
-export default function Datatable({ _rows = [], _columns = [], handleAmount, _loading = false }) {
+export default function Datatable({ rows = [], setRows, _columns = [], handleAmount, _loading = false }) {
 
-  const [rows, setRows] = useState(_rows)
-  // const [loading, setLoading] = useState(false)
+  // const [rows, setRows] = useState(_rows)
   const [rowModesModel, setRowModesModel] = useState({})
 
   const validateNotNull = (obj) => {
@@ -194,13 +196,13 @@ export default function Datatable({ _rows = [], _columns = [], handleAmount, _lo
           toolbar: { rows, setRows, setRowModesModel, rowsCount: rows.length, columns: _columns, handleAmount },
         }}
         // loading={loading}
-        pageSizeOptions={[5]}
-        // initialState={{
-        //   ...rows.initialState,
-        //   pagination: {
-        //     paginationModel: { pageSize: 5, page: 0 }
-        //   },
-        // }}
+        pageSizeOptions={[10]}
+        initialState={{
+          ...rows.initialState,
+          pagination: {
+            paginationModel: { pageSize: 10, page: 0 }
+          },
+        }}
         loading={_loading}
         // rowCount={100}
         // autoHeight 
@@ -211,9 +213,9 @@ export default function Datatable({ _rows = [], _columns = [], handleAmount, _lo
         disableRowSelectionOnClick
       />
       <div className="row p-3">
-        <div className="col-12 col-sm-4 col-lg-4"></div>
-        <div className="col-12 col-sm-4 col-lg-4"></div>
-        <div className="col-12 col-sm-4 col-lg-4 d-flex flex-column">
+        <div className="col-12 col-sm-2 col-lg-4"></div>
+        <div className="col-12 col-sm-5 col-lg-4"></div>
+        <div className="col-12 col-sm-5 col-lg-4 d-flex flex-column">
           <div className="d-flex justify-content-end">
             <span className="fw-bold fs-5 px-2 px-2">Subtotal: </span>
             <span className='fs-5 w-50'>L. {rows?.reduce((acc, value) => { return acc + value.quantity * value.unitPrice }, 0).toFixed(2)}</span>

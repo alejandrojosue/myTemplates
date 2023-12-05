@@ -10,9 +10,8 @@ const API_BASE_URL = import.meta.env.VITE_API_URL
  * @throws {Error} Si se produce un error en la solicitud.
  */
 export const fetchDataFromAPI =
-    async (url, method = 'GET',
-        token = '112e4fb5c9dc55f51d1b790445f19a293651ac22c8119e8b3c61a9ab902b4598222f7c3a65b1fd923717a2de91e78152f11e73af5f46e1150b7d180a379b4f58c4dce100c08dbc2d52086845a4550c6e569931b973b1e7378838cc5a40d959acb766d7befe21467b8d7e54ed02aba45916709850660108532ff82de2bd47a203',
-        data = null) => {
+    async (url, method = 'GET', data = null) => {
+        const token = 'd2dea4119266c82c9576470edc68f993cf582816b45a7f2cd5c63f3bff14198af369ccf8f3544c5d138bdc6f95d06c052b3e93657e64f8601528a6451662f1cfeee0bf2c784b6ae1bbb1d5e557ed68c0cb49bb0222c2103721e52f465c8a78066042d060b6d615bfdba43b0e8c7185fb595612d3a27551cdd2dc3676568679b9'
         try {
             if (!url || typeof url !== 'string') throw new Error('La URL no es válida.')
 
@@ -28,8 +27,8 @@ export const fetchDataFromAPI =
 
             const errorList = {
                 'Bad Request': () => { throw new Error('Bad Request') },
-                Unauthorized: () => window.location.href = `./unauthorized`,
-                Forbidden: () => window.location.href = `./unauthorized`,
+                Unauthorized: () => window.location.href = `#/unauthorized`,
+                Forbidden: () => window.location.href = `#/unauthorized`,
                 'Not Found': () => { },
                 'Internal Server Error': () => { },
                 "Failed to fetch": () => { alert('No hay conexión con el servidor') }

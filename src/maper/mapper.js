@@ -2,6 +2,7 @@ import Category from "../models/Category"
 import Product, { productStatus } from "../models/Product"
 import Sale, { PayMethod, Status } from "../models/Sale"
 import SaleDetail from "../models/SaleDetail"
+import User from "../models/User"
 
 const categoryMapper = (data) => {
     try {
@@ -86,17 +87,38 @@ const productMapper = (data) => {
         return data?.map(value => {
             return new Product(
                 value.id,
-                value.attributes.nombre,
-                value.attributes.codigo,
-                value.attributes.descripcion,
-                value.attributes.marca?.data?.attributes?.nombre,
-                value.attributes.isv,
-                value.attributes.descuento,
-                value.attributes.precio_venta,
-                value.attributes.precio_compra,
-                value.attributes.existencia,
-                value.attributes.img?.data.attributes.url ? value.attributes.img?.data.attributes.url : value.attributes.img?.data.attributes.formats.thumbnail.url,
-                productStatus[(value.attributes.activo).toString()]
+                value.attributes?.nombre,
+                value.attributes?.codigo,
+                value.attributes?.descripcion,
+                value.attributes?.marca?.data?.attributes?.nombre,
+                value.attributes?.isv,
+                value.attributes?.descuento,
+                value.attributes?.precio_venta,
+                value.attributes?.precio_compra,
+                value.attributes?.existencia,
+                value.attributes?.img?.data?.attributes?.url ? value.attributes?.img?.data?.attributes?.url : value.attributes?.img?.data?.attributes?.formats?.thumbnail?.url,
+                productStatus[(value.attributes?.activo)?.toString()]
+            )
+        })
+    } catch (error) {
+        console.error(error.message)
+        console.log(error.stack)
+    }
+}
+
+const userMapper = (data) => {
+    if (!data) return
+    try {
+        return data.map(value => {
+            return new User(
+                value.id,
+                value.email,
+                value.nombre,
+                value.apellido,
+                value.RTN,
+                value.jurado,
+                value.role?.id,
+                value.role?.name
             )
         })
     } catch (error) {
@@ -108,5 +130,6 @@ export {
     categoryMapper,
     saleMapper,
     saleReportMapper,
-    productMapper
+    productMapper,
+    userMapper,
 }

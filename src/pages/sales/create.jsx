@@ -5,8 +5,9 @@ import useFetch from '../../hooks/useFetch'
 import { productMapper } from "../../maper/mapper";
 import Modal from "../../components/modal/Modal";
 const Create = () => {
-    const { data, loading, error, handleEndpoint } = useFetch(`productos?filters[$and][0][existencia][$gt]=0&filters[$and][1][activo][$eq]=true`)
+    const { data, loading, error, handleEndpoint } = useFetch(`productos?filters[existencia][$gt]=0&filters[activo][$eq]=true`)
     const [amount, setAmount] = useState(0.00)
+    const [rows, setRows] = useState([])
     const handleAmount = (amount) => setAmount(amount)
 
     document.title = 'Create sale'
@@ -19,18 +20,19 @@ const Create = () => {
             width: 170,
             editable: true,
             valueSetter: params => {
-                const product = productMapper(data).find(({ sku }) => sku === params.value)
-                console.log("🚀 ~ file: create.jsx:22 ~ Create ~ product:", product)
+                handleEndpoint(`productos?filters[$and][0][existencia][$gt]=0&filters[$and][1][activo][$eq]=true&filters[$and][2][codigo][$eq]=${params.value}`)
+                const product = (data && data.length) ? productMapper(data) : null
                 if (product) {
                     params.row = {
                         id: params.row.id,
+                        productID: product[0].id,
                         productSku: params.value,
-                        productName: product.name,
+                        productName: product[0].name,
                         quantity: 1,
-                        unitPrice: product.unitPrice,
-                        tax: product.tax,
-                        discount: product.discount,
-                        max: product.stock
+                        unitPrice: product[0].unitPrice,
+                        tax: product[0].tax,
+                        discount: product[0].discount,
+                        max: product[0].stock
                     }
                 }
                 return params.row
@@ -93,10 +95,9 @@ const Create = () => {
     ]
     if (error) return <Layout><span className="display-3">Error</span></Layout>
     return <Layout title={'Crear Venta'}>
-        <Datatable _columns={COLUMNS} _loading={loading} handleAmount={handleAmount} />
-        <Modal amount={amount} />
+        <Modal amount={amount} rows={rows} data={data} handleEndpoint={handleEndpoint} />
+        <Datatable rows={rows} setRows={setRows} _columns={COLUMNS} _loading={loading} handleAmount={handleAmount} />
     </Layout>
-
 }
 
 export default Create

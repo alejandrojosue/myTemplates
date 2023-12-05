@@ -6,12 +6,14 @@ import CollapsibleTable from './components/table/CollapsibleTable'
 import ColumnGroupingTable from './components/table/ColumnGroupingTable'
 import Table from './components/table/Table'
 import Index from './pages/sales/index'
+import Home from './pages/Index'
 import Create from './pages/sales/create'
+import Unauthorized from './pages/unauthorized/Unauthorized'
 function App() {
   return (
     <Router>
       <Routes basename="/myTemplates">
-        <Route index element={<Index />} />
+        <Route index element={<Home />} />
         <Route path='sales'>
           <Route index element={<Index />} />
           <Route path='new' element={<Create />} />
@@ -20,11 +22,11 @@ function App() {
           element={
             <Layout title={'Datatable'} children={<Datatable />} />
           } />
-        <Route path="cards"
+          <Route path="cards"
           element={
             <Layout title={'Cartas'} children={<Cards />} />
           } />
-        <Route path="collapsibleTable"
+          <Route path="collapsibleTable"
           element={
             <Layout title={'Tablas'} children={<CollapsibleTable />} />
           } />
@@ -36,6 +38,7 @@ function App() {
           element={
             <Layout title={'Tablas'} children={<Table />} />
           } /> */}
+        <Route path='unauthorized' element={<Layout children={'unauthorized'} />} />
         <Route path='*' element={<Layout children={'404 Not Found'} />} />
       </Routes>
     </Router>

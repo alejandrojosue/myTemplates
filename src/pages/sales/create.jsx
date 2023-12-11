@@ -5,12 +5,11 @@ import useFetch from '../../hooks/useFetch'
 import { productMapper } from "../../maper/mapper";
 import Modal from "../../components/modal/Modal";
 const Create = () => {
-    const { data, loading, error, handleEndpoint } = useFetch(`productos?filters[existencia][$gt]=0&filters[activo][$eq]=true`)
+    const { data, loading, error, handleEndpoint, handleMethod, handleSendData } = useFetch(`productos?filters[existencia][$gt]=0&filters[activo][$eq]=true`)
     const [amount, setAmount] = useState(0.00)
     const [rows, setRows] = useState([])
     const handleAmount = (amount) => setAmount(amount)
 
-    document.title = 'Create sale'
     const COLUMNS = [
         { field: 'id', headerName: 'ID', width: 1, hideable: false },
         {
@@ -95,7 +94,10 @@ const Create = () => {
     ]
     if (error) return <Layout><span className="display-3">Error</span></Layout>
     return <Layout title={'Crear Venta'}>
-        <Modal amount={amount} rows={rows} data={data} handleEndpoint={handleEndpoint} />
+        <Modal amount={amount} rows={rows} data={data}
+            handleEndpoint={handleEndpoint}
+            handleMethod={handleMethod}
+            handleSendData={handleSendData} />
         <Datatable rows={rows} setRows={setRows} _columns={COLUMNS} _loading={loading} handleAmount={handleAmount} />
     </Layout>
 }

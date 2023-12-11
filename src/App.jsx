@@ -6,6 +6,7 @@ import CollapsibleTable from './components/table/CollapsibleTable'
 import ColumnGroupingTable from './components/table/ColumnGroupingTable'
 import Table from './components/table/Table'
 import Index from './pages/sales/index'
+import IndexProducts from './pages/products/Index'
 import Home from './pages/Index'
 import Create from './pages/sales/create'
 import Unauthorized from './pages/unauthorized/Unauthorized'
@@ -17,6 +18,9 @@ function App() {
         <Route path='sales'>
           <Route index element={<Index />} />
           <Route path='new' element={<Create />} />
+        </Route>
+        <Route path='products'>
+          <Route index element={<IndexProducts />} />
         </Route>
         {/* <Route path="datatable"
           element={

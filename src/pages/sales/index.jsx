@@ -17,7 +17,6 @@ import TablePagination from '@mui/material/TablePagination';
 import useFetch from '../../hooks/useFetch'
 import { saleMapper, saleReportMapper } from '../../maper/mapper'
 import Filters from '../../components/filters/Filters'
-import SimpleBackdrop from '../../components/backdrop/SimpleBackdrop'
 import Layout from '../../layout/Layout'
 
 function Row(props) {
@@ -130,11 +129,10 @@ const Index = () => {
         setRowsPerPage(event.target.value)
         setPage(0)
     }
-    if (error) return <Layout title={'Sales'} ><span>{error}</span></Layout>
+    if (error) return <Layout title={'Listado de Ventas'} ><span>{error}</span></Layout>
     return (
-        <Layout title={'Sales'} >
+        <Layout title={'Listado de Ventas'} loading={loading}>
             <Paper sx={{ width: '100%' }}>
-                {loading && <SimpleBackdrop />}
                 <Filters
                     handlePage={setPage}
                     pageSize={rowsPerPage}

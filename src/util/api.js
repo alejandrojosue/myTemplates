@@ -34,10 +34,17 @@ export const fetchDataFromAPI =
                 "Failed to fetch": () => { alert('No hay conexión con el servidor') }
             }
 
-            if (!response.ok)
+            if (!response.ok) {
                 if (errorList[response.statusText]) errorList[response.statusText]()
                 else throw new Error(response.statusText)
-
+            } else {
+                if (method.toUpperCase() === 'POST') {
+                    alert('Datos de Transacción Guardados Exitósamente!')
+                    window.location.reload()
+                } else if (method.toUpperCase() === 'PUT') {
+                    alert('Datos de Transacción Actualizados Exitósamente!')
+                }
+            }
             const responseData = await response.json()
             return responseData
         } catch (error) { alert(error.message) }

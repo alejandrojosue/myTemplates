@@ -17,7 +17,6 @@ import TablePagination from '@mui/material/TablePagination';
 import useFetch from '../../hooks/useFetch'
 import { saleMapper, saleReportMapper } from '../../maper/mapper'
 import Filters from '../filters/Filters'
-import SimpleBackdrop from '../backdrop/SimpleBackdrop'
 
 function Row(props) {
     const { row } = props
@@ -131,7 +130,6 @@ const DatatableSale = () => {
     }
     return (
         <Paper sx={{ width: '100%' }}>
-            {loading && <SimpleBackdrop />}
             <Filters
                 handlePage={setPage}
                 pageSize={rowsPerPage}

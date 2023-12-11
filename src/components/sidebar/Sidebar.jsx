@@ -2,6 +2,7 @@ import "./sidebar.scss";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import StoreIcon from "@mui/icons-material/Store";
+import QrCodeIcon from '@mui/icons-material/QrCode';
 import InsertChartIcon from "@mui/icons-material/InsertChart";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AssignmentReturnIcon from '@mui/icons-material/AssignmentReturn';
@@ -63,6 +64,12 @@ const Sidebar = () => (
                         <li>
                             <AssignmentReturnIcon className="icon" />
                             <span>Sales</span>
+                        </li>
+                    </Link>
+                    <Link to={"/products"} style={{ textDecoration: "none" }}>
+                        <li>
+                            <QrCodeIcon className="icon" />
+                            <span>Products</span>
                         </li>
                     </Link>
                     <div className="row line"></div>

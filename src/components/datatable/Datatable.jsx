@@ -35,6 +35,14 @@ function CustomToolbar(props) {
       [initialValues.id]: { mode: GridRowModes.Edit, fieldToFocus: columns[1].field },
     }))
   }
+
+  const handleSave = () => {
+    document.getElementById('btnModal').attributes['data-bs-target'].nodeValue = '#exampleModal'
+    handleAmount(rows?.reduce((acc, value) => { return acc + value.quantity * value.unitPrice * (1 + value.tax - value.discount) }, 0).toFixed(2))
+    document.querySelector('#payment-money').value = (0).toFixed(2)
+    document.querySelector('#change-money').value = (0).toFixed(2)
+    document.querySelector('#payment-method').value = 'Efectivo'
+  }
   return (
     <GridToolbarContainer>
       {/* <GridToolbarExport
@@ -51,15 +59,10 @@ function CustomToolbar(props) {
       <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
         Agregar Item
       </Button>
-      <Button color="primary" startIcon={<SaveAlt />}
+      <Button id='btnModal' color="primary" startIcon={<SaveAlt />}
         data-bs-toggle="modal" data-bs-target="#exampleModal"
-        onClick={() => {
-          handleAmount(rows?.reduce((acc, value) => { return acc + value.quantity * value.unitPrice * (1 + value.tax - value.discount) }, 0).toFixed(2))
-          document.querySelector('#payment-money').value = (0).toFixed(2)
-          document.querySelector('#change-money').value = (0).toFixed(2)
-          document.querySelector('#payment-method').value = 'Efectivo'
-        }}>
-        Guardar
+        onClick={handleSave}>
+        Guardar Pago Completo
       </Button>
     </GridToolbarContainer>
   )
@@ -87,11 +90,11 @@ export default function Datatable({ rows = [], setRows, _columns = [], handleAmo
     }
   }
 
-  const handleEditKeyDown = (params, e) => {
-    if (params.field === _columns[1].field) {
+  // const handleEditKeyDown = (params, e) => {
+  //   if (params.field === _columns[1].field) {
 
-    }
-  }
+  //   }
+  // }
 
   const handleEditClick = (id) => () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } })

@@ -6,16 +6,20 @@ const useFetch = (_endpoint, _method = 'GET', _data = null) => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState('')
     const [endpoint, setEndpoint] = useState(_endpoint)
+    const [method, setMethod] = useState(_method)
+    const [sendData, setSendData] = useState(_data)
 
     useEffect(() => {
         makeApiCall()
     }, [endpoint])
 
     const handleEndpoint = (endpoint) => setEndpoint(endpoint)
+    const handleMethod = (method) => setMethod(method)
+    const handleSendData = (data) => setSendData(data)
 
     const makeApiCall = async () => {
         setLoading(true)
-        const response = await fetchDataFromAPI(endpoint, _method, _data)
+        const response = await fetchDataFromAPI(endpoint, method, sendData)
             .catch(err => setError(err))
             .finally(() => setLoading(false))
         if (response.data)
@@ -25,6 +29,11 @@ const useFetch = (_endpoint, _method = 'GET', _data = null) => {
             setMeta(response.meta)
     }
 
-    return { data, meta, loading, error, handleEndpoint }
+    return {
+        data, meta, loading, error,
+        handleEndpoint,
+        handleMethod,
+        handleSendData,
+    }
 }
 export default useFetch

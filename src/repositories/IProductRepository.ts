@@ -2,7 +2,7 @@ import Product from '../models/Product_';
 
 export default interface IProductRepository {
   getAll(): Promise<Product[]>;
-  getByDateRange(startDate: string, endDate: string): Promise<Product[]>;
+  getById(id: string): Promise<Product>;
   getBySubcategory(subcategoryName: string): Promise<Product[]>;
   getBySKU(sku: string): Promise<Product[]>;
   createProduct(product: Product): Promise<Product>;

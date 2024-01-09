@@ -1,15 +1,14 @@
 import { useState } from 'react'
 import Navbar from '../components/navbar/Navbar'
 import SimpleBackdrop from '../components/backdrop/SimpleBackdrop'
+import ErrorComponent from '../components/error/error'
 // import Footer from '../components/footer/Footer'
-// import Sidebar from '../components/sidebar/Sidebar'
 
-const Layout = ({ title, children, loading = false }) => {
-    const [mobileOpen, setMobileOpen] = useState(false)
-    const handleDrawerToggle = () => setMobileOpen(!mobileOpen)
+const Layout = ({ title, children, loading = false, error = null, link = '/products' }) => {
     document.title = title
+    if (error) return <ErrorComponent error={error.toString()} link={link} />
     return (
-        <div style={{ height: 'auto' }}>
+        <div>
             {loading && <SimpleBackdrop />}
             <Navbar />
             <div className='container-fluid'>

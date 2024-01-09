@@ -14,8 +14,8 @@ const Filters = ({ title, prevEndpoint, handleEndpoint, handlePage, pageSize, da
         }
     }
 
-    return <div className="row px-3">
-        <div className="col-12 col-sm-6 col-lg-3 py-2">
+    return <div className="row px-3 pt-2">
+        <div className="col-12 col-sm-6 col-lg-3">
             <label className="form-label text-secondary">RTN Cliente:</label>
             <input type="text"
                 className="form-control"
@@ -23,31 +23,29 @@ const Filters = ({ title, prevEndpoint, handleEndpoint, handlePage, pageSize, da
                 onChange={(e) => {
                     if ((e.target.value).trim() !== '')
                         handleEndpoint(`${prevEndpoint}&filters[$and][0][cliente][RTN][$contains]=${(e.target.value).trim()}&sort=noFactura:DESC&pagination[pageSize]=${pageSize}&pagination[page]=0`)
-                    else
-                        handleEndpoint(`${prevEndpoint}&sort=id:DESC&pagination[pageSize]=${pageSize}&pagination[page]=1`)
+                    else handleEndpoint(`${prevEndpoint}&sort=id:DESC&pagination[pageSize]=${pageSize}&pagination[page]=1`)
                     handlePage(0)
                 }}
                 maxLength={14}
                 placeholder="Ingrese RTN Cliente" />
         </div>
-        <div className="col-12 col-sm-6 col-lg-3 py-2">
+        <div className="col-12 col-sm-6 col-lg-3">
             <label className="form-label text-secondary w-100">Rango de Fecha:</label>
             <MuiDateRange onDateRangeChange={handleDateRange} />
         </div>
-        <div className="col-12 col-sm-12 col-lg-6 py-2">
+        <div className="col-12 col-sm-12 col-lg-6 pt-4 mt-1 d-flex justify-content-around flex-wrap">
             <button className="btn btn-outline-primary"
                 onClick={() => handleEndpoint(`${prevEndpoint}&pagination[pageSize]=${pageSize}&pagination[page]=0&sort=id:DESC`)}>Actualizar Tabla</button>
-            <button className="btn btn-outline-danger mx-2"
+            <button className="btn btn-outline-danger"
                 onClick={() => exportPDFReport(data, 'Reporte_Ventas')}>Exportar PDF</button>
             <CSVLink
-                className="btn btn-outline-success my-4 text-decoration-none"
+                className="btn btn-outline-success text-decoration-none"
                 data={data}
                 separator={";"}
                 filename={`Reporte_Ventas.csv`}>
                 Exportar CSV
             </CSVLink>
-            {/* <a href={`/sales`} className="btn btn-outline-secondary text-decoration-none mx-2">Crear Nueva</a> */}
-            <Link to={`/${title}/new`} className="btn btn-outline-secondary text-decoration-none mx-2">Crear Nueva</Link>
+            <Link to={`/${title}/new`} className="btn btn-outline-secondary text-decoration-none">Crear Nueva</Link>
         </div>
     </div>
 }

@@ -1,5 +1,6 @@
-import {apiBaseUrl} from '../config/apiConfig'
+import {apiBaseUrl, URL_DEVELOP} from '../config/apiConfig'
 import Product from '../models/Product_'
+import ErrorFetch from '../util/ErrorFetch'
 import ErrorHandler from '../util/ErrorHandler'
 
 import IProductRepository from './IProductRepository'
@@ -9,6 +10,29 @@ class ProductRepository implements IProductRepository {
 
   constructor() {
     this.baseUrl = apiBaseUrl
+  }
+  async getById(id: string): Promise<Product> {
+    try {
+      const response = await fetch(
+          `${this.baseUrl}/productos/${id}?filters[activo]=true&populate=deep`);
+      if (response.status == 404) {
+        throw new ErrorHandler(
+            `Producto no Encontrado.`, response.status.toString())
+      }
+      if (!response.ok) {
+        throw new ErrorHandler(
+            `Failed to fetch data. Status: ${response.status}`,
+            response.status.toString())
+      }
+
+      const {data} = await response.json()
+      const product = this.mapToProduct(data);
+      return product;
+    } catch (error) {
+      if (error instanceof ErrorHandler)
+        throw error
+        else throw new ErrorFetch(error.message)
+    }
   }
 
   async getAll(): Promise<Product[]> {
@@ -24,25 +48,10 @@ class ProductRepository implements IProductRepository {
       const {data} = await response.json()
       return data.map((item: any) => this.mapToProduct(item))
     } catch (error) {
-      throw new ErrorHandler(`Error fetching data: ${error.message}`)
+      throw error
     }
   }
 
-  async getByDateRange(startDate: string, endDate: string): Promise<Product[]> {
-    try {
-      const response = await fetch(
-          `${this.baseUrl}/products?date_gte=${startDate}&date_lte=${endDate}`)
-      if (!response.ok) {
-        throw new ErrorHandler(
-            `Failed to fetch data. Status: ${response.status}`)
-      }
-
-      const data = await response.json()
-      return data.map((item: any) => this.mapToProduct(item))
-    } catch (error) {
-      throw new ErrorHandler(`Error fetching data: ${error.message}`)
-    }
-  }
 
   async getBySubcategory(subcategoryName: string): Promise<Product[]> {
     try {
@@ -56,7 +65,7 @@ class ProductRepository implements IProductRepository {
       const data = await response.json()
       return data.map((item: any) => this.mapToProduct(item))
     } catch (error) {
-      throw new ErrorHandler(`Error fetching data: ${error.message}`)
+      throw error
     }
   }
 
@@ -74,7 +83,7 @@ class ProductRepository implements IProductRepository {
       const {data} = await response.json()
       return data.map((item: any) => this.mapToProduct(item))
     } catch (error) {
-      throw new ErrorHandler(`Error fetching data: ${error.message}`)
+      throw error
     }
   }
 
@@ -96,7 +105,7 @@ class ProductRepository implements IProductRepository {
       const createdProduct = await response.json()
       return this.mapToProduct(createdProduct)
     } catch (error) {
-      throw new ErrorHandler(`Error creating product: ${error.message}`)
+      throw error
     }
   }
 
@@ -119,20 +128,26 @@ class ProductRepository implements IProductRepository {
       const updatedProduct = await response.json()
       return this.mapToProduct(updatedProduct)
     } catch (error) {
-      throw new ErrorHandler(`Error updating product: ${error.message}`)
+      throw error
     }
   }
 
   private mapToProduct(item: any): Product {
+    let url = item.attributes?.img?.data?.attributes?.url;
+    if (!url) {
+      url = item.attributes?.img?.data?.attributes?.formats?.thumbnail?.url
+    }
+
+    if (!url.includes('https://')) {
+      url = URL_DEVELOP + url
+    }
+
     return new Product(
         item.id, item.attributes?.codigo, item.attributes?.existencia,
         item.attributes?.precio_venta, item.attributes?.precio_compra,
         item.attributes?.isv, item.attributes?.descuento, item.subcategoria,
         item.attributes?.nombre, item.attributes?.activo,
-        item.attributes?.descripcion,
-        item.attributes?.img?.data?.attributes?.url ?
-            item.attributes?.img?.data?.attributes?.url :
-            item.attributes?.img?.data?.attributes?.formats?.thumbnail?.url)
+        item.attributes?.descripcion, url)
   }
 }
 

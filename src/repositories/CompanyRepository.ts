@@ -1,5 +1,6 @@
 import {apiBaseUrl} from '../config/apiConfig'
 import Company from '../models/Company'
+import ErrorFetch from '../util/ErrorFetch'
 import ErrorHandler from '../util/ErrorHandler'
 
 export default class CompanyRepository {
@@ -21,7 +22,7 @@ export default class CompanyRepository {
       const {data} = await response.json()
       return this.mapToCompany(data)
     } catch (error) {
-      throw new ErrorHandler(`Error fetching data: ${error.message}`)
+      throw new ErrorFetch(`${error.message}`)
     }
   }
   private mapToCompany(item: any): Company {

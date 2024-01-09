@@ -2,7 +2,7 @@ import Category from "../models/Category"
 import Product, { productStatus } from "../models/Product"
 import Sale, { PayMethod, Status } from "../models/Sale"
 import SaleDetail from "../models/SaleDetail"
-import User from "../models/User"
+import User from "../models/user/User"
 
 const categoryMapper = (data) => {
     try {

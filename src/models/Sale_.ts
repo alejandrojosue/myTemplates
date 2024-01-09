@@ -1,11 +1,12 @@
 import SaleDetail from './SaleDetail_';
-import User from './User';
+import User from './user/User';
 
 export default class Sale {
   constructor(
-      public noFactura: number, public metodoPago: PayMethod,
+      public id: number, public noFactura: number, public metodoPago: PayMethod,
       public estado: Status, public detalleVentas: Array<SaleDetail>,
-      public cliente: Partial<User>, public vendedor: Partial<User>) {}
+      public cliente: Partial<User>, public vendedor: Partial<User>,
+      public fecha: string) {}
 }
 
 export enum Status {

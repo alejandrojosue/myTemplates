@@ -1,0 +1,114 @@
+.details {
+  display: flex;
+  flex-direction: column;
+
+  .detail-title {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+
+    .status {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      color: black;
+
+      .chekbox1 {
+        width: 15px;
+        height: 15px;
+      }
+    }
+  }
+
+  .detail-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      width: 30%;
+      margin: 0px 10px;
+
+      label {
+        font-weight: bold;
+      }
+
+      input {
+        padding: 5px;
+        border: none;
+        border-bottom: 1px solid black;
+        margin-bottom: 10px;
+        color: gray;
+      }
+
+      &:nth-child(4) {
+        width: calc(60% + 20px);
+        min-width: 350px;
+      }
+    }
+
+    img {
+      padding: 10px;
+      border: 2px dashed #1475cf;
+      border-radius: 5px;
+      margin: 10px;
+      width: calc(60% + 20px);
+      min-width: 350px;
+      height: 280px;
+      object-fit: contain;
+    }
+
+    .detail-content {
+      width: calc(30% + 10px);
+
+      .form {
+        width: 100%;
+        margin: 0;
+        padding: 0px 10px 0px;
+
+        &:nth-child(2) {
+          width: calc(50% - 5px);
+          margin-right: 5px;
+        }
+
+        &:nth-child(3) {
+          width: calc(50% - 5px);
+          margin-left: 5px;
+
+        }
+
+        &:nth-child(4) {
+          min-width: 250px;
+        }
+      }
+
+      .btn {
+        width: 100%;
+        text-decoration: none;
+        text-align: center;
+        padding: 10px;
+        background-color: white;
+        border: 1px solid #4ca8ff;
+        color: #4ca8ff;
+        font-weight: bold;
+        cursor: pointer;
+        margin: 0px 10px;
+      }
+    }
+  }
+
+  .col-100 {
+    width: 100%;
+  }
+
+  .col-50 {
+    width: 50%;
+  }
+
+  .col-30 {
+    width: 30%;
+  }
+}

@@ -22,10 +22,10 @@ const useFetch = (_endpoint, _method = 'GET', _data = null) => {
         const response = await fetchDataFromAPI(endpoint, method, sendData)
             .catch(err => setError(err))
             .finally(() => setLoading(false))
-        if (response.data)
+        if (response?.data)
             setData(response.data)
         else setData(response)
-        if (response.meta)
+        if (response?.meta)
             setMeta(response.meta)
     }
 

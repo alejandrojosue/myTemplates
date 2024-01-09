@@ -1,0 +1,84 @@
+$azul: #6439ff;
+$azul-t: #4026aa;
+$gris: #ccc;
+$ancho-container: 400px;
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+
+    h1 {
+        color: $azul;
+        padding-bottom: 10px;
+    }
+
+    .input-container {
+        position: relative;
+        margin: 10px 0;
+        width: 100%;
+        max-width: $ancho-container;
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid $gris;
+            background-color: white;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+
+            &:focus {
+                border-color: $azul;
+                box-shadow: 0 0 5px rgba(100, 57, 255, 0.5);
+            }
+
+            &:focus+label {
+                top: -12px;
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            &:not(:placeholder-shown)+label {
+                font-size: 16px;
+                top: -12px;
+                font-weight: bold;
+            }
+        }
+
+        label {
+            position: absolute;
+            left: 12px;
+            background-color: white;
+            padding: 2px;
+            top: 12px;
+            transform: translateY(0);
+            color: $azul;
+            pointer-events: none;
+            transition: top 0.3s, font-size 0.3s;
+        }
+    }
+
+    button {
+        background-color: $azul;
+        color: #fff;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-size: 1em;
+        font-weight: bold;
+
+        &:hover {
+            background-color: $azul-t;
+        }
+    }
+
+    .error {
+        color: red;
+        margin-top: 10px;
+    }
+}

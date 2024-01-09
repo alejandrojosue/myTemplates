@@ -20,7 +20,7 @@ const Sidebar = () => (
             <div className="offcanvas-body">
                 <ul className="navbar-nav flex-grow-1">
                     <p className="title">PRINCIPAL</p>
-                    <Link to="/" style={{ textDecoration: "none" }}>
+                    <Link to="/home" style={{ textDecoration: "none" }}>
                         <li>
                             <DashboardIcon className="icon" />
                             <span>Index</span>
@@ -74,7 +74,7 @@ const Sidebar = () => (
                     </Link>
                     <div className="row line"></div>
                     <p className="title">REPORTES</p>
-                    <Link to="#reports" style={{ textDecoration: "none" }}>
+                    <Link to="/reports" style={{ textDecoration: "none" }}>
                         <li>
                             <InsertChartIcon className="icon" />
                             <span>Reportes</span>
@@ -82,12 +82,12 @@ const Sidebar = () => (
                     </Link>
                     <div className="row line"></div>
                     <p className="title">USUARIO</p>
-                    <Link to={"#single"} style={{ textDecoration: "none" }}>
+                    <Link to={"/single"} style={{ textDecoration: "none" }}>
                         <li>
                             <AccountCircleOutlinedIcon className="icon" />
                             <span>Perfil</span>
                         </li></Link>
-                    <Link to="#login" style={{ textDecoration: "none" }}>
+                    <Link to="/login" style={{ textDecoration: "none" }}>
                         <li>
                             <ExitToAppIcon className="icon" />
                             <span

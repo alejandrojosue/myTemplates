@@ -135,27 +135,23 @@ const DatatableSale = () => {
                 pageSize={rowsPerPage}
                 handleEndpoint={handleEndpoint}
                 data={saleReportMapper(data)} />
-            <TableContainer sx={{ maxHeight: 440 }}>
+            <TableContainer >
                 <Table stickyHeader aria-label="collapsible sticky table">
                     <TableHead>
                         <TableRow>
                             <TableCell />
                             <TableCell
-                                // onClick={() => { handleEndpoint(`${prevEndpoint}&pagination[pageSize]=${rowsPerPage}&pagination[page]=${(page + 1)}&sort=id:ASC`) }}
                                 className='fw-bold cursor-pointer' align="center">No. Factura</TableCell>
                             <TableCell
-                                // onClick={() => { handleEndpoint(`${prevEndpoint}&pagination[pageSize]=${rowsPerPage}&pagination[page]=${(page + 1)}&sort=createdAt:DESC`) }}
                                 className='fw-bold cursor-pointer'>Fecha</TableCell>
                             <TableCell
                                 className='fw-bold'>Nombre Cliente</TableCell>
                             <TableCell
                                 className='fw-bold'>Nombre Vendedor</TableCell>
                             <TableCell
-                                // onClick={() => { handleEndpoint(`${prevEndpoint}&pagination[pageSize]=${rowsPerPage}&pagination[page]=${(page + 1)}&sort=estado:ASC`) }}
                                 className='fw-bold cursor-pointer' align="center">Estado</TableCell>
                             <TableCell className='fw-bold' align="center">Método de Pago</TableCell>
                             <TableCell
-                                // onClick={() => { handleEndpoint(`${prevEndpoint}&pagination[pageSize]=${rowsPerPage}&pagination[page]=${(page + 1)}&sort=:DESC`) }}
                                 className='fw-bold cursor-pointer' align="right">Monto Total</TableCell>
                         </TableRow>
                     </TableHead>

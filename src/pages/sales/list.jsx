@@ -16,6 +16,8 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import TablePagination from '@mui/material/TablePagination';
 import Layout from '../../layout/Layout'
 import useSaleServices from '../../hooks/useSaleServices'
+import Filters from '../../components/filters/Filters_'
+import { salesReportMapper } from '../../maper/mapper'
 function Row(props) {
     const { row } = props
     const [open, setOpen] = useState(false)
@@ -108,11 +110,14 @@ Row.propTypes = {
 
 const List = () => {
     const [page, setPage] = useState(0)
-    const [rowsPerPage, setRowsPerPage] = useState(25)
-    const { sales, loading, error, total, getAllSales, getTotalSales } = useSaleServices()
+    const [rowsPerPage, setRowsPerPage] = useState(100)
+    const {
+        sales, loading, error, total,
+        getByPagination, getByDateRange, getByRTNCustomer
+    } = useSaleServices()
+
     useEffect(() => {
-        getAllSales()
-        getTotalSales()
+        getByPagination(rowsPerPage, page + 1)
     }, [page, rowsPerPage])
 
     const handleChangePage = (event, newPage) => {
@@ -120,23 +125,21 @@ const List = () => {
     }
 
     const handleChangeRowsPerPage = (event) => {
-        // if (event.target.value === 'Todo')
-        //     setRowsPerPage(meta.pagination.total)
-        // else
         setRowsPerPage(event.target.value)
         setPage(0)
     }
     return (
         <Layout title={'Listado de Ventas'} loading={loading} error={error}>
             <Paper>
-                {/* <Filters
+                <Filters
+                    handlePagination={getByPagination}
                     handlePage={setPage}
+                    handleDateRange={getByDateRange}
                     pageSize={rowsPerPage}
-                    handleEndpoint={handleEndpoint}
-                    data={data ? saleReportMapper(data) : []}
-                    prevEndpoint={prevEndpoint}
+                    data={sales ? salesReportMapper(sales) : []}
+                    handleCustomer={getByRTNCustomer}
                     title={'sales'}
-                /> */}
+                />
                 <TableContainer sx={{ maxHeight: 300 }}>
                     <Table stickyHeader aria-label="collapsible sticky table">
                         <TableHead>

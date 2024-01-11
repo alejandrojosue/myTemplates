@@ -9,32 +9,13 @@ import ISaleRepository from './ISaleRepository'
 
 export default class SaleRepository implements ISaleRepository {
   private baseUrl: string;
-  private prevEndpoint: string =
+  private readonly prevEndpoint: string =
       'ventas?populate=cliente,detalleVentas.producto,vendedor';
-  private token =
-      'd2dea4119266c82c9576470edc68f993cf582816b45a7f2cd5c63f3bff14198af369ccf8f3544c5d138bdc6f95d06c052b3e93657e64f8601528a6451662f1cfeee0bf2c784b6ae1bbb1d5e557ed68c0cb49bb0222c2103721e52f465c8a78066042d060b6d615bfdba43b0e8c7185fb595612d3a27551cdd2dc3676568679b9' ||
-      sessionStorage.getItem('daiswadod');
+  private readonly token = sessionStorage.getItem('daiswadod');
+  private total: number;
 
   constructor() {
-    this.baseUrl = apiBaseUrl
-  }
-  async getTotal(): Promise<number> {
-    try {
-      const response = await fetch(
-          `${this.baseUrl}/ventas`,
-          {method: 'GET', headers: {Authorization: `Bearer ${this.token}`}})
-
-      if (!response.ok) {
-        throw new ErrorHandler(
-            `Failed to get count sales. Status: ${response.status}`)
-      }
-
-      const {meta} = await response.json()
-      console.log(meta.pagination.total)
-      return meta.pagination.total
-    } catch (error) {
-      throw new ErrorHandler(`Error getting count sales: ${error.message}`)
-    }
+    this.baseUrl = apiBaseUrl;
   }
 
   async getAll(): Promise<Sale[]> {
@@ -52,16 +33,39 @@ export default class SaleRepository implements ISaleRepository {
             `Failed to get sales. Status: ${response.statusText}`)
       }
 
-      const {data} = await response.json()
+      const {data, meta} = await response.json();
+      this.total = meta.pagination.total;
+
       return data.map((item: any) => this.mapToSale(item))
 
     } catch (error) {
-      throw new ErrorHandler(`${error.message}`)
+      throw error
     }
   }
 
   async getByDateRange(startDate: string, endDate: string): Promise<Sale[]> {
-    throw new Error('Method not implemented.');
+    try {
+      const response = await fetch(
+          `${this.baseUrl}/${
+              this.prevEndpoint}&filters[$and][0][createdAt][$gte]=${
+              startDate}&filters[$and][1][createdAt][$lte]=${
+              endDate}&sort=id:DESC`,
+          {method: 'GET', headers: {Authorization: `Bearer ${this.token}`}})
+
+      if (response.status == 401 || response.status == 403) {
+        throw new ErrorHandler(`No tiene permiso para acceder a este módulo!`)
+      }
+      if (!response.ok) {
+        throw new ErrorHandler(
+            `Failed to get sales. Status: ${response.status}`)
+      }
+
+      const {data, meta} = await response.json();
+      this.total = meta.pagination.total;
+      return data.map((item: any) => this.mapToSale(item))
+    } catch (error) {
+      throw error
+    }
   }
 
   async getByPagination(pageSize: number = 25, page: number = 1):
@@ -70,22 +74,52 @@ export default class SaleRepository implements ISaleRepository {
       const response = await fetch(
           `${this.baseUrl}/${this.prevEndpoint}&pagination[pageSize]=${
               pageSize}&pagination[page]=${page}&sort=id:DESC`,
-          {
-            method: 'GET',
-            headers: {Authorization: `Bearer ${sessionStorage.getItem('jwt')}`}
-          })
+          {method: 'GET', headers: {Authorization: `Bearer ${this.token}`}})
+
+      if (response.status == 401 || response.status == 403) {
+        throw new ErrorHandler(`No tiene permiso para acceder a este módulo!`)
+      }
 
       if (!response.ok) {
         throw new ErrorHandler(
             `Failed to get sales. Status: ${response.status}`)
       }
 
-      const {data} = await response.json()
+      const {data, meta} = await response.json();
+      this.total = meta.pagination.total;
+
       return data.map((item: any) => this.mapToSale(item))
     } catch (error) {
-      throw new ErrorHandler(`Error getting sales: ${error.message}`)
+      throw error
     }
   }
+
+  async getByRTNCustomer(rtn: string): Promise<Sale[]> {
+    try {
+      const response = await fetch(
+          `${this.baseUrl}/${
+              this.prevEndpoint}&filters[$and][0][cliente][RTN][$eq]=${
+              rtn}&sort=noFactura:DESC`,
+          {method: 'GET', headers: {Authorization: `Bearer ${this.token}`}})
+
+      if (response.status == 401 || response.status == 403) {
+        throw new ErrorHandler(`No tiene permiso para acceder a este módulo!`)
+      }
+
+      if (!response.ok) {
+        throw new ErrorHandler(
+            `Failed to get sales. Status: ${response.status}`)
+      }
+
+      const {data, meta} = await response.json();
+      this.total = meta.pagination.total;
+
+      return data.map((item: any) => this.mapToSale(item))
+    } catch (error) {
+      throw error
+    }
+  }
+
   async create(sale: Sale): Promise<Sale> {
     try {
       const response = await fetch(`${this.baseUrl}/ventas`, {
@@ -96,6 +130,10 @@ export default class SaleRepository implements ISaleRepository {
         body: JSON.stringify(sale),
       })
 
+      if (response.status == 401 || response.status == 403) {
+        throw new ErrorHandler(`No tiene permiso para acceder a este módulo!`)
+      }
+
       if (!response.ok) {
         throw new ErrorHandler(
             `Failed to create sale. Status: ${response.status}`)
@@ -104,9 +142,10 @@ export default class SaleRepository implements ISaleRepository {
       const createdSale = await response.json()
       return this.mapToSale(createdSale)
     } catch (error) {
-      throw new ErrorHandler(`Error creating product: ${error.message}`)
+      throw error
     }
   }
+
   private mapToSale(item: any): Sale {
     return new Sale(
         item.id, item.attributes?.noFactura,
@@ -130,5 +169,9 @@ export default class SaleRepository implements ISaleRepository {
         new Date(item.attributes.createdAt)
             .toLocaleDateString(
                 'es-ES', {day: '2-digit', month: '2-digit', year: 'numeric'}))
+  }
+
+  public get(): number {
+    return this.total;
   }
 }

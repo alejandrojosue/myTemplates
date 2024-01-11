@@ -1,3 +1,4 @@
+import Brand from './Brand';
 import Subcategoria from './Subcategory';
 
 class Product {
@@ -7,7 +8,7 @@ class Product {
       public isv?: number, public descuento?: number,
       public subcategoria: Array<Subcategoria> = [], public nombre?: string,
       public activo?: productStatus, public descripcion?: string,
-      public imgUrl?: String) {}
+      public imgUrl?: String, public modelo?: string, public marca?: Brand) {}
 }
 
 export enum productStatus {

@@ -1,4 +1,5 @@
 import {apiBaseUrl, URL_DEVELOP} from '../config/apiConfig'
+import Brand from '../models/Brand'
 import Product from '../models/Product_'
 import ErrorFetch from '../util/ErrorFetch'
 import ErrorHandler from '../util/ErrorHandler'
@@ -134,6 +135,7 @@ class ProductRepository implements IProductRepository {
 
   private mapToProduct(item: any): Product {
     let url = item.attributes?.img?.data?.attributes?.url;
+
     if (!url) {
       url = item.attributes?.img?.data?.attributes?.formats?.thumbnail?.url
     }
@@ -147,7 +149,10 @@ class ProductRepository implements IProductRepository {
         item.attributes?.precio_venta, item.attributes?.precio_compra,
         item.attributes?.isv, item.attributes?.descuento, item.subcategoria,
         item.attributes?.nombre, item.attributes?.activo,
-        item.attributes?.descripcion, url)
+        item.attributes?.descripcion, url, item.attributes.modelo,
+        new Brand(
+            item.attributes.marca.data.id,
+            item.attributes.marca?.data.attributes.nombre))
   }
 }
 

@@ -81,6 +81,30 @@ const saleReportMapper = (data) => {
     }
 }
 
+const salesReportMapper = (data) => {
+    if (!data) return
+    try {
+        return data?.map(value => {
+
+            return {
+                "No. Factura": value.noFactura,
+                Fecha: value.fecha,
+                Estado: value.estado,
+                "Método de Pago": value.metodoPago,
+                "Nombre Cliente": `${value.cliente.firstName} ${value.cliente.lastName}`,
+                "Nombre Vendedor": `${value.vendedor.firstName} ${value.vendedor.lastName}`,
+                Subtotal: value.detalleVentas?.reduce((acc, detail) => (acc + detail.cantidad * detail.precio), 0).toFixed(2).replace('.', ','),
+                "Impuesto Total": value.detalleVentas?.reduce((acc, detail) => (acc + detail.cantidad * detail.precio * detail.isv), 0).toFixed(2).replace('.', ','),
+                "Descuento Total": value.detalleVentas?.reduce((acc, detail) => (acc + detail.cantidad * detail.precio * detail.descuento), 0).toFixed(2).replace('.', ','),
+                "Monto Total": value.detalleVentas?.reduce((acc, detail) => (acc + detail.cantidad * detail.precio * (1 + detail.isv - detail.descuento)), 0).toFixed(2).replace('.', ',')
+
+            }
+        })
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 const productMapper = (data) => {
     if (!data) return
     try {
@@ -129,6 +153,7 @@ const userMapper = (data) => {
 export {
     categoryMapper,
     saleMapper,
+    salesReportMapper,
     saleReportMapper,
     productMapper,
     userMapper,

@@ -14,11 +14,10 @@ import Paper from '@mui/material/Paper'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import TablePagination from '@mui/material/TablePagination';
-import useFetch from '../../hooks/useFetch'
-import { saleMapper, saleReportMapper } from '../../maper/mapper'
-import Filters from '../../components/filters/Filters'
 import Layout from '../../layout/Layout'
-
+import useSaleServices from '../../hooks/useSaleServices'
+import Filters from '../../components/filters/Filters_'
+import { salesReportMapper } from '../../maper/mapper'
 function Row(props) {
     const { row } = props
     const [open, setOpen] = useState(false)
@@ -35,15 +34,15 @@ function Row(props) {
                         {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
                 </TableCell>
-                <TableCell align="center" className="tableCell">{row.noInvoice}</TableCell>
-                <TableCell className="tableCell">{row.date}</TableCell>
-                <TableCell className="tableCell">{row.customerName}</TableCell>
-                <TableCell className="tableCell">{row.sellerName}</TableCell>
-                <TableCell align="center"><span className={`cellWithStatus ${row.status}`}>{row.status}</span></TableCell>
-                <TableCell align="center" className="tableCell">{row.payMethod}</TableCell>
+                <TableCell align="center" className="tableCell">{row.noFactura}</TableCell>
+                <TableCell className="tableCell">{row.fecha}</TableCell>
+                <TableCell className="tableCell">{`${row.cliente.firstName} ${row.cliente.lastName}`}</TableCell>
+                <TableCell className="tableCell">{`${row.vendedor.firstName} ${row.vendedor.lastName}`}</TableCell>
+                <TableCell align="center"><span className={`cellWithStatus ${row.estado}`}>{row.estado}</span></TableCell>
+                <TableCell align="center" className="tableCell">{row.metodoPago}</TableCell>
                 <TableCell align="right" className="tableCell">
-                    {((row.details.reduce((acc, { quantity, unitPrice, tax, discount }) =>
-                        (acc + quantity * unitPrice * (1 + tax - discount)), 0))
+                    {((row.detalleVentas.reduce((acc, { cantidad, precio, isv, descuento }) =>
+                        (acc + cantidad * precio * (1 + isv - descuento)), 0))
                         .toFixed(2))
                         .replace('.', ',')}
                 </TableCell>
@@ -68,18 +67,18 @@ function Row(props) {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {row.details.map((detail) => (
+                                    {row.detalleVentas.map((detail) => (
                                         <TableRow key={detail.id}>
-                                            <TableCell component="th" scope="row">{detail.productSku}</TableCell>
-                                            <TableCell>{detail.productName}</TableCell>
+                                            <TableCell component="th" scope="row">{detail.producto.codigo}</TableCell>
+                                            <TableCell>{detail.producto.nombre}</TableCell>
                                             <TableCell align="right">
                                                 {detail.quantity}
                                             </TableCell>
-                                            <TableCell align="right">{detail.unitPrice.toFixed(2).replace('.', ',')}</TableCell>
-                                            <TableCell align="center">{detail.discount * 100}%</TableCell>
-                                            <TableCell align="center">{detail.tax * 100}%</TableCell>
+                                            <TableCell align="right">{detail.precio.toFixed(2).replace('.', ',')}</TableCell>
+                                            <TableCell align="center">{detail.descuento * 100}%</TableCell>
+                                            <TableCell align="center">{detail.isv * 100}%</TableCell>
                                             <TableCell align="right">
-                                                {(detail.unitPrice * detail.quantity * (1 + detail.tax - detail.discount)).toFixed(2).replace('.', ',')}
+                                                {(detail.precio * detail.cantidad * (1 + detail.isv - detail.descuento)).toFixed(2).replace('.', ',')}
                                             </TableCell>
                                         </TableRow>
                                     ))}
@@ -96,26 +95,29 @@ function Row(props) {
 Row.propTypes = {
     row: PropTypes.shape({
         id: PropTypes.number.isRequired,
-        date: PropTypes.string.isRequired,
-        noInvoice: PropTypes.number.isRequired,
-        details: PropTypes.arrayOf(
+        fecha: PropTypes.string.isRequired,
+        noFactura: PropTypes.number.isRequired,
+        detalleVentas: PropTypes.arrayOf(
             PropTypes.shape({
-                quantity: PropTypes.number.isRequired,
-                unitPrice: PropTypes.number.isRequired,
-                discount: PropTypes.number.isRequired,
-                tax: PropTypes.number.isRequired,
+                cantidad: PropTypes.number.isRequired,
+                precio: PropTypes.number.isRequired,
+                descuento: PropTypes.number.isRequired,
+                isv: PropTypes.number.isRequired,
             }),
         ).isRequired,
     }).isRequired,
 }
 
 const Index = () => {
-    const prevEndpoint = 'ventas?populate=cliente,detalleVentas.producto,vendedor'
     const [page, setPage] = useState(0)
-    const [rowsPerPage, setRowsPerPage] = useState(25)
-    const { data, meta, loading, error, handleEndpoint } = useFetch(`${prevEndpoint}&pagination[pageSize]=${rowsPerPage}&pagination[page]=${(page + 1)}&sort=id:DESC`)
+    const [rowsPerPage, setRowsPerPage] = useState(100)
+    const {
+        sales, loading, error, total,
+        getByPagination, getByDateRange, getByRTNCustomer
+    } = useSaleServices()
+
     useEffect(() => {
-        handleEndpoint(`${prevEndpoint}&pagination[pageSize]=${rowsPerPage}&pagination[page]=${(page + 1)}&sort=id:DESC`)
+        getByPagination(rowsPerPage, page + 1)
     }, [page, rowsPerPage])
 
     const handleChangePage = (event, newPage) => {
@@ -123,9 +125,6 @@ const Index = () => {
     }
 
     const handleChangeRowsPerPage = (event) => {
-        // if (event.target.value === 'Todo')
-        //     setRowsPerPage(meta.pagination.total)
-        // else
         setRowsPerPage(event.target.value)
         setPage(0)
     }
@@ -133,11 +132,12 @@ const Index = () => {
         <Layout title={'Listado de Ventas'} loading={loading} error={error}>
             <Paper>
                 <Filters
+                    handlePagination={getByPagination}
                     handlePage={setPage}
+                    handleDateRange={getByDateRange}
                     pageSize={rowsPerPage}
-                    handleEndpoint={handleEndpoint}
-                    data={data ? saleReportMapper(data) : []}
-                    prevEndpoint={prevEndpoint}
+                    data={sales ? salesReportMapper(sales) : []}
+                    handleCustomer={getByRTNCustomer}
                     title={'sales'}
                 />
                 <TableContainer sx={{ maxHeight: 300 }}>
@@ -161,7 +161,7 @@ const Index = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {data ? saleMapper(data)?.map((row) => (
+                            {sales.length ? sales.map((row) => (
                                 <Row key={row.id} row={row} />)) : ''}
                         </TableBody>
                     </Table>
@@ -169,7 +169,7 @@ const Index = () => {
                 <TablePagination
                     rowsPerPageOptions={[25, 50, 100, 200, 500, 1000]}
                     component="div"
-                    count={meta?.pagination?.total || 0}
+                    count={total}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}

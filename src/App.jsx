@@ -1,19 +1,18 @@
-import Layout from './layout/Layout'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import Index from './pages/sales/index'
-import IndexProducts from './pages/products';
+import IndexSales from './pages/sales/Index'
+import IndexProducts from './pages/products/Index';
 import Home from './pages/Index'
-import Create from './pages/sales/create'
-import Unauthorized from './pages/unauthorized/Unauthorized'
+import CreateSale from './pages/sales/Create'
+import NotFound from './pages/notFound/NotFound'
 import { useEffect } from 'react'
 import Login from './pages/login/Login'
 import ProtectedRouted from './auth/ProtectedRouted'
-import ProductView from './pages/products/view'
-import List from './pages/sales/list';
+import ProductView from './pages/products/View'
+import SalesView from './pages/sales/View'
 function App() {
   // Rutas en las que se debe evitar la recarga o salida
   const pathsPrevent = [
-    '/invoices/new',
+    '/sales/new',
     '/returns/new',
   ]
   useEffect(() => {
@@ -33,18 +32,18 @@ function App() {
       <Routes>
         <Route path="login" element={<Login />} />
         <Route path="/" element={<ProtectedRouted />}>
+          <Route index element={<Home />} />
           <Route path='home' element={<Home />} />
-          <Route path='list' element={<List />} />
           <Route path='sales'>
-            <Route index element={<Index />} />
-            <Route path='new' element={<Create />} />
+            <Route index element={<IndexSales />} />
+            <Route path=':id' element={<SalesView />} />
+            <Route path='new' element={<CreateSale />} />
           </Route>
           <Route path='products'>
             <Route index element={<IndexProducts />} />
+            <Route path=':id' element={<ProductView />} />
           </Route>
-          <Route path='/products/:id' element={<ProductView />} />
-          <Route path='unauthorized' element={<Layout children={<Unauthorized />} />} />
-          <Route path='*' element={<Layout children={'404 Not Found'} />} />
+          <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>
     </Router>

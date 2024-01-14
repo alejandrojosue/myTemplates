@@ -6,6 +6,7 @@
 
 img {
   padding: 10px;
+  margin-bottom: 5px;
   border: 2px dashed #1475cf;
   border-radius: 5px;
   width: calc(60% + 20px);
@@ -37,5 +38,33 @@ input {
   .chekbox1 {
     width: 15px;
     height: 15px;
+  }
+}
+
+.filters {
+  display: flex;
+  width: auto;
+
+  // button {
+  //   border-radius: 5px;
+  //   color: darkblue;
+  //   border: 1px solid rgba(0, 0, 139, 0.596);
+  //   background-color: transparent;
+  //   height: 35px;
+  //   cursor: pointer;
+  //   margin-right: 10px;
+  // }
+
+  // button:hover {
+  //   color: #fff;
+  //   background-color: darkblue;
+  // }
+
+  select,
+  .textField {
+    padding: 3px;
+    height: 35px;
+    border-radius: 5px;
+    background-color: transparent;
   }
 }

@@ -5,6 +5,7 @@ import ProductRepository from '../repositories/ProductRepository';
 
 interface IHookState {
   products: Product[];
+  productsTemp: Product[];
   loading: boolean;
   error: string|null;
 }
@@ -18,15 +19,18 @@ interface ProductServiceHook {
   updateProduct:
       (productId: string,
        updatedProductData: Partial<Product>) => Promise<void>;
+  handleProductsList: (subcategoryId: number) => void;
   products: Product[];
+  productsTemp: Product[];
   loading: boolean;
   error: string|null;
 }
 
 const useProductService = (): ProductServiceHook => {
-  const productRepository = new ProductRepository()
+  const productRepository = new ProductRepository();
   const [state, setState] = useState<IHookState>({
     products: [],
+    productsTemp: [],
     loading: false,
     error: null,
   })
@@ -35,10 +39,16 @@ const useProductService = (): ProductServiceHook => {
       setState((prev) => ({...prev, loading: true, error: null}));
       const data = await fetchFunction();
       const dataArray = Array.isArray(data) ? data : [data];
-      setState({products: dataArray, loading: false, error: null});
+      setState({
+        products: dataArray,
+        productsTemp: dataArray,
+        loading: false,
+        error: null
+      });
     } catch (error) {
       setState({
         products: [],
+        productsTemp: [],
         loading: false,
         error: error.message || 'Error fetching data'
       });
@@ -54,7 +64,7 @@ const useProductService = (): ProductServiceHook => {
   };
 
   const getProductsBySubcategory = async (subcategoryName: string) => {
-    await fetchData(() => productRepository.getBySubcategory(subcategoryName));
+
   };
 
   const getProductsBySKU = async (sku: string) => {
@@ -70,6 +80,12 @@ const useProductService = (): ProductServiceHook => {
     await fetchData(
         () => productRepository.updateProduct(productId, updatedProductData));
   };
+
+  const handleProductsList = (subcategoryId: number) => {
+    const products = state.productsTemp.filter(
+        product => product.subcategoria.some(p => p.id == subcategoryId));
+    setState(prev => ({...prev, products}));
+  };
   return {
     ...state,
     getAllProducts,
@@ -77,7 +93,8 @@ const useProductService = (): ProductServiceHook => {
     getProductsBySubcategory,
     getProductsBySKU,
     createProduct,
-    updateProduct
+    updateProduct,
+    handleProductsList
   };
 };
 

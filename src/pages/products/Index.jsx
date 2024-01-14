@@ -1,9 +1,13 @@
+import './products.scss'
 import { Link } from 'react-router-dom'
 import DataGrid from '../../components/datatable/Datagrid'
 import useProductService from '../../hooks/useProductService'
 import Layout from '../../layout/Layout'
 import { productStatus } from '../../models/Product_'
 import { useEffect } from 'react'
+import ProductsFilters from '../../components/filters/ProductsFilters'
+import Filters from '../../components/filters/Filters'
+import { productsReportMapper } from '../../mapper/mapper'
 const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
     { field: 'nombre', headerName: 'Nombre del Producto', description: 'Nombre del Producto', minWidth: 250, flex: .5, editable: true },
@@ -22,9 +26,19 @@ const columns = [
 ]
 
 const IndexProducts = () => {
-    const { loading, error, products, getAllProducts } = useProductService()
-    useEffect(() => { getAllProducts() }, [])
+    const { loading, error, products, handleProductsList, getAllProducts } = useProductService()
+    useEffect(() => {
+        getAllProducts()
+    }, [])
     return <Layout title={'Listado de Productos'} error={error} loading={loading}>
+        <div className="row pb-2">
+            <ProductsFilters handleProducts={handleProductsList} />
+            <Filters
+                title={'products'}
+                data={products && productsReportMapper(products)}
+                handlePagination={getAllProducts}
+            />
+        </div>
         <DataGrid columns={columns} rows={products} />
     </Layout>
 }

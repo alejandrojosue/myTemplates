@@ -1,0 +1,14 @@
+.formInput {
+
+    label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    input {
+        padding: 5px;
+        border: none;
+        border-bottom: 1px solid gray;
+    }
+}

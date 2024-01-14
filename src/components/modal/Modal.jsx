@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { userMapper } from "../../maper/mapper"
+import { userMapper } from "../../mapper/mapper"
 import { PayMethod, Status } from "../../models/Sale"
 
 const Modal = ({ amount, rows, data, handleEndpoint, handleSendData, handleMethod }) => {

@@ -2,7 +2,7 @@ import Datatable from "../../components/datatable/Datatable";
 import Layout from '../../layout/Layout'
 import { useState } from 'react'
 import useFetch from '../../hooks/useFetch'
-import { productMapper } from "../../maper/mapper";
+import { productMapper } from "../../mapper/mapper";
 import Modal from "../../components/modal/Modal";
 const Create = () => {
     const { data, loading, error, handleEndpoint, handleMethod, handleSendData } = useFetch(`productos?filters[existencia][$gt]=0&filters[activo][$eq]=true`)
@@ -92,8 +92,7 @@ const Create = () => {
                 ((params.row.quantity * params.row.unitPrice * (1 + params.row.tax - params.row.discount) || 0)).toFixed(2).replace('.', ','),
         }
     ]
-    if (error) return <Layout><span className="display-3">Error</span></Layout>
-    return <Layout title={'Crear Venta'}>
+    return <Layout title={'Crear Venta'} error={error}>
         <Modal amount={amount} rows={rows} data={data}
             handleEndpoint={handleEndpoint}
             handleMethod={handleMethod}

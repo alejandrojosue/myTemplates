@@ -2,7 +2,7 @@ import { DataGrid } from '@mui/x-data-grid'
 const DataGrid_ = ({ columns, rows = [], paginationOptions = [5, 25, 50] }) => {
     // const handleValueSetter = (params) => console.log('Value set:', params)
     return (
-        <div className='w-100' style={{ height: '400px' }}>
+        <div className='w-100' style={{ height: '390px' }}>
             <DataGrid
                 rows={rows}
                 columns={columns.map((column) => ({

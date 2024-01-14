@@ -1,15 +1,15 @@
-import './productView.scss'
+import './products.scss'
 import { Link, useParams } from 'react-router-dom'
 import useProductService from '../../hooks/useProductService'
 import Layout from '../../layout/Layout'
 import { useEffect } from 'react';
-const ProductView = () => {
+const View = () => {
     const { products, loading, error, getById } = useProductService()
     const { id } = useParams();
     useEffect(() => { getById(id) }, [])
     return (
         <Layout title={`Producto #${id}`} loading={loading} error={error}>
-            <div className="row px-3">
+            <div className="row  px-3">
                 <div className="col-12">
                     <div className="row">
                         <div className="detail-title d-flex justify-content-end">
@@ -84,4 +84,4 @@ const ProductView = () => {
     )
 }
 
-export default ProductView
+export default View

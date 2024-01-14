@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Box from '@mui/material/Box'
 import Collapse from '@mui/material/Collapse'
 import IconButton from '@mui/material/IconButton'
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -16,8 +17,9 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import TablePagination from '@mui/material/TablePagination';
 import Layout from '../../layout/Layout'
 import useSaleServices from '../../hooks/useSaleServices'
-import Filters from '../../components/filters/Filters_'
-import { salesReportMapper } from '../../maper/mapper'
+import Filters from '../../components/filters/Filters'
+import { salesReportMapper } from '../../mapper/mapper'
+import SalesFilters from '../../components/filters/SalesFilters'
 function Row(props) {
     const { row } = props
     const [open, setOpen] = useState(false)
@@ -33,6 +35,13 @@ function Row(props) {
                     >
                         {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
+                    <IconButton
+                        size="small"
+                        onClick={() => { location.href = `/sales/${row.noFactura}` }}
+                    >
+                        <VisibilityIcon />
+                    </IconButton>
+
                 </TableCell>
                 <TableCell align="center" className="tableCell">{row.noFactura}</TableCell>
                 <TableCell className="tableCell">{row.fecha}</TableCell>
@@ -130,16 +139,21 @@ const Index = () => {
     }
     return (
         <Layout title={'Listado de Ventas'} loading={loading} error={error}>
-            <Paper>
-                <Filters
+            <div className="row">
+                <SalesFilters
                     handlePagination={getByPagination}
                     handlePage={setPage}
                     handleDateRange={getByDateRange}
+                    handleCustomer={getByRTNCustomer} />
+                <Filters
                     pageSize={rowsPerPage}
                     data={sales ? salesReportMapper(sales) : []}
-                    handleCustomer={getByRTNCustomer}
+                    handlePagination={getByPagination}
                     title={'sales'}
                 />
+            </div>
+            <Paper>
+
                 <TableContainer sx={{ maxHeight: 300 }}>
                     <Table stickyHeader aria-label="collapsible sticky table">
                         <TableHead>

@@ -1,3 +1,6 @@
-export default class Subcategoria {
-  constructor(public nombre: String, public id: number) {}
+import Category from './Category';
+
+export default class Subcategory {
+  constructor(
+      public nombre: String, public id: number, public categoria: Category) {}
 }

@@ -12,9 +12,11 @@ interface IHookState {
 
 interface SaleServiceHook {
   getAllSales: () => Promise<void>;
+  getById: (id: string) => Promise<void>;
   getByPagination: (pageSize: number, page: number) => Promise<void>;
   getByDateRange: (startDate: string, endDate: string) => Promise<void>;
   getByRTNCustomer: (rtn: string) => Promise<void>;
+  getByRTNnInvoice: (nInvoice: string) => Promise<void>;
   createSale: (sale: Sale) => Promise<void>;
   sales: Sale[];
   total: number;
@@ -57,6 +59,10 @@ const useSaleServices = (): SaleServiceHook => {
     await fetchData(() => saleRepository.getAll())
   };
 
+  const getById = async (id: string) => {
+    await fetchData(() => saleRepository.getById(id))
+  };
+
   const getByPagination = async (pageSize: number = 25, page: number = 0) => {
     await fetchData(() => saleRepository.getByPagination(pageSize, page))
   };
@@ -75,13 +81,17 @@ const useSaleServices = (): SaleServiceHook => {
     await fetchData(() => saleRepository.getByRTNCustomer(rtn.trim()))
   }
 
+  const getByRTNnInvoice = async (nInvoice: string) => {
+    await fetchData(() => saleRepository.getByNInvoice(nInvoice))
+  };
+
   const createSale = async (sale: Sale) => {
     await fetchData(() => saleRepository.create(sale))
   };
 
   return {
     ...state, getAllSales, getByPagination, createSale, getByDateRange,
-        getByRTNCustomer
+        getByRTNCustomer, getById, getByRTNnInvoice
   }
 };
 

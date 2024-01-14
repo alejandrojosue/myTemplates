@@ -11,7 +11,7 @@ const Layout = ({ title, children, loading = false, error = null, link = '/produ
         <div>
             {loading && <SimpleBackdrop />}
             <Navbar />
-            <div className='container-fluid'>
+            <div className='container-fluid pb-2'>
                 <p className="text-secondary fs-3 py-3">
                     {title}
                 </p>

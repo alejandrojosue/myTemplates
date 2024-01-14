@@ -17,6 +17,29 @@ export default class SaleRepository implements ISaleRepository {
   constructor() {
     this.baseUrl = apiBaseUrl;
   }
+  async getByNInvoice(nInvoice: string): Promise<Sale> {
+    try {
+      const response = await fetch(
+          `${this.baseUrl}/${this.prevEndpoint}&filters[noFactura]=${nInvoice}`,
+          {method: 'GET', headers: {Authorization: `Bearer ${this.token}`}});
+      if (response.status == 401 || response.status == 403) {
+        throw new ErrorHandler(`No tiene permiso para acceder a este módulo!`)
+      }
+
+      if (!response.ok) {
+        throw new ErrorHandler(
+            `Failed to get sales. Status: ${response.statusText}`)
+      }
+
+      const {data} = await response.json();
+
+      return data.map((item: any) => this.mapToSale(item))
+
+    } catch (error) {
+      throw error
+    }
+  }
+
 
   async getAll(): Promise<Sale[]> {
     try {
@@ -37,6 +60,29 @@ export default class SaleRepository implements ISaleRepository {
       this.total = meta.pagination.total;
 
       return data.map((item: any) => this.mapToSale(item))
+
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async getById(id: string): Promise<Sale> {
+    try {
+      const response = await fetch(
+          `${this.baseUrl}/ventas/${
+              id}?populate=cliente,detalleVentas.producto,vendedor`,
+          {method: 'GET', headers: {Authorization: `Bearer ${this.token}`}});
+      if (response.status == 401 || response.status == 403) {
+        throw new ErrorHandler(`No tiene permiso para acceder a este módulo!`)
+      }
+
+      if (!response.ok) {
+        throw new ErrorHandler(
+            `Failed to get sale. Status: ${response.statusText}`)
+      }
+
+      const {data} = await response.json();
+      return this.mapToSale(data)
 
     } catch (error) {
       throw error

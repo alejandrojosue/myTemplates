@@ -1,6 +1,8 @@
 import {apiBaseUrl, URL_DEVELOP} from '../config/apiConfig'
 import Brand from '../models/Brand'
+import Category from '../models/Category'
 import Product from '../models/Product_'
+import Subcategory from '../models/Subcategory'
 import ErrorFetch from '../util/ErrorFetch'
 import ErrorHandler from '../util/ErrorHandler'
 
@@ -12,6 +14,7 @@ class ProductRepository implements IProductRepository {
   constructor() {
     this.baseUrl = apiBaseUrl
   }
+
   async getById(id: string): Promise<Product> {
     try {
       const response = await fetch(
@@ -53,11 +56,11 @@ class ProductRepository implements IProductRepository {
     }
   }
 
-
   async getBySubcategory(subcategoryName: string): Promise<Product[]> {
     try {
-      const response = await fetch(
-          `${this.baseUrl}/products?nombre_subcategoria=${subcategoryName}`)
+      const response = await fetch(`${
+          this.baseUrl}/products?populate=deep&sort[0]=existencia:asc&nombre_subcategoria=${
+          subcategoryName}`)
       if (!response.ok) {
         throw new ErrorHandler(
             `Failed to fetch data. Status: ${response.status}`)
@@ -147,7 +150,12 @@ class ProductRepository implements IProductRepository {
     return new Product(
         item.id, item.attributes?.codigo, item.attributes?.existencia,
         item.attributes?.precio_venta, item.attributes?.precio_compra,
-        item.attributes?.isv, item.attributes?.descuento, item.subcategoria,
+        item.attributes?.isv, item.attributes?.descuento,
+        (item.attributes.subcategorias.data)
+            .map(
+                subcategory => (new Subcategory(
+                    subcategory.attributes.nombre, subcategory.id,
+                    new Category(subcategory.attributes.categoria)))),
         item.attributes?.nombre, item.attributes?.activo,
         item.attributes?.descripcion, url, item.attributes.modelo,
         new Brand(

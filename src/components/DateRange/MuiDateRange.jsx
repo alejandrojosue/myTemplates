@@ -6,7 +6,7 @@ const MuiDateRange = ({ onDateRangeChange }) => {
 
     const handleDateRangeChange = (value) => onDateRangeChange(value)
 
-    return (<DateRangePicker onChange={handleDateRangeChange} />)
+    return (<DateRangePicker onChange={handleDateRangeChange} className='w-100' />)
 }
 
 export default MuiDateRange

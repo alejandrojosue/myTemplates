@@ -4,53 +4,53 @@ import Sale, { PayMethod, Status } from "../models/Sale"
 import SaleDetail from "../models/SaleDetail"
 import User from "../models/user/User"
 
-const categoryMapper = (data) => {
-    try {
-        return data?.map(value => (
-            new Category(
-                value.attributes?.Name,
-                value.attributes?.Description
-            )
-        ))
-    } catch (error) {
-        console.error(error)
-    }
-}
+// const categoryMapper = (data) => {
+//     try {
+//         return data?.map(value => (
+//             new Category(
+//                 value.attributes?.Name,
+//                 value.attributes?.Description
+//             )
+//         ))
+//     } catch (error) {
+//         console.error(error)
+//     }
+// }
 
-const saleMapper = (data) => {
-    if (!data) return
-    try {
-        return data?.map(value => (
-            new Sale(
-                value.id,
-                new Date(value.attributes.createdAt)
-                    .toLocaleDateString('es-ES', {
-                        day: '2-digit',
-                        month: '2-digit',
-                        year: 'numeric'
-                    }),
-                value.attributes.noFactura,
-                Status[value.attributes.estado],
-                `${value.attributes.cliente.data?.attributes.nombre} ${value.attributes.cliente.data?.attributes.apellido}`,
-                `${value.attributes.vendedor.data?.attributes.nombre} ${value.attributes.vendedor.data?.attributes.apellido}`,
-                PayMethod[value.attributes.metodoPago],
-                value.attributes.detalleVentas?.map(detail => (
-                    new SaleDetail(
-                        detail.id,
-                        detail.producto?.data?.attributes.codigo,
-                        detail.producto?.data?.attributes.nombre,
-                        detail.cantidad,
-                        detail.precio,
-                        detail.descuento,
-                        detail.isv
-                    )
-                ))
-            )
-        ))
-    } catch (error) {
-        console.error(error)
-    }
-}
+// const saleMapper = (data) => {
+//     if (!data) return
+//     try {
+//         return data?.map(value => (
+//             new Sale(
+//                 value.id,
+//                 new Date(value.attributes.createdAt)
+//                     .toLocaleDateString('es-ES', {
+//                         day: '2-digit',
+//                         month: '2-digit',
+//                         year: 'numeric'
+//                     }),
+//                 value.attributes.noFactura,
+//                 Status[value.attributes.estado],
+//                 `${value.attributes.cliente.data?.attributes.nombre} ${value.attributes.cliente.data?.attributes.apellido}`,
+//                 `${value.attributes.vendedor.data?.attributes.nombre} ${value.attributes.vendedor.data?.attributes.apellido}`,
+//                 PayMethod[value.attributes.metodoPago],
+//                 value.attributes.detalleVentas?.map(detail => (
+//                     new SaleDetail(
+//                         detail.id,
+//                         detail.producto?.data?.attributes.codigo,
+//                         detail.producto?.data?.attributes.nombre,
+//                         detail.cantidad,
+//                         detail.precio,
+//                         detail.descuento,
+//                         detail.isv
+//                     )
+//                 ))
+//             )
+//         ))
+//     } catch (error) {
+//         console.error(error)
+//     }
+// }
 
 const saleReportMapper = (data) => {
     if (!data) return
@@ -130,6 +130,30 @@ const productMapper = (data) => {
     }
 }
 
+const productsReportMapper = (data) => {
+    if (!data) return
+    try {
+        return data?.map(value => {
+
+            return {
+                'Código Producto': value.codigo,
+                'Nombre Producto': value.nombre,
+                'Descripción': value.descripcion,
+                Descuento: value.descuento,
+                ISV: `${value.isv * 100}%`,
+                'Existencia Actual': value.existencia,
+                'Precio Unitario': value.precio_venta,
+                'Precio Compra': value.precio_compra,
+                Modelo: value.modelo,
+                Estado: productStatus[value.activo]
+
+            }
+        })
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 const userMapper = (data) => {
     if (!data) return
     try {
@@ -151,10 +175,11 @@ const userMapper = (data) => {
 }
 
 export {
-    categoryMapper,
-    saleMapper,
+    // categoryMapper,
+    // saleMapper,
     salesReportMapper,
     saleReportMapper,
     productMapper,
+    productsReportMapper,
     userMapper,
 }

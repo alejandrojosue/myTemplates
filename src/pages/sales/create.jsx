@@ -3,7 +3,8 @@ import Layout from '../../layout/Layout'
 import { useState } from 'react'
 import useFetch from '../../hooks/useFetch'
 import { productMapper } from "../../mapper/mapper";
-import Modal from "../../components/modal/Modal";
+import ModalPay from "../../components/modal/ModalPay";
+import ModalSeekProduct from "../../components/modal/ModalSeekProduct";
 const Create = () => {
     const { data, loading, error, handleEndpoint, handleMethod, handleSendData } = useFetch(`productos?filters[existencia][$gt]=0&filters[activo][$eq]=true`)
     const [amount, setAmount] = useState(0.00)
@@ -93,10 +94,11 @@ const Create = () => {
         }
     ]
     return <Layout title={'Crear Venta'} error={error}>
-        <Modal amount={amount} rows={rows} data={data}
+        <ModalPay amount={amount} rows={rows} data={data}
             handleEndpoint={handleEndpoint}
             handleMethod={handleMethod}
             handleSendData={handleSendData} />
+        <ModalSeekProduct />
         <Datatable rows={rows} setRows={setRows} _columns={COLUMNS} _loading={loading} handleAmount={handleAmount} />
     </Layout>
 }

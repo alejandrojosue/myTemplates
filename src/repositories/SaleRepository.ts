@@ -114,6 +114,30 @@ export default class SaleRepository implements ISaleRepository {
     }
   }
 
+  async getByCurrentMonth(startDate: string): Promise<Sale[]> {
+    try {
+      const response = await fetch(
+          `${this.baseUrl}/${
+              this.prevEndpoint}&filters[$and][0][createdAt][$gte]=${
+              startDate}`,
+          {method: 'GET', headers: {Authorization: `Bearer ${this.token}`}})
+
+      if (response.status == 401 || response.status == 403) {
+        throw new ErrorHandler(`No tiene permiso para acceder a este módulo!`)
+      }
+      if (!response.ok) {
+        throw new ErrorHandler(
+            `Failed to get sales. Status: ${response.status}`)
+      }
+
+      const {data, meta} = await response.json();
+      this.total = meta.pagination.total;
+      return data.map((item: any) => this.mapToSale(item))
+    } catch (error) {
+      throw error
+    }
+  }
+
   async getByPagination(pageSize: number = 25, page: number = 1):
       Promise<Sale[]> {
     try {

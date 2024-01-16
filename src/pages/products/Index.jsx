@@ -32,14 +32,15 @@ const IndexProducts = () => {
     }, [])
     return <Layout title={'Listado de Productos'} error={error} loading={loading}>
         <div className="row pb-2">
-            <ProductsFilters handleProducts={handleProductsList} />
+            <ProductsFilters key={'filters-products'} handleProducts={handleProductsList} />
             <Filters
+                key={'filters'}
                 title={'products'}
                 data={products && productsReportMapper(products)}
                 handlePagination={getAllProducts}
             />
         </div>
-        <DataGrid columns={columns} rows={products} />
+        <DataGrid key={'dataGrid'} columns={columns} rows={products} />
     </Layout>
 }
 

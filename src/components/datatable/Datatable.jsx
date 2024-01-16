@@ -14,6 +14,7 @@ import AddIcon from '@mui/icons-material/Add'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/DeleteOutlined'
 import SaveIcon from '@mui/icons-material/Save'
+import SearchIcon from '@mui/icons-material/Search'
 import SaveAlt from '@mui/icons-material/SaveAlt'
 import CancelIcon from '@mui/icons-material/Close'
 
@@ -60,10 +61,15 @@ function CustomToolbar(props) {
         Agregar Item
       </Button>
       <Button id='btnModal' color="primary" startIcon={<SaveAlt />}
-        data-bs-toggle="modal" data-bs-target="#exampleModal"
+        data-bs-toggle="modal" data-bs-target="#ModalPay"
         onClick={handleSave}>
         Guardar Pago Completo
       </Button>
+      {/* <Button color="primary" startIcon={<SearchIcon />}
+        data-bs-toggle="modal" data-bs-target="#ModalSeekProduct"
+      >
+        Buscar Producto
+      </Button> */}
     </GridToolbarContainer>
   )
 }

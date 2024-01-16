@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Suspense } from 'react'
 import Navbar from '../components/navbar/Navbar'
 import SimpleBackdrop from '../components/backdrop/SimpleBackdrop'
 import ErrorComponent from '../components/error/error'
@@ -8,7 +8,7 @@ const Layout = ({ title, children, loading = false, error = null, link = '/produ
     document.title = title
     if (error) return <ErrorComponent error={error.toString()} link={link} />
     return (
-        <div>
+        <>
             {loading && <SimpleBackdrop />}
             <Navbar />
             <div className='container-fluid pb-2'>
@@ -17,7 +17,7 @@ const Layout = ({ title, children, loading = false, error = null, link = '/produ
                 </p>
                 {children}
             </div>
-        </div>
+        </>
     )
 }
 

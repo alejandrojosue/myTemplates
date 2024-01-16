@@ -11,9 +11,9 @@ export default class Sale {
 
 export enum Status {
   Pagada = 'Pagada',
-  'No Pagada' = 'No Pagada',
+  'No Pagada' = 'No-Pagada',
   Anulada = 'Anulada',
-  'Parcialmente Pagada' = 'Parcialmente Pagada'
+  'Parcialmente Pagada' = 'Parcialmente-Pagada'
 }
 
 export enum PayMethod {

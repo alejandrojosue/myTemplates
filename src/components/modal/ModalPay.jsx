@@ -2,7 +2,7 @@ import { useState } from "react"
 import { userMapper } from "../../mapper/mapper"
 import { PayMethod, Status } from "../../models/Sale"
 
-const Modal = ({ amount, rows, data, handleEndpoint, handleSendData, handleMethod }) => {
+const ModalPay = ({ amount, rows, data, handleEndpoint, handleSendData, handleMethod }) => {
     const [customerID, setCustomerID] = useState('')
     const [customerRTN, setCustomerRTN] = useState('')
     const [customerName, setCustomerName] = useState('')
@@ -71,11 +71,10 @@ const Modal = ({ amount, rows, data, handleEndpoint, handleSendData, handleMetho
             }
         })
         handleEndpoint('ventas')
-
     }
 
     return <>
-        <div className="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal fade" id="ModalPay" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">
@@ -97,6 +96,7 @@ const Modal = ({ amount, rows, data, handleEndpoint, handleSendData, handleMetho
                             <div>
                                 <label className="col-form-label">Método de Pago (L.):</label>
                                 <select required
+                                    key={'select-efectivo'}
                                     className="form-select" id="payment-method"
                                     defaultValue="Efectivo"
                                     onChange={handleSelect}>
@@ -129,4 +129,4 @@ const Modal = ({ amount, rows, data, handleEndpoint, handleSendData, handleMetho
     </>
 }
 
-export default Modal
+export default ModalPay

@@ -9,7 +9,7 @@ const ProductsFilters = ({ handleProducts }) => {
     }, [])
     return (
         <div className='col-12 col-sm-12 col-lg-5'>
-            <div className="filters">
+            <div className="filters row">
                 <div className="col-12 col-sm-6 col-lg-6">
                     <label className="form-label text-secondary">Categorías:</label>
                     <select key={'categories'} name="categoria" className='selectCategory w-100' id="categoria" onChange={(e) => handleSubcategoriesList(e.target.value)}>
@@ -23,13 +23,13 @@ const ProductsFilters = ({ handleProducts }) => {
                         }
                     </select>
                 </div>
-                <div className="col-12 col-sm-6 col-lg-6 px-1">
+                <div className="col-12 col-sm-6 col-lg-6">
                     <label className="form-label text-secondary">Subcategorías:</label>
                     <select key={'subcategories'} name="subcategoria" className='selectSubcategory w-100' id="subcategoria" onChange={e => {
                         if (e.target.value !== 'none')
                             handleProducts(parseInt((e.target.value).trim()))
                     }}>
-                        <option value="none">Seleccione una Subcategoría</option>
+                        <option key={'none'} value="none">Seleccione una Subcategoría</option>
                         {
                             subcategories.map(data => (
                                 <option key={data.id} value={data.id}>
@@ -39,7 +39,6 @@ const ProductsFilters = ({ handleProducts }) => {
                         }
                     </select>
                 </div>
-
             </div>
         </div >
     )

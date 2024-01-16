@@ -15,6 +15,7 @@ interface SaleServiceHook {
   getById: (id: string) => Promise<void>;
   getByPagination: (pageSize: number, page: number) => Promise<void>;
   getByDateRange: (startDate: string, endDate: string) => Promise<void>;
+  getByCurrentMonth: () => Promise<void>;
   getByRTNCustomer: (rtn: string) => Promise<void>;
   getByRTNnInvoice: (nInvoice: string) => Promise<void>;
   createSale: (sale: Sale) => Promise<void>;
@@ -75,6 +76,15 @@ const useSaleServices = (): SaleServiceHook => {
     await fetchData(() => saleRepository.getByDateRange(startDate, endDate));
   };
 
+  const getByCurrentMonth =
+      async () => {
+    const startDate =
+        new Date(new Date('11-1-2023').setDate(1)).setHours(0, 0, 0);
+    await fetchData(
+        () => saleRepository.getByCurrentMonth(
+            new Date(startDate).toISOString()));
+  }
+
   const getByRTNCustomer =
       async (rtn: string) => {
     if (rtn.trim().length < 10 || rtn.trim().length > 14) return;
@@ -91,7 +101,7 @@ const useSaleServices = (): SaleServiceHook => {
 
   return {
     ...state, getAllSales, getByPagination, createSale, getByDateRange,
-        getByRTNCustomer, getById, getByRTNnInvoice
+        getByCurrentMonth, getByRTNCustomer, getById, getByRTNnInvoice
   }
 };
 

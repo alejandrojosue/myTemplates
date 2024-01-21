@@ -8,5 +8,12 @@ export default defineConfig({
   server: {
     port: 3001,
     open: true,
+    resolve: {
+      alias: {
+        // Otros alias que puedas tener
+        '@': '/src',
+      },
+      extensions: ['.js', '.ts', '.jsx', '.tsx', '.json'],
+    },
   }
 })

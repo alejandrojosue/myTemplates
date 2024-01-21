@@ -1,3 +1,4 @@
+import './sales.scss'
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom'
 
@@ -6,9 +7,9 @@ import Layout from '../../layout/Layout';
 import Details from '../../components/table/Details';
 const View = () => {
     const { id } = useParams();
-    const { sales, loading, error, getByRTNnInvoice } = useSaleServices()
+    const { sales, loading, error, getByNInvoice } = useSaleServices()
     useEffect(() => {
-        getByRTNnInvoice(id);
+        getByNInvoice(id);
     }, [])
 
     return (
@@ -53,7 +54,7 @@ const View = () => {
             </div>
             <div className="row">
                 <div className="formInput">
-                    <label className='pb-2'>Detalle Factura:</label>
+                    <label className='fw-bold text-secondary pb-2'>Detalle Factura:</label>
                     <Details details={sales.length ? sales[0].detalleVentas : []} />
                 </div>
             </div>

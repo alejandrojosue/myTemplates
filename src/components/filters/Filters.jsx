@@ -16,6 +16,7 @@ const Filters = ({ title, pageSize = 0, data, handlePagination }) => {
                 </div>
                 <div className="col-12 col-sm-6 col-lg-3 pt-1">
                     <CSVLink
+                        key={'btn-export-csv'}
                         className="btn btn-outline-success  w-100 text-decoration-none"
                         data={data}
                         separator={";"}

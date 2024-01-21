@@ -32,14 +32,18 @@ export default class UserRepository {
       }
 
       const responseData = await response.json()
-      if (responseData.jwt) {
-        return new UserResponse(responseData.jwt, '')
+      console.log(responseData)
+      const {jwt, user} = responseData;
+      const {id, nombre, apellido} = user;
+      if (jwt) {
+        return new UserResponse(
+            jwt, id, `${nombre} ${apellido}`, new Date().getTime())
       }
     } catch (error) {
       if (error instanceof ErrorHandler)
         throw error
         else throw new ErrorFetch(error.message)
     }
-    return new UserResponse('', '')
+    return new UserResponse('', 0, '', 0)
   }
 }

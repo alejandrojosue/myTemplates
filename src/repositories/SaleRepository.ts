@@ -17,8 +17,11 @@ export default class SaleRepository implements ISaleRepository {
   constructor() {
     this.baseUrl = apiBaseUrl;
   }
-  async getByNInvoice(nInvoice: string): Promise<Sale> {
+  async getByNInvoice(nInvoice: number): Promise<Sale> {
     try {
+      if (nInvoice % 1 !== 0) {
+        throw new ErrorHandler(`Número de Factura Inválido: ${nInvoice}`)
+      }
       const response = await fetch(
           `${this.baseUrl}/${this.prevEndpoint}&filters[noFactura]=${nInvoice}`,
           {method: 'GET', headers: {Authorization: `Bearer ${this.token}`}});
@@ -26,9 +29,13 @@ export default class SaleRepository implements ISaleRepository {
         throw new ErrorHandler(`No tiene permiso para acceder a este módulo!`)
       }
 
+      if (response.status == 404) {
+        throw new ErrorHandler(`No se ha encontrado la factura!`)
+      }
+
       if (!response.ok) {
         throw new ErrorHandler(
-            `Failed to get sales. Status: ${response.statusText}`)
+            `Failed to get sales. Status: ${response.status}`)
       }
 
       const {data} = await response.json();
@@ -74,6 +81,11 @@ export default class SaleRepository implements ISaleRepository {
           {method: 'GET', headers: {Authorization: `Bearer ${this.token}`}});
       if (response.status == 401 || response.status == 403) {
         throw new ErrorHandler(`No tiene permiso para acceder a este módulo!`)
+      }
+
+      if (response.status == 404) {
+        throw new ErrorHandler(
+            `Factura no Encontrada.`, response.status.toString())
       }
 
       if (!response.ok) {
@@ -192,16 +204,17 @@ export default class SaleRepository implements ISaleRepository {
 
   async create(sale: Sale): Promise<Sale> {
     try {
+      const dataSale = {data: sale};
       const response = await fetch(`${this.baseUrl}/ventas`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(sale),
+        body: JSON.stringify(dataSale),
       })
 
       if (response.status == 401 || response.status == 403) {
-        throw new ErrorHandler(`No tiene permiso para acceder a este módulo!`)
+        throw new ErrorHandler(`No tiene permiso para crear facturas!`)
       }
 
       if (!response.ok) {
@@ -231,7 +244,8 @@ export default class SaleRepository implements ISaleRepository {
         new User(
             item.attributes.cliente.data.id, '',
             item.attributes.cliente.data.attributes.nombre,
-            item.attributes.cliente.data.attributes.apellido),
+            item.attributes.cliente.data.attributes.apellido,
+            item.attributes.cliente.data.attributes.RTN),
         new User(
             item.attributes.vendedor.data.attributes.id, '',
             item.attributes.vendedor.data.attributes.nombre,

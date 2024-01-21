@@ -35,6 +35,7 @@ const useProductService = (): SubcategoryServiceHook => {
   const getAll = async () => {
     try {
       setState((prev) => ({...prev, loading: true, error: null}));
+
       const categories = await subcategoryRepository.getAllCategories()
       const subcategories = await subcategoryRepository.getSubcategories()
       setState({

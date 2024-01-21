@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import Navbar from '../components/navbar/Navbar'
 import SimpleBackdrop from '../components/backdrop/SimpleBackdrop'
 import ErrorComponent from '../components/error/error'

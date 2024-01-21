@@ -1,5 +1,6 @@
 import Category from "../models/Category"
 import Product, { productStatus } from "../models/Product"
+import { ReturnStatus } from "../models/Return"
 import Sale, { PayMethod, Status } from "../models/Sale"
 import SaleDetail from "../models/SaleDetail"
 import User from "../models/user/User"
@@ -154,6 +155,27 @@ const productsReportMapper = (data) => {
     }
 }
 
+const returnsReportMapper = (data) => {
+    if (!data) return
+    try {
+        return data?.flatMap(value => (
+            value.detalleDevoluciones.map(detail => ({
+                "No. Factura": value.noFactura,
+                'Estado': ReturnStatus[value.estado],
+                'Fecha': value.fecha,
+                Vendedor: `${value.vendedor.firstName} ${value.vendedor.lastName}`,
+                'Nombre Cliente': `${value.cliente.firstName} ${value.cliente.lastName}`,
+                'Código Producto': 'P' + detail.producto?.codigo,
+                'Nombre Producto': detail.producto.nombre,
+                'Cantidad': detail.cantidad,
+                'Motivo': detail.motivo,
+            }))
+        ))
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 const userMapper = (data) => {
     if (!data) return
     try {
@@ -181,5 +203,6 @@ export {
     saleReportMapper,
     productMapper,
     productsReportMapper,
+    returnsReportMapper,
     userMapper,
 }

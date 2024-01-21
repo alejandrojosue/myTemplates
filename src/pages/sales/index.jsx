@@ -139,7 +139,7 @@ const Index = () => {
     }
     return (
         <Layout title={'Listado de Ventas'} loading={loading} error={error}>
-            <div className="row">
+            <div className="row mb-2">
                 <SalesFilters
                     handlePagination={getByPagination}
                     handlePage={setPage}

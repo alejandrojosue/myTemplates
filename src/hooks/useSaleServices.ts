@@ -17,9 +17,9 @@ interface SaleServiceHook {
   getByDateRange: (startDate: string, endDate: string) => Promise<void>;
   getByCurrentMonth: () => Promise<void>;
   getByRTNCustomer: (rtn: string) => Promise<void>;
-  getByRTNnInvoice: (nInvoice: string) => Promise<void>;
+  getByNInvoice: (nInvoice: number) => Promise<void>;
   createSale: (sale: Sale) => Promise<void>;
-  sales: Sale[];
+  sales: Sale[]|Sale;
   total: number;
   loading: boolean;
   error: string|null;
@@ -33,7 +33,6 @@ const useSaleServices = (): SaleServiceHook => {
     loading: false,
     error: null,
   });
-
 
   const fetchData = async (fetchFunction: () => Promise<Sale[]|Sale>) => {
     try {
@@ -91,7 +90,7 @@ const useSaleServices = (): SaleServiceHook => {
     await fetchData(() => saleRepository.getByRTNCustomer(rtn.trim()))
   }
 
-  const getByRTNnInvoice = async (nInvoice: string) => {
+  const getByNInvoice = async (nInvoice: number) => {
     await fetchData(() => saleRepository.getByNInvoice(nInvoice))
   };
 
@@ -101,7 +100,7 @@ const useSaleServices = (): SaleServiceHook => {
 
   return {
     ...state, getAllSales, getByPagination, createSale, getByDateRange,
-        getByCurrentMonth, getByRTNCustomer, getById, getByRTNnInvoice
+        getByCurrentMonth, getByRTNCustomer, getById, getByNInvoice
   }
 };
 

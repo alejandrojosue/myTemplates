@@ -96,11 +96,11 @@ const ModalPay = ({ amount, rows, data, handleEndpoint, handleSendData, handleMe
                             <div>
                                 <label className="col-form-label">Método de Pago (L.):</label>
                                 <select required
-                                    key={'select-efectivo'}
+                                    key={'select-efectivo-se'}
                                     className="form-select" id="payment-method"
                                     defaultValue="Efectivo"
                                     onChange={handleSelect}>
-                                    {Object.values(PayMethod).map(value => <option value={value}>{value}</option>)}
+                                    {Object.values(PayMethod).map(value => <option value={value} key={`select-efectivo-se${value}`}>{value}</option>)}
                                 </select>
                             </div>
                             <div>

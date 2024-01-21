@@ -5,7 +5,8 @@ export default class Return {
   constructor(
       public id: number, public fecha: string, public estado: ReturnStatus,
       public vendedor: Partial<User>, public noFactura: number,
-      public detalleDevoluciones: Array<ReturnDetail>) {}
+      public detalleDevoluciones: Array<ReturnDetail>,
+      public cliente?: Partial<User>) {}
 }
 
 export enum ReturnStatus {

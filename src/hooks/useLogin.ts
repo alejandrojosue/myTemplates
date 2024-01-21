@@ -1,4 +1,5 @@
 import UserRequest from '../models/user/UserRequest'
+import UserResponse from '../models/user/UserResponse';
 import UserRepository from '../repositories/UserRepository';
 import ErrorFetch from '../util/ErrorFetch';
 
@@ -8,9 +9,13 @@ const useLogin = () => {
       const userRequest = new UserRequest(identifier, password);
       new UserRepository()
           .login(userRequest)
-          .then(res => {
+          .then((res) => {
             if (res.jwt !== '') {
-              sessionStorage.setItem('daiswadod', res.jwt)
+              console.log(res)
+              sessionStorage.setItem('daiswadod', res.jwt);
+              sessionStorage.setItem('userID', res.id.toString());
+              sessionStorage.setItem('userName', res.nombre);
+              sessionStorage.setItem('SESSION_TIME', res.fecha.toString());
               location.href = '/home'
             }
           })

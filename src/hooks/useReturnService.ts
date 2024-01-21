@@ -1,13 +1,9 @@
-import {useState} from 'react';
-
-import Return from '../models/Return';
+import Product from '../models/Product_';
+import Return, {ReturnStatus} from '../models/Return';
+import ReturnDetail from '../models/ReturnDetail';
+import User from '../models/user/User';
 import ReturnRepository from '../repositories/ReturnRepository';
-
-interface IHookState {
-  returns: Return[];
-  loading: boolean;
-  error: string|null;
-}
+import dataFetching from '../util/dataFetching';
 
 interface ReturnServiceHook {
   getAll: () => Promise<void>;
@@ -16,8 +12,8 @@ interface ReturnServiceHook {
   getByDateRange: (startDate: string, endDate: string) => Promise<void>;
   getByRTNCustomer: (rtn: string) => Promise<void>;
   getByRTNnInvoice: (nInvoice: string) => Promise<void>;
-  createReturn: (_return: Return) => Promise<void>;
-  returns: Return[];
+  createReturn: (details: [], noFactura: number) => Promise<void>;
+  returns: Return[]|Return;
   loading: boolean;
   error: string|null;
 }
@@ -25,27 +21,13 @@ interface ReturnServiceHook {
 const useReturnService = ():
     ReturnServiceHook => {
       const returnRepository = new ReturnRepository();
-      const [state, setState] = useState<IHookState>({
-        returns: [],
-        loading: false,
-        error: null,
-      });
+      const {
+        data: returns,
+        loading,
+        error,
+        fetchData,
+      } = dataFetching<Return>();
 
-      const fetchData =
-          async (fetchFunction: () => Promise<Return[]|Return>) => {
-        try {
-          setState((prev) => ({...prev, loading: true, error: null}));
-          const data = await fetchFunction();
-          const dataArray = Array.isArray(data) ? data : [data];
-          setState({returns: dataArray, loading: false, error: null});
-        } catch (error) {
-          setState({
-            returns: [],
-            loading: false,
-            error: error.message || 'Error fetching data'
-          });
-        }
-      };
 
       const getAll = async () => {
         await fetchData(() => returnRepository.getAll())
@@ -57,8 +39,13 @@ const useReturnService = ():
       const getByPagination = async () => {
 
       };
-      const getByDateRange = async () => {
-
+      const getByDateRange = async (_startDate: string, _endDate: string) => {
+        const startDate =
+            new Date(new Date(_startDate).setHours(0, 0, 0)).toISOString();
+        const endDate =
+            new Date(new Date(_endDate).setHours(23, 59, 59)).toISOString();
+        await fetchData(
+            () => returnRepository.getByDateRange(startDate, endDate))
       };
       const getByRTNCustomer = async () => {
 
@@ -67,13 +54,32 @@ const useReturnService = ():
 
       };
       const createReturn =
-          async () => {
+          async (details: [], noFactura: number) => {
+        if (!details.length) {
+          alert('Aún no ha añadido ningún valor a la lista!')
+          return
+        }
+        if (details.find(({motivo}) => motivo === '')) {
+          alert('Debe ingresar todos los motivos de devolución!')
+          return
+        }
+        const detalleDevoluciones =
+            details.map(({producto, cantidad, motivo}) => {
+              const {id} = producto;
+              return new ReturnDetail(new Product(id), cantidad, motivo)
+            });
 
+        const _return = new Return(
+            0, '', ReturnStatus['Entregada'], new User(1), noFactura,
+            detalleDevoluciones);
+
+        await fetchData(() => returnRepository.create(_return));
+        setTimeout(() => window.location.href = '/returns', 1000)
       }
 
       return {
-        ...state, getAll, getById, getByPagination, getByDateRange,
-            getByRTNCustomer, getByRTNnInvoice, createReturn,
+        returns, loading, error, getAll, getById, getByPagination,
+            getByDateRange, getByRTNCustomer, getByRTNnInvoice, createReturn,
       }
     }
 

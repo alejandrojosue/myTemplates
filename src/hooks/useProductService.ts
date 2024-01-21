@@ -1,14 +1,6 @@
-import {useState} from 'react';
-
 import Product from '../models/Product_';
 import ProductRepository from '../repositories/ProductRepository';
-
-interface IHookState {
-  products: Product[];
-  productsTemp: Product[];
-  loading: boolean;
-  error: string|null;
-}
+import dataFetching from '../util/dataFetching';
 
 interface ProductServiceHook {
   getAllProducts: () => Promise<void>;
@@ -20,43 +12,25 @@ interface ProductServiceHook {
       (productId: string,
        updatedProductData: Partial<Product>) => Promise<void>;
   handleProductsList: (subcategoryId: number) => void;
-  products: Product[];
-  productsTemp: Product[];
+  products: Product[]|Product;
+  productsTemp: Product[]|Product;
   loading: boolean;
   error: string|null;
 }
 
 const useProductService = (): ProductServiceHook => {
   const productRepository = new ProductRepository();
-  const [state, setState] = useState<IHookState>({
-    products: [],
-    productsTemp: [],
-    loading: false,
-    error: null,
-  })
-  const fetchData = async (fetchFunction: () => Promise<Product[]|Product>) => {
-    try {
-      setState((prev) => ({...prev, loading: true, error: null}));
-      const data = await fetchFunction();
-      const dataArray = Array.isArray(data) ? data : [data];
-      setState({
-        products: dataArray,
-        productsTemp: dataArray,
-        loading: false,
-        error: null
-      });
-    } catch (error) {
-      setState({
-        products: [],
-        productsTemp: [],
-        loading: false,
-        error: error.message || 'Error fetching data'
-      });
-    }
-  };
+  const {
+    data: products,
+    temp: productsTemp,
+    loading,
+    error,
+    fetchData,
+    handleTemp
+  } = dataFetching<Product>();
 
   const getAllProducts = async () => {
-    await fetchData(() => productRepository.getAll());
+    fetchData(() => productRepository.getAll());
   };
 
   const getById = (id: string) => {
@@ -68,26 +42,32 @@ const useProductService = (): ProductServiceHook => {
   };
 
   const getProductsBySKU = async (sku: string) => {
-    await fetchData(() => productRepository.getBySKU(sku));
+    fetchData(() => productRepository.getBySKU(sku));
   };
 
   const createProduct = async (product: Product) => {
-    await fetchData(() => productRepository.createProduct(product));
+    fetchData(() => productRepository.createProduct(product));
   };
 
   const updateProduct =
       async (productId: string, updatedProductData: Partial<Product>) => {
-    await fetchData(
+    fetchData(
         () => productRepository.updateProduct(productId, updatedProductData));
   };
 
   const handleProductsList = (subcategoryId: number) => {
-    const products = state.productsTemp.filter(
-        product => product.subcategoria.some(p => p.id == subcategoryId));
-    setState(prev => ({...prev, products}));
+    if (productsTemp instanceof Array) {
+      const products = productsTemp.filter(
+          product => (product.subcategoria.some(
+              subcategory => subcategory.id == subcategoryId)));
+      handleTemp(products)
+    }
   };
   return {
-    ...state,
+    products,
+    productsTemp,
+    loading,
+    error,
     getAllProducts,
     getById,
     getProductsBySubcategory,

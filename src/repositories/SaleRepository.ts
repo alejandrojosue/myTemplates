@@ -1,3 +1,4 @@
+// @ts-ignore
 import {apiBaseUrl} from '../config/apiConfig'
 import Product from '../models/Product_'
 import Sale, {PayMethod, Status} from '../models/Sale_'
@@ -16,6 +17,7 @@ export default class SaleRepository implements ISaleRepository {
 
   constructor() {
     this.baseUrl = apiBaseUrl;
+    this.total = 0;
   }
   async getByNInvoice(nInvoice: number): Promise<Sale> {
     try {
@@ -232,9 +234,10 @@ export default class SaleRepository implements ISaleRepository {
   private mapToSale(item: any): Sale {
     return new Sale(
         item.id, item.attributes?.noFactura,
+        // @ts-ignore
         PayMethod[item.attributes.metodoPago], Status[item.attributes.estado],
         item.attributes.detalleVentas?.map(
-            detail => new SaleDetail(
+            (detail: any) => new SaleDetail(
                 detail.id,
                 new Product(
                     detail.producto.data.id,

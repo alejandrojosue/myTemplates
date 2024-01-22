@@ -51,6 +51,7 @@ const useProductService = (): SubcategoryServiceHook => {
         categories: [],
         subcategoriesTemp: [],
         loading: false,
+        // @ts-ignore
         error: error.message || 'Error fetching data'
       });
     }

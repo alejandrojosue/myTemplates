@@ -29,6 +29,7 @@ const IndexProducts = () => {
     const { loading, error, products, handleProductsList, getAllProducts } = useProductService()
     useEffect(() => {
         getAllProducts()
+        // eslint-disable-next-line 
     }, [])
     return <Layout title={'Listado de Productos'} error={error} loading={loading}>
         <div className="row pb-2">

@@ -20,7 +20,7 @@ const Create = () => {
 
     useEffect(() => {
         getByNInvoice(ninvoice)
-    }, [])
+    }, [getByNInvoice, ninvoice])
 
     useEffect(() => {
         if (errorReturn) alert(errorReturn)
@@ -62,13 +62,13 @@ const Create = () => {
                 <div className="formInput col-12 col-sm-6 col-lg-3 mb-1">
                     <label>Cliente:</label>
                     <input type='text' className='col-12'
-                        value={sales.length ? `${sales[0].cliente.firstName} ${sales[0].cliente.lastName}` : ""}
+                        value={sales.length ? `${sales[0].cliente.firstName} ${sales[0].cliente.lastName}` : ''}
                         readOnly />
                 </div>
                 <div className="formInput col-12 col-sm-6 col-lg-3 mb-1">
                     <label>Vendedor:</label>
                     <input type='text' className='col-12'
-                        value={sales.length ? `${sales[0].vendedor.firstName} ${sales[0].vendedor.lastName}` : ""}
+                        value={sales.length ? `${sales[0].vendedor.firstName} ${sales[0].vendedor.lastName}` : ''}
                         readOnly />
                 </div>
                 <div className="formInput col-12 col-sm-6 col-lg-3 mb-1">

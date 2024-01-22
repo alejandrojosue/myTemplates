@@ -20,14 +20,27 @@ const useCompanyService = () => {
 
   useEffect(() => {
     try {
+      if (localStorage.getItem('companyData')) {
+        const companyData = JSON.parse(localStorage.getItem('companyData') + '')
+        setState(companyData)
+        return;
+      }
       setState((prev) => ({...prev, loading: true, error: null}));
       companyRepository.get()
-          .then(company => {setState({company, loading: false, error: null})})
-          .catch(error => {setState({company: null, loading: false, error})});
+          .then(company => {
+            setState({company, loading: false, error: null});
+            localStorage.setItem('companyData', JSON.stringify(state));
+          })
+          .catch(error => {
+            setState({company: null, loading: false, error});
+            localStorage.removeItem('companyData');
+          });
     } catch (error) {
+      localStorage.removeItem('companyData');
       setState({
         company: null,
         loading: false,
+        // @ts-ignore
         error: error.message || 'Error fetching data'
       });
     }

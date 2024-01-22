@@ -1,5 +1,5 @@
-import MuiDateRange from "../DateRange/MuiDateRange"
-
+import MuiDateRange from '../DateRange/MuiDateRange'
+// eslint-disable-next-line 
 const SalesFilters = ({ handlePage, handlePagination, handleDateRange, handleCustomer }) => {
     const _handleDateRange = (selectedDateRange) => {
         if (!selectedDateRange) {

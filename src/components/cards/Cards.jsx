@@ -1,9 +1,10 @@
 import './cards.scss'
-import Card from './Card'
+// import Card from './Card'
 // import { categoryMapper } from '../../mapper/mapper'
 import useFetch from '../../hooks/useFetch'
-import CardLoading from './CardLoading'
+// import CardLoading from './CardLoading'
 const Cards = () => {
+    // eslint-disable-next-line 
     const { data, meta, loading } = useFetch('categories')
     document.title = 'Cards'
     return (

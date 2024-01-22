@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-import { fetchDataFromAPI } from "../util/api"
+import { useEffect, useState } from 'react'
+import { fetchDataFromAPI } from '../util/api'
 const useFetch = (_endpoint, _method = 'GET', _data = null) => {
     const [data, setData] = useState([])
     const [meta, setMeta] = useState({})
@@ -11,6 +11,7 @@ const useFetch = (_endpoint, _method = 'GET', _data = null) => {
 
     useEffect(() => {
         makeApiCall()
+        // eslint-disable-next-line
     }, [endpoint])
 
     const handleEndpoint = (endpoint) => setEndpoint(endpoint)

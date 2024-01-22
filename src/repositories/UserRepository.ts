@@ -1,3 +1,4 @@
+// @ts-ignore
 import {apiBaseUrl} from '../config/apiConfig'
 import UserRequest from '../models/user/UserRequest'
 import UserResponse from '../models/user/UserResponse'
@@ -40,8 +41,8 @@ export default class UserRepository {
             jwt, id, `${nombre} ${apellido}`, new Date().getTime())
       }
     } catch (error) {
-      if (error instanceof ErrorHandler)
-        throw error
+      if (error instanceof ErrorHandler) throw error
+        // @ts-ignore
         else throw new ErrorFetch(error.message)
     }
     return new UserResponse('', 0, '', 0)

@@ -2,10 +2,10 @@ import './home.scss'
 import Layout from '../../layout/Layout'
 import AssignmentReturnIcon from '@mui/icons-material/AssignmentReturn';
 import QrCodeIcon from '@mui/icons-material/QrCode'
-import InsertChartIcon from "@mui/icons-material/InsertChart";
-import DashboardIcon from "@mui/icons-material/Dashboard";
+import InsertChartIcon from '@mui/icons-material/InsertChart';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import CardHome from '../../components/cards/CardHome';
-import CreditCardIcon from "@mui/icons-material/CreditCard"
+import CreditCardIcon from '@mui/icons-material/CreditCard'
 import SummarizeIcon from '@mui/icons-material/Summarize'
 
 const Home = () => {
@@ -51,9 +51,9 @@ const Home = () => {
         <Layout
             title={'Módulos del Sistema'}
         >
-            <div className="row" key={`row-row`}>
-                <div className="container px-4" key={`row-row-1`}>
-                    <div className="row row-cols-1 row-cols-lg-3" key={`row-modules`}>
+            <div className="row" key={'row-row'}>
+                <div className="container px-4" key={'row-row-1'}>
+                    <div className="row row-cols-1 row-cols-lg-3" key={'row-modules'}>
                         {modules.map(({ name, description, link, icon }, index) => (
                             <CardHome key={`card-home-${index}`} title={name} description={description} link={link} icon={icon} index={index} />
                         ))}

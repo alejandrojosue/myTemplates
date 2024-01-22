@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom"
-import exportPDFReport from "../../helpers/exportPDFReport"
-import { CSVLink } from "react-csv"
-
+import { Link } from 'react-router-dom'
+import exportPDFReport from '../../helpers/exportPDFReport'
+import { CSVLink } from 'react-csv'
+// eslint-disable-next-line 
 const Filters = ({ title, pageSize = 0, data, handlePagination }) => {
     return <div className="col-12 col-sm-12 col-lg-7">
         <div className="col-12 col-sm-12 col-lg-12 mt-2 mt-2 pt-3">
@@ -19,7 +19,7 @@ const Filters = ({ title, pageSize = 0, data, handlePagination }) => {
                         key={'btn-export-csv'}
                         className="btn btn-outline-success  w-100 text-decoration-none"
                         data={data}
-                        separator={";"}
+                        separator={';'}
                         filename={`Report_${title}.csv`}>
                         Exportar CSV
                     </CSVLink>

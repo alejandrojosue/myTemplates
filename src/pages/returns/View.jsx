@@ -9,6 +9,7 @@ const View = () => {
     const { id } = useParams();
     useEffect(() => {
         getById(id)
+        // eslint-disable-next-line 
     }, [])
     return (
         <Layout title={'Devolución #' + id} loading={loading} error={error} link='/returns'>

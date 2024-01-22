@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import useSubcategoryService from '../../hooks/useSubcategoryService'
-
+// eslint-disable-next-line 
 const ProductsFilters = ({ handleProducts }) => {
     const { subcategories, categories, getAll, handleSubcategoriesList } = useSubcategoryService();
     useEffect(() => {
         getAll()
         handleSubcategoriesList('none')
+        // eslint-disable-next-line 
     }, [])
     return (
         <div className='col-12 col-sm-12 col-lg-5'>
@@ -16,7 +17,7 @@ const ProductsFilters = ({ handleProducts }) => {
                         <option key={'none1'} value="none">Seleccione una Categoria</option>
                         {
                             categories.map(data => (
-                                <option key={data.id} value={data.name}>
+                                <option key={data.name + '-categories'} value={data.name}>
                                     {data.name}
                                 </option>
                             ))
@@ -29,10 +30,10 @@ const ProductsFilters = ({ handleProducts }) => {
                         if (e.target.value !== 'none')
                             handleProducts(parseInt((e.target.value).trim()))
                     }}>
-                        <option key={'none'} value="none">Seleccione una Subcategoría</option>
+                        <option key={'none-subcategories'} value="none">Seleccione una Subcategoría</option>
                         {
                             subcategories.map(data => (
-                                <option key={data.id} value={data.id}>
+                                <option key={data.id + '-subcategories'} value={data.id}>
                                     {data.nombre}
                                 </option>
                             ))

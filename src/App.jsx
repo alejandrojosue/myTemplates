@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Loading from './components/backdrop/Loading'
 
 const ProtectedRouted = lazy(() => import('./auth/ProtectedRouted'))
@@ -13,6 +13,7 @@ const IndexProducts = lazy(() => import('./pages/products/Index'))
 const IndexReturns = lazy(() => import('./pages/returns/Index'))
 const IndexOrders = lazy(() => import('./pages/orders/Index'))
 const IndexReport = lazy(() => import('./pages/reports/Index'))
+const Profile = lazy(() => import('./pages/profile/Index'))
 
 const ProductView = lazy(() => import('./pages/products/View'))
 const SaleView = lazy(() => import('./pages/sales/View'))
@@ -26,6 +27,7 @@ const SalesList = lazy(() => import('./pages/returns/SalesList'))
 
 function App() {
   // Rutas en las que se debe evitar la recarga o salida
+  // eslint-disable-next-line 
   const pathsPrevent = [
     '/sales/new',
     '/returns/new/:id',
@@ -40,7 +42,7 @@ function App() {
       window.addEventListener('beforeunload', handleBeforeUnload)
       return () => window.removeEventListener('beforeunload', handleBeforeUnload)
     }
-  }, [])
+  }, [pathsPrevent])
 
   return (
     <Router>
@@ -50,6 +52,7 @@ function App() {
           <Route path="/" element={<ProtectedRouted />}>
             <Route index element={<Home />} />
             <Route path='home' element={<Home />} />
+            <Route path='profile' element={<Profile />} />
             <Route path='dashboard' element={<Dashboard />} />
             <Route path='sales'>
               <Route index element={<IndexSales />} />

@@ -1,9 +1,9 @@
-import Layout from "../layout/Layout"
+import Layout from '../layout/Layout'
 import useCompanyService from '../hooks/useCompanyService'
 const Home = () => {
     const { company, error, loading } = useCompanyService()
     return <Layout title={'Mi empresa'} loading={loading} error={error}>
-        <div className="card" style={{ width: "18rem" }}>
+        <div className="card" style={{ width: '18rem' }}>
             <div className="card-body">
                 <h5 className="card-title">{company?.nombre}</h5>
                 <h6 className="card-subtitle mb-2 text-muted">{company?.lema}</h6>

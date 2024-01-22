@@ -105,6 +105,10 @@ Row.propTypes = {
     row: PropTypes.shape({
         id: PropTypes.number.isRequired,
         fecha: PropTypes.string.isRequired,
+        cliente: PropTypes.object.isRequired,
+        vendedor: PropTypes.object.isRequired,
+        estado: PropTypes.string.isRequired,
+        metodoPago: PropTypes.string.isRequired,
         noFactura: PropTypes.number.isRequired,
         detalleVentas: PropTypes.arrayOf(
             PropTypes.shape({
@@ -127,6 +131,7 @@ const Index = () => {
 
     useEffect(() => {
         getByPagination(rowsPerPage, page + 1)
+        // eslint-disable-next-line 
     }, [page, rowsPerPage])
 
     const handleChangePage = (event, newPage) => {
@@ -176,7 +181,7 @@ const Index = () => {
                         </TableHead>
                         <TableBody>
                             {sales.length ? sales.map((row) => (
-                                <Row key={row.id} row={row} />)) : ''}
+                                <Row key={row.id} row={row} />)) : null}
                         </TableBody>
                     </Table>
                 </TableContainer>

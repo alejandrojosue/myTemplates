@@ -1,7 +1,7 @@
-import { useState } from "react"
-import { userMapper } from "../../mapper/mapper"
-import { PayMethod, Status } from "../../models/Sale"
-
+import { useState } from 'react'
+import { userMapper } from '../../mapper/mapper'
+import { PayMethod, Status } from '../../models/Sale'
+// eslint-disable-next-line 
 const ModalPay = ({ amount, rows, data, handleEndpoint, handleSendData, handleMethod }) => {
     const [customerID, setCustomerID] = useState('')
     const [customerRTN, setCustomerRTN] = useState('')
@@ -11,6 +11,7 @@ const ModalPay = ({ amount, rows, data, handleEndpoint, handleSendData, handleMe
         setCustomerName('')
         if ((e.target.value.trim()).length === 14) {
             handleEndpoint(`users?populate=role&filters[role][name][$eq]=Clientes&filters[blocked]=false&filters[confirmed]=true&filters[RTN][$eq]=${(e.target.value).trim()}`)
+            // eslint-disable-next-line 
             const customer = (data && data.length) ? userMapper(data) : null
             if (customer && customer[0].firstName) {
                 setCustomerID(customer[0].id)
@@ -33,6 +34,7 @@ const ModalPay = ({ amount, rows, data, handleEndpoint, handleSendData, handleMe
 
     const handleProcess = (e) => {
         e.preventDefault()
+        // eslint-disable-next-line 
         if (!rows.length) {
             alert('No ha añadido ningún producto aún!')
             return
@@ -55,6 +57,7 @@ const ModalPay = ({ amount, rows, data, handleEndpoint, handleSendData, handleMe
                 vendedor: {
                     id: /*Carlos = */ 7
                 },
+                // eslint-disable-next-line 
                 detalleVentas: rows.map(({ productID, quantity, unitPrice, tax, discount }) => {
                     if ([productID, quantity, unitPrice, tax, discount].includes(undefined))
                         return

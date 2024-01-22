@@ -10,7 +10,8 @@ const View = () => {
     const { sales, loading, error, getByNInvoice } = useSaleServices()
     useEffect(() => {
         getByNInvoice(id);
-    }, [])
+        // eslint-disable-next-line 
+    }, [id])
 
     return (
         <Layout title={`Venta #${id}`} loading={loading} error={error}>
@@ -18,7 +19,7 @@ const View = () => {
                 <div className="formInput col-12 col-sm-6 col-lg-3 mb-1">
                     <label>Cliente:</label>
                     <input type='text' className='col-12'
-                        value={sales.length && sales[0].cliente ? `${sales[0].cliente.firstName} ${sales[0].cliente.lastName}` : ""}
+                        value={sales.length && sales[0].cliente ? `${sales[0].cliente.firstName} ${sales[0].cliente.lastName}` : ''}
                         readOnly />
                 </div>
                 <div className="formInput col-12 col-sm-6 col-lg-3 mb-1">

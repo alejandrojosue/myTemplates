@@ -1,3 +1,4 @@
+// @ts-ignore
 import {apiBaseUrl} from '../config/apiConfig'
 import Product from '../models/Product_';
 import Return, {ReturnStatus} from '../models/Return';

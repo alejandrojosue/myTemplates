@@ -1,3 +1,4 @@
+// @ts-ignore
 import {apiBaseUrl, URL_DEVELOP} from '../config/apiConfig'
 import Brand from '../models/Brand'
 import Category from '../models/Category'
@@ -33,8 +34,8 @@ class ProductRepository implements IProductRepository {
       const product = this.mapToProduct(data);
       return product;
     } catch (error) {
-      if (error instanceof ErrorHandler)
-        throw error
+      if (error instanceof ErrorHandler) throw error
+        // @ts-ignore
         else throw new ErrorFetch(error.message)
     }
   }

@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL
+const API_BASE_URL = import.meta.env.VITE_API_URL_DEV + '/'
 
 /**
  * Realiza una solicitud a la API y devuelve los datos.
@@ -27,11 +27,11 @@ export const fetchDataFromAPI =
 
             const errorList = {
                 'Bad Request': () => { throw new Error('Bad Request') },
-                Unauthorized: () => window.location.href = `#/unauthorized`,
-                Forbidden: () => window.location.href = `#/unauthorized`,
+                Unauthorized: () => window.location.href = '/unauthorized',
+                Forbidden: () => window.location.href = '/unauthorized',
                 'Not Found': () => { },
                 'Internal Server Error': () => { },
-                "Failed to fetch": () => { alert('No hay conexión con el servidor') }
+                'Failed to fetch': () => { alert('No hay conexión con el servidor') }
             }
 
             if (!response.ok) {

@@ -1,4 +1,4 @@
-import { Skeleton } from "@mui/material"
+import { Skeleton } from '@mui/material'
 
 const CardLoading = () => (
     <div className="col-12 col-sm-6 col-lg-3 p-2 border">

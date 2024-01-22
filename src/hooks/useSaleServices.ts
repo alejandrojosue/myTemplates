@@ -50,6 +50,7 @@ const useSaleServices = (): SaleServiceHook => {
         sales: [],
         loading: false,
         total: 0,
+        // @ts-ignore
         error: error.message || 'Error fetching data'
       });
     }

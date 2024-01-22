@@ -1,5 +1,6 @@
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
+// eslint-disable-next-line
 const CardHome = ({ title, description, link, icon, index }) => {
     return (
         <div className="feature col p-4 border" key={index}>

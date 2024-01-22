@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -6,6 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
+// eslint-disable-next-line 
 const bull = (
     <Box
         component="span"
@@ -14,7 +14,7 @@ const bull = (
         •
     </Box>
 );
-
+// eslint-disable-next-line 
 export default function BasicCard({ title, description }) {
     return (
         <div className='col-12 col-sm-6 col-lg-3 p-2'>

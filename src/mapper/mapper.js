@@ -1,8 +1,8 @@
-import Category from "../models/Category"
+// import Category from "../models/Category"
 import Product, { productStatus } from "../models/Product"
 import { ReturnStatus } from "../models/Return"
-import Sale, { PayMethod, Status } from "../models/Sale"
-import SaleDetail from "../models/SaleDetail"
+// import Sale, { PayMethod, Status } from "../models/Sale"
+// import SaleDetail from "../models/SaleDetail"
 import User from "../models/user/User"
 
 // const categoryMapper = (data) => {

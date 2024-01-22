@@ -1,3 +1,4 @@
+// @ts-ignore
 import {apiBaseUrl} from '../config/apiConfig'
 import Category from '../models/Category'
 import Subcategory from '../models/Subcategory'
@@ -29,10 +30,10 @@ export default class SubcategoryRepository implements ISaleRepository {
       }
 
       const {data} = await response.json()
-      return data.map(item => this.mapToSubcategory(item))
+      return data.map((item: any) => this.mapToSubcategory(item))
     } catch (error) {
-      if (error instanceof ErrorHandler)
-        throw error
+      if (error instanceof ErrorHandler) throw error
+        // @ts-ignores
         else throw new ErrorFetch(error.message)
     }
   }
@@ -53,10 +54,10 @@ export default class SubcategoryRepository implements ISaleRepository {
       }
 
       const {data} = await response.json()
-      return data.map(item => this.mapToCategory(item))
+      return data.map((item: any) => this.mapToCategory(item))
     } catch (error) {
-      if (error instanceof ErrorHandler)
-        throw error
+      if (error instanceof ErrorHandler) throw error
+        // @ts-ignore
         else throw new ErrorFetch(error.message)
     }
   }

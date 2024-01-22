@@ -1,3 +1,4 @@
+// @ts-ignore
 import {apiBaseUrl} from '../config/apiConfig'
 import Company from '../models/Company'
 import ErrorFetch from '../util/ErrorFetch'
@@ -22,6 +23,7 @@ export default class CompanyRepository {
       const {data} = await response.json()
       return this.mapToCompany(data)
     } catch (error) {
+      // @ts-ignore
       throw new ErrorFetch(`${error.message}`)
     }
   }

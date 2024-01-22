@@ -1,3 +1,4 @@
+// eslint-disable-next-line 
 const ErrorComponent = ({ error, link = null }) => {
     return (
         <div className="container-fluid d-flex align-items-center justify-content-center vh-100">

@@ -1,9 +1,9 @@
-import "./login.scss";
-import { useState } from "react";
+import './login.scss';
+import { useState } from 'react';
 import useLogin from '../../hooks/useLogin'
 const Login = () => {
-  const [identifier, setIdentifier] = useState("");
-  const [password, setPassword] = useState("");
+  const [identifier, setIdentifier] = useState('');
+  const [password, setPassword] = useState('');
   const { handleLogin } = useLogin()
 
   return (

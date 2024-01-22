@@ -6,7 +6,8 @@ import { useEffect } from 'react';
 const View = () => {
     const { products, loading, error, getById } = useProductService()
     const { id } = useParams();
-    useEffect(() => { getById(id) }, [])
+    // eslint-disable-next-line
+    useEffect(() => { getById(id) }, [id])
     return (
         <Layout title={`Producto #${id}`} loading={loading} error={error}>
             <div className="row  px-3">

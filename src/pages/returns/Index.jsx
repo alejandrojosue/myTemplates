@@ -38,6 +38,7 @@ const Index = () => {
     const { returns, loading, error, getAll, getByDateRange } = useRetunService()
     useEffect(() => {
         getAll()
+        // eslint-disable-next-line 
     }, [])
     return (
         <Layout title={'Devoluciones'} loading={loading} error={error} link='/home'>

@@ -5,9 +5,10 @@ import dateFormatToSpanish from '../../helpers/date-format-to-spanish'
 import useSaleServices from '../../hooks/useSaleServices'
 import { useEffect, useState } from 'react'
 const Dashboard = () => {
-    const { sales, loading, error, total, getByCurrentMonth } = useSaleServices()
+    const { sales, loading, error, getByCurrentMonth } = useSaleServices()
     const [salesAmount, setSalesAmount] = useState(0)
     const [salesTax, setSalesTax] = useState(0)
+    // eslint-disable-next-line
     const [expenses, setExpenses] = useState(0)
     const [rows, setRows] = useState([])
 
@@ -42,13 +43,10 @@ const Dashboard = () => {
         setRows(transaccionsDetails)
     }
 
-    useEffect(() => {
-        getByCurrentMonth()
-    }, [])
-
-    useEffect(() => {
-        handleValuesOfWidgetsSales()
-    }, [loading])
+    // eslint-disable-next-line
+    useEffect(() => { getByCurrentMonth() }, [])
+    // eslint-disable-next-line
+    useEffect(() => { handleValuesOfWidgetsSales() }, [loading])
 
 
     return (
@@ -56,10 +54,10 @@ const Dashboard = () => {
             <div className="row">
                 <p className='pb-2'>
                     Movimientos del <strong
-                        onClick={() => handleCurrentDate(false)}
+                    // onClick={() => handleCurrentDate(false)}
                     >{dateFormatToSpanish(new Date())}</strong>
                     hasta <strong
-                        onClick={() => handleCurrentDate(true)}
+                    // onClick={() => handleCurrentDate(true)}
                     >{dateFormatToSpanish(new Date(), true)}</strong>
                 </p>
                 <div className="widgets container-fluid pb-4">

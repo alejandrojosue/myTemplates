@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Button from '@mui/material/Button'
+import PropTypes from 'prop-types'
 import {
   DataGrid,
   GridToolbarContainer,
@@ -14,9 +15,17 @@ import AddIcon from '@mui/icons-material/Add'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/DeleteOutlined'
 import SaveIcon from '@mui/icons-material/Save'
-import SearchIcon from '@mui/icons-material/Search'
 import SaveAlt from '@mui/icons-material/SaveAlt'
 import CancelIcon from '@mui/icons-material/Close'
+
+CustomToolbar.propTypes = {
+  rows: PropTypes.array.isRequired,
+  setRows: PropTypes.func.isRequired,
+  setRowModesModel: PropTypes.func.isRequired,
+  rowsCount: PropTypes.number.isRequired,
+  columns: PropTypes.array.isRequired,
+  handleAmount: PropTypes.func.isRequired,
+};
 
 function CustomToolbar(props) {
   const { rows, setRows, setRowModesModel, rowsCount, columns, handleAmount } = props
@@ -73,6 +82,14 @@ function CustomToolbar(props) {
     </GridToolbarContainer>
   )
 }
+
+Datatable.propTypes = {
+  rows: PropTypes.array.isRequired,
+  setRows: PropTypes.func.isRequired,
+  _columns: PropTypes.array.isRequired,
+  handleAmount: PropTypes.func.isRequired,
+  _loading: PropTypes.bool.isRequired,
+};
 
 export default function Datatable({ rows = [], setRows, _columns = [], handleAmount, _loading = false }) {
 
@@ -157,11 +174,13 @@ export default function Datatable({ rows = [], setRows, _columns = [], handleAmo
             icon={<SaveIcon />}
             label="Save"
             className='text-primary'
+            key={`GridActionsCellItem-SaveIcon-${id}`}
             onClick={handleSaveClick(id)}
           />,
           <GridActionsCellItem
             icon={<CancelIcon />}
             label="Cancel"
+            key={`GridActionsCellItem-CancelIcon-${id}`}
             className="text-secondary"
             onClick={handleCancelClick(id)}
             color="inherit"
@@ -174,12 +193,14 @@ export default function Datatable({ rows = [], setRows, _columns = [], handleAmo
           icon={<EditIcon />}
           label="Edit"
           className="text-success"
+          key={`GridActionsCellItem-EditIcon-${id}`}
           onClick={handleEditClick(id)}
           color="inherit"
         />,
         <GridActionsCellItem
           className="text-danger"
           icon={<DeleteIcon />}
+          key={`GridActionsCellItem-DeleteIcon-${id}`}
           label="Delete"
           onClick={handleDeleteClick(id)}
           color="inherit"

@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 
 import Company from '../models/Company';
 import CompanyRepository from '../repositories/CompanyRepository';
+import {isCompany} from '../types/validation-type';
 
 
 interface IHookState {
@@ -18,25 +19,13 @@ const useCompanyService = () => {
     error: null,
   });
 
-  useEffect(() => {
-    try {
-      if (localStorage.getItem('companyData')) {
-        const companyData = JSON.parse(localStorage.getItem('companyData') + '')
-        setState(companyData)
-        return;
-      }
-      setState((prev) => ({...prev, loading: true, error: null}));
-      companyRepository.get()
-          .then(company => {
-            setState({company, loading: false, error: null});
-            localStorage.setItem('companyData', JSON.stringify(state));
-          })
-          .catch(error => {
-            setState({company: null, loading: false, error});
-            localStorage.removeItem('companyData');
-          });
-    } catch (error) {
-      localStorage.removeItem('companyData');
+  const getCompany =
+      async () => {
+    const company = await companyRepository.get()
+    if (isCompany(company)) {
+      setState({company, loading: false, error: null});
+    }
+    else {
       setState({
         company: null,
         loading: false,
@@ -44,7 +33,9 @@ const useCompanyService = () => {
         error: error.message || 'Error fetching data'
       });
     }
-  }, [])
+  }
+
+  useEffect(() => {getCompany()}, [])
 
   return {
     ...state

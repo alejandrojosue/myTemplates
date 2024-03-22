@@ -4,7 +4,7 @@ import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalance
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import ShopOutlinedIcon from '@mui/icons-material/ShopOutlined';
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
-
+import lang from '../../languages/index'
 const Widget = ({ type, _value }) => {
   let data;
 
@@ -15,7 +15,7 @@ const Widget = ({ type, _value }) => {
   switch (type) {
     case "expense":
       data = {
-        title: "GASTOS",
+        title: lang.components.widget.expense,
         isMoney: true,
         link: "Ver más",
         icon: (
@@ -31,7 +31,7 @@ const Widget = ({ type, _value }) => {
       break;
     case "earning":
       data = {
-        title: "GANANCIAS",
+        title: lang.components.widget.earning,
         isMoney: true,
         link: "Ver más",
         icon: (
@@ -44,7 +44,7 @@ const Widget = ({ type, _value }) => {
       break;
     case "balance":
       data = {
-        title: "BALANCE",
+        title: lang.components.widget.balance,
         isMoney: true,
         link: "See details",
         icon: (
@@ -60,7 +60,7 @@ const Widget = ({ type, _value }) => {
       break;
     case "sale":
       data = {
-        title: "VENTAS",
+        title: lang.components.widget.sale,
         isMoney: true,
         link: "Ver más",
         icon: (
@@ -76,7 +76,7 @@ const Widget = ({ type, _value }) => {
       break;
     case "tax":
       data = {
-        title: "IMPUESTOS",
+        title: lang.components.widget.tax,
         isMoney: true,
         link: "Ver más",
         icon: (

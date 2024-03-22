@@ -1,9 +1,10 @@
 import Layout from '../../layout/Layout'
 import Widget from '../../components/widget/Widget'
 import Datatable from '../../components/table/Table'
-import dateFormatToSpanish from '../../helpers/date-format-to-spanish'
+import dateFormat from '../../helpers/date-format-to-spanish'
 import useSaleServices from '../../hooks/useSaleServices'
 import { useEffect, useState } from 'react'
+import lang from '../../languages'
 const Dashboard = () => {
     const { sales, loading, error, getByCurrentMonth } = useSaleServices()
     const [salesAmount, setSalesAmount] = useState(0)
@@ -50,15 +51,15 @@ const Dashboard = () => {
 
 
     return (
-        <Layout title={'Panel de Control'} loading={loading} error={error} link='/home'>
+        <Layout title={lang.pages.Dashboard.title} loading={loading} error={error} link='/home'>
             <div className="row">
                 <p className='pb-2'>
-                    Movimientos del <strong
+                    {lang.pages.Dashboard['title-date-from']} <strong
                     // onClick={() => handleCurrentDate(false)}
-                    >{dateFormatToSpanish(new Date())}</strong>
-                    hasta <strong
+                    >{dateFormat()}</strong>
+                    {lang.pages.Dashboard['title-date-to']} <strong
                     // onClick={() => handleCurrentDate(true)}
-                    >{dateFormatToSpanish(new Date(), true)}</strong>
+                    >{dateFormat(true)}</strong>
                 </p>
                 <div className="widgets container-fluid pb-4">
                     <div className="row px-2">
@@ -81,17 +82,18 @@ const Dashboard = () => {
                 </div>
                 <div className="container-fluid">
                     <div className="row px-2">
-                        <div className="tableTitle">Últimas 20 Transacciones</div>
-                        <Datatable columnsNames={[
-                            'ID Transacción',
-                            'Fecha',
-                            'Monto Total',
-                            'Impuesto Total',
-                            'Descuento Total',
-                            'Método de Pago',
-                            'Estado'
-                        ]}
-                            rows={sales.length ? rows : []} />
+                        <div className="tableTitle">{lang.pages.Dashboard.table['title-transactions']}</div>
+                        <Datatable columnsNames={lang.pages.Dashboard.table['title-columns']}
+                            rows={sales.length ? rows : []}
+                            headersColumn={[
+                                "ID Transacción",
+                                "Fecha",
+                                "Monto Total",
+                                "Impuesto Total",
+                                "Descuento Total",
+                                "Método de Pago",
+                                "Estado"
+                            ]} />
                     </div>
                 </div>
             </div>

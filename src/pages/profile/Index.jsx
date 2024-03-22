@@ -1,16 +1,17 @@
 import './profile.scss'
 import Layout from '../../layout/Layout'
 import Chart from '../../components/chart/Chart'
+import lang from '../../languages/index'
 
 const Index = () => {
 
     return (
-        <Layout title='Perfil Usuario' link='/home'>
+        <Layout title={lang.pages.Profile.title} link='/home'>
             <div className="row px-3">
                 <div className="col-12 col-sm-12 col-lg-6">
                     <div className="left">
-                        <div className="editButton">Más</div>
-                        <h1 className="title">Información</h1>
+                        <div className="editButton">{lang.pages.Profile.information.editbutton}</div>
+                        <h1 className="title">{lang.pages.Profile.information.title}</h1>
                         <div className="item">
                             <img
                                 src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Google_Contacts_logo.png"
@@ -25,11 +26,11 @@ const Index = () => {
                     <br />
                     <Chart key={'chart'}
                         aspect={3}
-                        title="Mis Ventas Totales ( Últimos 4 meses)"
+                        title={lang.pages.Profile.Chart.titles[0]}
                         data={[]} />
                 </div>
                 <div className="col-12 col-sm-12 col-lg-6">
-                    <Chart key={'chart'} aspect={3} title="Mis Ventas Totales ( Últimos 4 meses)"
+                    <Chart key={'chart'} aspect={3} title={lang.pages.Profile.Chart.titles[0]}
                         data={[]} />
                 </div>
             </div>

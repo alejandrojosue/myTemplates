@@ -8,19 +8,21 @@ import { useEffect } from 'react'
 import ProductsFilters from '../../components/filters/ProductsFilters'
 import Filters from '../../components/filters/Filters'
 import { productsReportMapper } from '../../mapper/mapper'
+import lang from '../../languages/index'
+
 const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'nombre', headerName: 'Nombre del Producto', description: 'Nombre del Producto', minWidth: 250, flex: .5, editable: true },
-    { field: 'precio_venta', headerName: 'Precio de Venta', description: 'Precio de Venta', type: 'number', with: 70 },
-    { field: 'descripcion', headerName: 'Descripción del Producto', description: 'Descripción del Producto', flex: 1 },
-    { field: 'existencia', headerName: 'Existencia', type: 'number', description: 'Existencia', with: 70 },
+    { field: 'id', headerName: lang.pages.Products.Index.table['columns-headerName'][0], width: 70 },
+    { field: 'nombre', headerName: lang.pages.Products.Index.table['columns-headerName'][1], description: 'Nombre del Producto', minWidth: 250, flex: .5, editable: true },
+    { field: 'precio_venta', headerName: lang.pages.Products.Index.table['columns-headerName'][2], description: 'Precio de Venta', type: 'number', with: 70 },
+    { field: 'descripcion', headerName: lang.pages.Products.Index.table['columns-headerName'][3], description: 'Descripción del Producto', flex: 1 },
+    { field: 'existencia', headerName: lang.pages.Products.Index.table['columns-headerName'][4], type: 'number', description: 'Existencia', with: 70 },
     {
-        field: 'activo', headerName: 'Estado', align: 'center', width: 75,
+        field: 'activo', headerName: lang.pages.Products.Index.table['columns-headerName'][5], align: 'center', width: 75,
         renderCell: params => <div className={`cellWithStatus ${params.row.activo}`}>
             {productStatus[params.row.activo]}
         </div>
     }, {
-        field: 'action', headerName: 'Acción', align: 'center', width: 75,
+        field: 'action', headerName: lang.pages.Products.Index.table['columns-headerName'][6], align: 'center', width: 75,
         renderCell: params => <Link to={`/products/${params.row.id}`} className='text-decoration-none btn btn-outline-primary'>Ver</Link>
     },
 ]
@@ -31,7 +33,7 @@ const IndexProducts = () => {
         getAllProducts()
         // eslint-disable-next-line 
     }, [])
-    return <Layout title={'Listado de Productos'} error={error} loading={loading}>
+    return <Layout title={lang.pages.Products.Index.title} error={error} loading={loading}>
         <div className="row pb-2">
             <ProductsFilters key={'filters-products'} handleProducts={handleProductsList} />
             <Filters

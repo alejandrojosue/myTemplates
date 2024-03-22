@@ -7,6 +7,7 @@ const Login = lazy(() => import('./pages/login/Login'))
 const Home = lazy(() => import('./pages/home/Home'))
 const Dashboard = lazy(() => import('./pages/dashboard/Dashboard'))
 const NotFound = lazy(() => import('./pages/notFound/NotFound'))
+const Unauthorized = lazy(() => import('./pages/unauthorized/Unauthorized'))
 
 const IndexSales = lazy(() => import('./pages/sales/Index'))
 const IndexProducts = lazy(() => import('./pages/products/Index'))
@@ -79,6 +80,7 @@ function App() {
               {/* <Route path=':id' element={<ProductView />} /> */}
             </Route>
             <Route path="dashboard" element={'dashboard'} />
+            <Route path="unauthorized" element={<Unauthorized />}/>
             <Route path='*' element={<NotFound />} />
           </Route>
         </Routes>

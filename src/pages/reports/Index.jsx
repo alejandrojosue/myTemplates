@@ -1,8 +1,9 @@
 import Layout from '../../layout/Layout';
+import lang from '../../languages/index'
 
 const Index = () => {
     return (
-        <Layout title={'Reportes'} link='/home' >
+        <Layout title={lang.pages.Report.title} link='/home' >
 
         </Layout>
     )

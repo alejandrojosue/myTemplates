@@ -1,0 +1,164 @@
+{
+ "identifier": "en-US",
+ "pages": {
+  "Dashboard": {
+   "title": "Dashboard",
+   "title-date-from": "Movements from",
+   "title-date-to": "to",
+   "table": {
+    "title-transactions": "Last 20 Transactions",
+    "title-columns": [
+     "ID Transaction",
+     "Date",
+     "Total Amount",
+     "Total Tax",
+     "Total Discount",
+     "Payment method",
+     "Status"
+    ]
+   }
+  },
+  "Home": {
+   "title": "System's Modules",
+   "modules": [
+    {
+     "name": "Bills",
+     "description": "Shows a list of all sales made by the company, along with filters and additional options."
+    },
+    {
+     "name": "Products",
+     "description": "Displays a list of all the products the company offers, along with filters and other options."
+    },
+    {
+     "name": "Reports",
+     "description": "Shows all the reports that the system generates automatically."
+    },
+    {
+     "name": "Dashboard",
+     "description": "Shows a summary of the company's general data."
+    },
+    {
+     "name": "Returns",
+     "description": "Shows all returns made by customers to the company."
+    },
+    {
+     "name": "Orders",
+     "description": "Shows all purchase orders made by the company to its suppliers."
+    }
+   ]
+  },
+  "Login": {
+   "title": "Login",
+   "label": {
+    "user": "User",
+    "password": "Password"
+   },
+   "button": {
+    "title": "Enter"
+   }
+  },
+  "NotFound": {
+   "title": "404 Not Found",
+   "description": "The page you want to access has not been found.",
+   "Link": "Go Home"
+  },
+  "Orders": {
+   "Create": {
+    "title": "Create Purchase Order"
+   },
+   "Index": {
+    "title": "Purchase Orders"
+   }
+  },
+  "Products": {
+   "Index": {
+    "title": "Products List",
+    "table": {
+     "columns-headerName": [
+      "ID",
+      "Product Name",
+      "Sale Price",
+      "Product Description",
+      "Stock",
+      "Status",
+      "Action"
+     ]
+    }
+   },
+   "View": {
+    "title": "Product #",
+    "label": {
+     "status": "Active",
+     "name": "Name",
+     "sku": "SKU",
+     "purchase-price": "Purchase Price",
+     "description": "Description",
+     "sale-price": "Sale Price",
+     "tax": "TAX",
+     "discount": "Discount",
+     "model": "Model",
+     "brand": "Brand",
+     "stock": "Stock"
+    },
+    "Link": "Go back"
+   }
+  },
+  "Profile": {
+   "title": "User Profile",
+   "information": {
+    "title": "Information",
+    "editbutton": "More"
+   },
+   "Chart": {
+    "titles": [
+     "My Total Sales (Last 4 months)"
+    ]
+   }
+  },
+  "Unauthorized": {
+   "title": "401 Unauthorized Access",
+   "description": "You do not have permission to access this module.",
+   "Link": "Go Home"
+  },
+  "Report": {
+   "title": "Reports"
+  }
+ },
+ "components": {
+  "cards": {
+   "CardHome": {
+    "a-title": "Visit Module"
+   }
+  },
+  "Sidebar": {
+   "p-titles": [
+    "PRINCIPAL",
+    "LISTS",
+    "REPORTS",
+    "USER"
+   ],
+   "span": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "products": "Products",
+    "sales": "Sales",
+    "returns": "Returns",
+    "reports": "Reports",
+    "profile": "Profile",
+    "languages": "Languages",
+    "languages-list": [
+     {"es": "Spanish"},
+     {"en": "English"}
+    ],
+    "logout": "Logout"
+   }
+  },
+  "widget": {
+   "expense": "EXPENSE",
+   "earning": "EARNING",
+   "balance": "BALANCE",
+   "sale": "SALE",
+   "tax": "TAX"
+  }
+ }
+}

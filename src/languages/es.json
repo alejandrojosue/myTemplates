@@ -1,0 +1,164 @@
+{
+ "identifier": "es-ES",
+ "pages": {
+  "Dashboard": {
+   "title": "Panel de Control",
+   "title-date-from": "Movimientos del",
+   "title-date-to": "hasta",
+   "table": {
+    "title-transactions": "Últimas 20 Transacciones",
+    "title-columns": [
+     "ID Transacción",
+     "Fecha",
+     "Monto Total",
+     "Impuesto Total",
+     "Descuento Total",
+     "Método de Pago",
+     "Estado"
+    ]
+   }
+  },
+  "Home": {
+   "title": "Módulos del Sistema",
+   "modules": [
+    {
+     "name": "Facturas",
+     "description": "Muestra un listado de todas las ventas realizadas por la empresa, junto con filtros y opciones adicionales."
+    },
+    {
+     "name": "Productos",
+     "description": "Muestra un listado de todos los productos que la empresa ofrece, junto con filtros y otras opciones."
+    },
+    {
+     "name": "Reportes",
+     "description": "Muestra todos los reportes que el sistema genera de forma automática."
+    },
+    {
+     "name": "Panel de Control",
+     "description": "Muestra resumen de los datos generales de la empresa."
+    },
+    {
+     "name": "Devoluciones",
+     "description": "Muestra todas las devoluciones realizadas por parte de los clientes hacia la empresa."
+    },
+    {
+     "name": "Órdenes de Compras",
+     "description": "Muestra todas las órdenes de compra realizada por parte de la empresa hacia sus proveedores."
+    }
+   ]
+  },
+  "Login": {
+   "title": "Iniciar Sesión",
+   "label": {
+    "user": "Usuario",
+    "password": "Contraseña"
+   },
+   "button": {
+    "title": "Acceder"
+   }
+  },
+  "NotFound": {
+   "title": "404 No Encontrado",
+   "description": "La página a la que desea acceder no se ha encontrado.",
+   "Link": "Regresar a Inicio"
+  },
+  "Orders": {
+   "Create": {
+    "title": "Crear Orden de Compra"
+   },
+   "Index": {
+    "title": "Órdenes de Compra"
+   }
+  },
+  "Products": {
+   "Index": {
+    "title": "Listado de Productos",
+    "table": {
+     "columns-headerName": [
+      "ID",
+      "Nombre del Producto",
+      "Precio de Venta",
+      "Descripción del Producto",
+      "Existencia",
+      "Estado",
+      "Acción"
+     ]
+    }
+   },
+   "View": {
+    "title": "Producto #",
+    "label": {
+     "status": "Activo",
+     "name": "Nombre",
+     "sku": "Código",
+     "purchase-price": "Precio de Compra",
+     "description": "Descripción",
+     "sale-price": "Precio de venta",
+     "tax": "ISV",
+     "discount": "Descuento",
+     "model": "Modelo",
+     "brand": "Marca",
+     "stock": "Existencia"
+    },
+    "Link": "Regresar"
+   }
+  },
+  "Profile": {
+   "title": "Perfil Usuario",
+   "information": {
+    "title": "Información",
+    "editbutton": "Más"
+   },
+   "Chart": {
+    "titles": [
+     "Mis Ventas Totales ( Últimos 4 meses)"
+    ]
+   }
+  },
+  "Unauthorized": {
+   "title": "401 Acceso No Autorizado",
+   "description": "No tiene permiso para acceder a este módulo.",
+   "Link": "Regresar a Inicio"
+  },
+  "Report": {
+   "title": "Reportes"
+  }
+ },
+ "components": {
+  "cards": {
+   "CardHome": {
+    "a-title": "Visitar Módulo"
+   }
+  },
+  "Sidebar": {
+   "p-titles": [
+    "PRINCIPAL",
+    "LISTAS",
+    "REPORTES",
+    "USUARIO"
+   ],
+   "span": {
+    "home": "Inicio",
+    "dashboard": "Panel de Control",
+    "products": "Productos",
+    "sales": "Ventas",
+    "returns": "Devoluciones",
+    "reports": "Reportes",
+    "profile": "Perfil",
+    "languages": "Lenguajes",
+    "languages-list": [
+     {"es": "Español"},
+     {"en": "Inglés"}
+    ],
+    "logout": "Cerrar Sesión"
+   }
+  },
+  "widget": {
+   "expense": "GASTOS",
+   "earning": "GANANCIAS",
+   "balance": "BALANCE",
+   "sale": "VENTAS",
+   "tax": "IMPUESTOS"
+  }
+ }
+}

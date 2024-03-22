@@ -1,12 +1,16 @@
-const dateFormatToSpanish = (_date = '', isEnd = false) => {
-    const date = new Date(_date)
+import lang from '../languages/index'
+
+const dateFormat = (isEnd = false) => {
     const daysByMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-    const monthName = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+    const date = new Date()
+    const options = { year: 'numeric', month: 'long', day: 'numeric' }
     const month = date.getMonth()
     const year = date.getFullYear()
+    const endDatedate = new Date(year, month, daysByMonth[month], 0, 0, 0)
+    const startDate = new Date(year, month, 1, 0, 0, 0)
     if (isEnd)
-        return `${daysByMonth[month]} de ${monthName[month]} del ${year} `
-    return `01 de ${monthName[month]} del ${year} `
+        return `${endDatedate.toLocaleDateString(lang.identifier, options)} `
+    return `${startDate.toLocaleDateString(lang.identifier, options)} `
 
 }
-export default dateFormatToSpanish
+export default dateFormat

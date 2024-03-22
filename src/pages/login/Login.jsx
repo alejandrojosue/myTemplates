@@ -1,6 +1,7 @@
 import './login.scss';
 import { useState } from 'react';
 import useLogin from '../../hooks/useLogin'
+import lang from '../../languages/index'
 const Login = () => {
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
@@ -8,28 +9,28 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <h1>Iniciar Sesión</h1>
+      <h1>{lang.pages.Login.title}</h1>
       <div className="input-container">
         <input
           type="text"
-          placeholder="Usuario"
+          placeholder={lang.pages.Login.label.user}
           value={identifier}
           onChange={(e) => setIdentifier(e.target.value)}
         />
-        <label>Usuario</label>
+        <label>{lang.pages.Login.label.user}</label>
       </div>
       <div className="input-container">
         <input
           type="password"
-          placeholder="contraseña"
+          placeholder={lang.pages.Login.label.password}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <label>Contraseña</label>
+        <label>{lang.pages.Login.label.password}</label>
       </div>
       <button onClick={() => {
         handleLogin(identifier, password)
-      }}>Acceder</button>
+      }}>{lang.pages.Login.button.title}</button>
     </div>
   );
 };

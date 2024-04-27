@@ -12,7 +12,7 @@
 </details>
 
 ## 📋 Descripción
-<a name="descripcion">
+
 El proyecto de sistema de facturación es una plataforma diseñada para simplificar el proceso de facturación y gestión financiera para individuos y empresas. Esta aplicación proporciona una interfaz intuitiva y potentes funcionalidades para generar facturas de manera eficiente, llevar el inventario del producto e incluso visualizar datos importantes que describan las ganancias de la empresa.
 
 ## 🛠️ Instalación

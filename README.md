@@ -1,18 +1,18 @@
 # Proyecto Sistema de Inventario y Facturación
-
+<a name="readme-top"></a>
 <details>
 <summary>Tabla de contenidos</summary>
 
-- [📋 Descripción](#descripción)
-- [🛠️ Instalación](#instalación)
-- [🏗️ Estructura del Proyecto](#estructura-del-proyecto)
-- [📁 Carpetas](#carpetas)
-- [💻 Comandos](#️comandos)
+- [📋 Descripción](#-descripción)
+- [🛠️ Instalación](#-instalación)
+- [🏗️ Estructura del Proyecto](#-estructura-del-proyecto)
+- [📁 Carpetas](#-carpetas)
+- [💻 Comandos](#️-comandos)
 
 </details>
 
 ## 📋 Descripción
-
+<a name="descripcion">
 El proyecto de sistema de facturación es una plataforma diseñada para simplificar el proceso de facturación y gestión financiera para individuos y empresas. Esta aplicación proporciona una interfaz intuitiva y potentes funcionalidades para generar facturas de manera eficiente, llevar el inventario del producto e incluso visualizar datos importantes que describan las ganancias de la empresa.
 
 ## 🛠️ Instalación
@@ -38,6 +38,7 @@ El proyecto de sistema de facturación es una plataforma diseñada para simplifi
    ```sh
    npm run start
    ```
+<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
 
 ## 🏗️ Estructura del Proyecto
 
@@ -57,41 +58,19 @@ Dentro de su proyecto Astro, verá las siguientes carpetas y archivos:
 │   |   |   ├── Loading.jsx
 │   │   |   └── SimpleBackdrop.jsx
 │   │   ├── cards/
-│   |   |   ├── Card.jsx
 │   |   |   ├── CardHome.jsx
-│   |   |   ├── CardLoading.jsx
 │   |   |   ├── Cards.jsx
 │   │   |   └── cards.scss
 │   │   ├── chart/
-│   |   |   ├── Loading.jsx
-│   │   |   └── SimpleBackdrop.jsx
 │   │   ├── datatable/
-│   |   |   ├── Loading.jsx
-│   │   |   └── SimpleBackdrop.jsx
 │   │   ├── DateRange/
-│   |   |   ├── Loading.jsx
-│   │   |   └── SimpleBackdrop.jsx
 │   │   ├── error/
-│   |   |   ├── Loading.jsx
-│   │   |   └── SimpleBackdrop.jsx
 │   │   ├── filters/
-│   |   |   ├── Loading.jsx
-│   │   |   └── SimpleBackdrop.jsx
 │   │   ├── modal/
-│   |   |   ├── Loading.jsx
-│   │   |   └── SimpleBackdrop.jsx
 │   │   ├── navbar/
-│   |   |   ├── Loading.jsx
-│   │   |   └── SimpleBackdrop.jsx
 │   │   ├── sidebar/
-│   |   |   ├── Loading.jsx
-│   │   |   └── SimpleBackdrop.jsx
 │   │   ├── table/
-│   |   |   ├── Loading.jsx
-│   │   |   └── SimpleBackdrop.jsx
-│   │   ├── widget/
-│   |   |   ├── Loading.jsx
-│   │   |   └── SimpleBackdrop.jsx
+│   │   └── widget/
 │   ├── config/
 │   │   └── apiConfig.js
 │   ├── helpers/
@@ -129,6 +108,7 @@ Dentro de su proyecto Astro, verá las siguientes carpetas y archivos:
 ├── tsconfig.json
 └── vite.config.js
 ```
+<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
 
 ## 📁 Carpetas
 
@@ -153,6 +133,7 @@ Directorio `src/repositories/` es donde se crearan todas las conexiones a la api
 Todos los tipos de datos enviados u obtenidos por la api se encontrarán en `src/types/` 
 
 En `src/util` estarán las conexiones directas con la api usando fetch y algunos archivos de errores.
+<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
 
 ## 💻 Comandos
 
@@ -168,3 +149,4 @@ Todos los comandos se ejecutan desde la raíz del proyecto, desde una terminal.
 | `npm run preview`         | Vista previa de su compilación antes de implementarla |
 | `npm run test`            | Ejecuta pruebas unitarias                             |
 | `npm run eject`           | Extrae la configuración de react-scripts              |
+<p align="right">(<a href="#readme-top">volver arriba</a>)</p>

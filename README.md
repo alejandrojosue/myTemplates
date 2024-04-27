@@ -1,10 +1,12 @@
 <a name="readme-top"></a>
+
 # Proyecto Sistema de Inventario y Facturación
+
 <details>
 <summary>Tabla de contenidos</summary>
 
 - [📋 Descripción](#-descripción)
-- [🛠️ Instalación](#-%EF%B8%8F-instalación)
+- [🛠️ Instalación](#%EF%B8%8F-instalación)
 - [🏗️ Estructura del Proyecto](#%EF%B8%8F-estructura-del-proyecto)
 - [📁 Carpetas](#-carpetas)
 - [💻 Comandos](#️-comandos)
@@ -43,7 +45,7 @@ El proyecto de sistema de facturación es una plataforma diseñada para simplifi
 
 ## 🏗️ Estructura del Proyecto
 
-Dentro de su proyecto Astro, verá las siguientes carpetas y archivos:
+Dentro de su proyecto Vite + React, verá las siguientes carpetas y archivos:
 
 ```text
 /

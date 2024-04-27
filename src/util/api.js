@@ -11,7 +11,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL_DEV + '/'
  */
 export const fetchDataFromAPI =
     async (url, method = 'GET', data = null) => {
-        const token = 'd2dea4119266c82c9576470edc68f993cf582816b45a7f2cd5c63f3bff14198af369ccf8f3544c5d138bdc6f95d06c052b3e93657e64f8601528a6451662f1cfeee0bf2c784b6ae1bbb1d5e557ed68c0cb49bb0222c2103721e52f465c8a78066042d060b6d615bfdba43b0e8c7185fb595612d3a27551cdd2dc3676568679b9'
+        const token = sessionStorage.getItem('daiswadod')
         try {
             if (!url || typeof url !== 'string') throw new Error('La URL no es válida.')
 

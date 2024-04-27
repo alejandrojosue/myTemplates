@@ -10,7 +10,8 @@ const ModalPay = ({ amount, rows, data, handleEndpoint, handleSendData, handleMe
     const handleCustomer = e => {
         setCustomerName('')
         if ((e.target.value.trim()).length === 14) {
-            handleEndpoint(`users?populate=role&filters[role][name][$eq]=Clientes&filters[blocked]=false&filters[confirmed]=true&filters[RTN][$eq]=${(e.target.value).trim()}`)
+            handleEndpoint(`users?populate=deep&filters[blocked]=false&filters[confirmed]=true&filters[RTN][$eq]=${(e.target.value).trim()}`)
+            console.log(data);
             // eslint-disable-next-line 
             const customer = (data && data.length) ? userMapper(data) : null
             if (customer && customer[0].firstName) {
@@ -77,7 +78,7 @@ const ModalPay = ({ amount, rows, data, handleEndpoint, handleSendData, handleMe
     }
 
     return <>
-        <div className="modal fade" id="ModalPay" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal fade" id="ModalPay" aria-labelledby="exampleModalLabel">
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">

@@ -80,7 +80,7 @@ function App() {
               {/* <Route path=':id' element={<ProductView />} /> */}
             </Route>
             <Route path="dashboard" element={'dashboard'} />
-            <Route path="unauthorized" element={<Unauthorized />}/>
+            <Route path="unauthorized" element={<Unauthorized />} />
             <Route path='*' element={<NotFound />} />
           </Route>
         </Routes>

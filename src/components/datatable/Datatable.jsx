@@ -47,7 +47,7 @@ function CustomToolbar(props) {
   }
 
   const handleSave = () => {
-    document.getElementById('btnModal').attributes['data-bs-target'].nodeValue = '#exampleModal'
+    // document.getElementById("btnModal").attributes['data-bs-target'].nodeValue = '#exampleModal'
     handleAmount(rows?.reduce((acc, value) => { return acc + value.quantity * value.unitPrice * (1 + value.tax - value.discount) }, 0).toFixed(2))
     document.querySelector('#payment-money').value = (0).toFixed(2)
     document.querySelector('#change-money').value = (0).toFixed(2)
@@ -69,7 +69,7 @@ function CustomToolbar(props) {
       <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
         Agregar Item
       </Button>
-      <Button id='btnModal' color="primary" startIcon={<SaveAlt />}
+      <Button id="btnModal" color="primary" startIcon={<SaveAlt />}
         data-bs-toggle="modal" data-bs-target="#ModalPay"
         onClick={handleSave}>
         Guardar Pago Completo

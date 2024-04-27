@@ -1,10 +1,11 @@
 import './sales.scss'
-import { useEffect } from 'react';
+import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import useSaleServices from '../../hooks/useSaleServices'
-import Layout from '../../layout/Layout';
-import Details from '../../components/table/Details';
+import Layout from '../../layout/Layout'
+import Details from '../../components/table/Details'
+import lang from '../../languages/index'
 const View = () => {
     const { id } = useParams();
     const { sales, loading, error, getByNInvoice } = useSaleServices()
@@ -14,7 +15,7 @@ const View = () => {
     }, [id])
 
     return (
-        <Layout title={`Venta #${id}`} loading={loading} error={error}>
+        <Layout title={lang.pages.Sales.View.title + id} loading={loading} error={error}>
             <div className="row">
                 <div className="formInput col-12 col-sm-6 col-lg-3 mb-1">
                     <label>Cliente:</label>

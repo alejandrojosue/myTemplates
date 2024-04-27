@@ -20,6 +20,8 @@ import useSaleServices from '../../hooks/useSaleServices'
 import Filters from '../../components/filters/Filters'
 import { salesReportMapper } from '../../mapper/mapper'
 import SalesFilters from '../../components/filters/SalesFilters'
+import lang from '../../languages/index'
+
 function Row(props) {
     const { row } = props
     const [open, setOpen] = useState(false)
@@ -143,7 +145,7 @@ const Index = () => {
         setPage(0)
     }
     return (
-        <Layout title={'Listado de Ventas'} loading={loading} error={error}>
+        <Layout title={lang.pages.Sales.Index.title} loading={loading} error={error}>
             <div className="row mb-2">
                 <SalesFilters
                     handlePagination={getByPagination}
@@ -158,7 +160,6 @@ const Index = () => {
                 />
             </div>
             <Paper>
-
                 <TableContainer sx={{ maxHeight: 300 }}>
                     <Table stickyHeader aria-label="collapsible sticky table">
                         <TableHead>

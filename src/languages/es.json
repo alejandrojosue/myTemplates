@@ -115,6 +115,17 @@
     ]
    }
   },
+  "Sales": {
+   "Create": {
+    "title": "Crear Venta"
+   },
+   "Index": {
+    "title": "Listado de Ventas"
+   },
+   "View": {
+    "title": "Venta #"
+   }
+  },
   "Unauthorized": {
    "title": "401 Acceso No Autorizado",
    "description": "No tiene permiso para acceder a este módulo.",

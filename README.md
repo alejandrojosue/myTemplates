@@ -1,11 +1,11 @@
-# Proyecto Sistema de Inventario y Facturación
 <a name="readme-top"></a>
+# Proyecto Sistema de Inventario y Facturación
 <details>
 <summary>Tabla de contenidos</summary>
 
 - [📋 Descripción](#-descripción)
-- [🛠️ Instalación](#-instalación)
-- [🏗️ Estructura del Proyecto](#-estructura-del-proyecto)
+- [🛠️ Instalación](#-%EF%B8%8F-instalación)
+- [🏗️ Estructura del Proyecto](#%EF%B8%8F-estructura-del-proyecto)
 - [📁 Carpetas](#-carpetas)
 - [💻 Comandos](#️-comandos)
 
@@ -38,6 +38,7 @@ El proyecto de sistema de facturación es una plataforma diseñada para simplifi
    ```sh
    npm run start
    ```
+
 <p align="right">(<a href="#readme-top">volver arriba</a>)</p>
 
 ## 🏗️ Estructura del Proyecto
@@ -108,6 +109,7 @@ Dentro de su proyecto Astro, verá las siguientes carpetas y archivos:
 ├── tsconfig.json
 └── vite.config.js
 ```
+
 <p align="right">(<a href="#readme-top">volver arriba</a>)</p>
 
 ## 📁 Carpetas
@@ -133,6 +135,7 @@ Directorio `src/repositories/` es donde se crearan todas las conexiones a la api
 Todos los tipos de datos enviados u obtenidos por la api se encontrarán en `src/types/` 
 
 En `src/util` estarán las conexiones directas con la api usando fetch y algunos archivos de errores.
+
 <p align="right">(<a href="#readme-top">volver arriba</a>)</p>
 
 ## 💻 Comandos
@@ -149,4 +152,5 @@ Todos los comandos se ejecutan desde la raíz del proyecto, desde una terminal.
 | `npm run preview`         | Vista previa de su compilación antes de implementarla |
 | `npm run test`            | Ejecuta pruebas unitarias                             |
 | `npm run eject`           | Extrae la configuración de react-scripts              |
+
 <p align="right">(<a href="#readme-top">volver arriba</a>)</p>

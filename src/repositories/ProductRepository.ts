@@ -154,6 +154,7 @@ class ProductRepository implements IProductRepository {
         item.attributes?.isv, item.attributes?.descuento,
         (item.attributes.subcategorias.data)
             .map(
+                // @ts-ignore
                 subcategory => (new Subcategory(
                     subcategory.attributes.nombre, subcategory.id,
                     new Category(subcategory.attributes.categoria)))),

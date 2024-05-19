@@ -3,22 +3,34 @@ import { userMapper } from '../../mapper/mapper'
 import { PayMethod, Status } from '../../models/Sale'
 // eslint-disable-next-line 
 const ModalPay = ({ amount, rows, data, handleEndpoint, handleSendData, handleMethod }) => {
-    const [customerID, setCustomerID] = useState('')
-    const [customerRTN, setCustomerRTN] = useState('')
-    const [customerName, setCustomerName] = useState('')
+    const [customer, setCustomer] = useState({
+        id: '',
+        RTN: '',
+        name: '',
+    })
 
     const handleCustomer = e => {
-        setCustomerName('')
+        setCustomer({
+            id: '',
+            RTN: '',
+            name: '',
+        })
         if ((e.target.value.trim()).length === 14) {
             handleEndpoint(`users?populate=deep&filters[blocked]=false&filters[confirmed]=true&filters[RTN][$eq]=${(e.target.value).trim()}`)
             console.log(data);
             // eslint-disable-next-line 
             const customer = (data && data.length) ? userMapper(data) : null
             if (customer && customer[0].firstName) {
-                setCustomerID(customer[0].id)
-                setCustomerRTN(customer[0].rtn)
-                setCustomerName(customer[0].firstName + ' ' + customer[0].lastName)
-            } else setCustomerName('')
+                setCustomer({
+                    id: customer[0].id,
+                    RTN: customer[0].rtn,
+                    name: customer[0].firstName + ' ' + customer[0].lastName,
+                })
+            } else setCustomer({
+                id: '',
+                RTN: '',
+                name: '',
+            })
         }
     }
 
@@ -51,7 +63,7 @@ const ModalPay = ({ amount, rows, data, handleEndpoint, handleSendData, handleMe
             data: {
                 noFactura: /*id_Deleted = */ 33,
                 cliente: {
-                    id: parseInt(customerID)
+                    id: parseInt(customer.id)
                 },
                 metodoPago: PayMethod[document.querySelector('#payment-method').value],
                 estado: Status.Pagada,
@@ -93,9 +105,9 @@ const ModalPay = ({ amount, rows, data, handleEndpoint, handleSendData, handleMe
                                     id="customer-id"
                                     maxLength={14}
                                     minLength={14}
-                                    defaultValue={customerRTN}
+                                    defaultValue={customer.id}
                                     onChange={handleCustomer} />
-                                <input type="text" required value={customerName} disabled className="form-control mt-1" id="customer-name" placeholder="Nombre de Cliente" />
+                                <input type="text" required value={customer.name} disabled className="form-control mt-1" id="customer-name" placeholder="Nombre de Cliente" />
                             </div>
                             <div>
                                 <label className="col-form-label">Método de Pago (L.):</label>

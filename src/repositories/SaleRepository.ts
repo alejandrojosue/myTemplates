@@ -3,7 +3,7 @@ import {apiBaseUrl} from '../config/apiConfig'
 import Product from '../models/Product_'
 import Sale, {PayMethod, Status} from '../models/Sale_'
 import SaleDetail from '../models/SaleDetail_'
-import User from '../models/user/User';
+import User from '../models/user/User'
 import ErrorHandler from '../util/ErrorHandler'
 
 import ISaleRepository from './ISaleRepository'

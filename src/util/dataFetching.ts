@@ -25,6 +25,7 @@ const dataFetching = <T>() => {
         data: [],
         temp: [],
         loading: false,
+      // @ts-ignore
         error: error.message || 'Error fetching data',
       });
     }

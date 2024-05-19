@@ -2,11 +2,13 @@ import Datatable from '../../components/datatable/Datatable'
 import Layout from '../../layout/Layout'
 import { useState } from 'react'
 import useFetch from '../../hooks/useFetch'
+import useSaleService from '../../hooks/useSaleServices'
 import { productMapper } from '../../mapper/mapper'
 import ModalPay from '../../components/modal/ModalPay'
 import ModalSeekProduct from '../../components/modal/ModalSeekProduct'
 const Create = () => {
     const { data, handleEndpoint, handleMethod, handleSendData } = useFetch('productos?filters[existencia][$gt]=0&filters[activo][$eq]=true')
+    const {createSale} = useSaleService()
     const [amount, setAmount] = useState(0.00)
     const [rows, setRows] = useState([])
     const handleAmount = (amount) => setAmount(amount)

@@ -58,12 +58,7 @@ Dentro de su proyecto Vite + React, verá las siguientes carpetas y archivos:
 │   │   └── ProtectedRouted.jsx
 │   ├── components/
 │   |   ├── backdrop/
-│   |   |   ├── Loading.jsx
-│   │   |   └── SimpleBackdrop.jsx
 │   │   ├── cards/
-│   |   |   ├── CardHome.jsx
-│   |   |   ├── Cards.jsx
-│   │   |   └── cards.scss
 │   │   ├── chart/
 │   │   ├── datatable/
 │   │   ├── DateRange/
